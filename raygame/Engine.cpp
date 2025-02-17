@@ -2,10 +2,12 @@
 #include "raylib.h"
 #include "Transform2D.h"
 #include "SampleScene.h"
+#include "DynamicArray.h"
+#include "Actor.h"
 
 bool Engine::m_applicationShouldClose = false;
-Scene** Engine::m_scenes = new Scene*;
-ActorArray Engine::m_actorsToDelete = ActorArray();
+DynamicArray<Scene*> Engine::m_scenes = DynamicArray<Scene*>();
+DynamicArray<Actor*> Engine::m_actorsToDelete = DynamicArray<Actor*>();
 int Engine::m_sceneCount = 0;
 int Engine::m_currentSceneIndex = 0;
 
@@ -13,7 +15,7 @@ int Engine::m_currentSceneIndex = 0;
 Engine::Engine()
 {
 	m_applicationShouldClose = false;
-	m_scenes = new Scene*;
+	m_scenes = DynamicArray<Scene*>();
 	m_camera = new Camera2D();
 	m_currentSceneIndex = 0;
 	m_sceneCount = 0;
@@ -106,6 +108,12 @@ int Engine::addScene(Scene* scene)
 	if (!scene)
 		return -1;
 
+	m_scenes.Add(scene);
+
+	return 0;
+
+	// old deprecated code
+	/*
 	//Create a new temporary array that one size larger than the original
 	Scene** tempArray = new Scene * [m_sceneCount + 1];
 
@@ -126,14 +134,22 @@ int Engine::addScene(Scene* scene)
 	//Set the old array to the tmeporary array
 	m_scenes = tempArray;
 	m_sceneCount++;
-
-	return index;
+	*/
 }
 
 void Engine::addActorToDeletionList(Actor* actor)
 {
+	m_actorsToDelete.Add(actor);
+
+	for (int i = 0; i < actor->getTransform()->getChildCount(); i++)
+	{
+		m_actorsToDelete.Add(actor->getTransform()->getChildren()[i]->getOwner());
+	}
+
+
+	/*
 	//return if the actor is already going to be deleted
-	if (m_actorsToDelete.contains(actor))
+	if (m_actorsToDelete.Contains(actor))
 		return;
 
 	//Add actor to deletion list
@@ -144,10 +160,14 @@ void Engine::addActorToDeletionList(Actor* actor)
 	{
 		m_actorsToDelete.addActor(actor->getTransform()->getChildren()[i]->getOwner());
 	}
+	*/
 }
 
 bool Engine::removeScene(Scene* scene)
 {
+	return false;
+
+	/*
 	//If the scene is null then return before running any other logic
 	if (!scene)
 		return false;
@@ -181,6 +201,7 @@ bool Engine::removeScene(Scene* scene)
 
 
 	return sceneRemoved;
+	*/
 }
 
 void Engine::setCurrentScene(int index)
@@ -215,12 +236,13 @@ void Engine::destroy(Actor* actor)
 void Engine::destroyActorsInList()
 {
 	//Iterate through deletion list
-	for (int i = 0; i < m_actorsToDelete.getLength(); i++)
+	for (int i = 0; i < m_actorsToDelete.Length(); i++)
 	{
 		//Remove actor from the scene
-		Actor* actorToDelete = m_actorsToDelete.getActor(i);
-		if (!getCurrentScene()->removeActor(actorToDelete))
-			getCurrentScene()->removeUIElement(actorToDelete);
+		Actor* actorToDelete = m_actorsToDelete[i];
+
+		getCurrentScene()->removeActor(actorToDelete);
+		getCurrentScene()->removeUIElement(actorToDelete);
 
 		//Call actors clean up functions
 		actorToDelete->end();
@@ -231,7 +253,7 @@ void Engine::destroyActorsInList()
 	}
 
 	//Clear the array
-	m_actorsToDelete = ActorArray();
+	m_actorsToDelete.Clear();
 }
 
 void Engine::CloseApplication()

@@ -1,5 +1,5 @@
 #pragma once
-#include "DynamicArray.h"
+#include "List.h"
 class Transform2D;
 class Collider;
 class Component;
@@ -51,6 +51,7 @@ public:
     T* getComponent(T* component);
 
     Component* addComponent(Component* component);
+    Component* addBehavior(Component* behavior);
 
     template <typename T>
     bool removeComponent(T* component);
@@ -100,16 +101,18 @@ private:
     bool m_started;
     Transform2D* m_transform;
     Collider* m_collider;
-    DynamicArray<Component*> m_components;
-    int m_componentCount;
+    List<Component*> m_components;
+
+    protected:
+    int behaviorCount
 };
 
 template<typename T>
 inline T* Actor::getComponent(T* component)
 {
-    for (int i = 0; i < m_components.Length(); i++)
+    for (Iterator<Component*> iter; ++iter != nullptr; iter++)
     {
-        if (m_components[i] == component)
+        if ((*iter) == component)
             return component;
     }
 
@@ -119,14 +122,5 @@ inline T* Actor::getComponent(T* component)
 template<typename T>
 inline bool Actor::removeComponent(T* component)
 {
-    for (int i = 0; i < m_components.Length(); i++)
-    {
-        if (m_components[i] == component)
-        {
-            m_components.RemoveIndex(i);
-            return true;
-        }
-    }
-
-    return false;
+    return m_components.Remove(component);
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "DynamicArray.h"
 class Transform2D;
 class Collider;
 class Component;
@@ -46,9 +47,13 @@ public:
     /// <param name="componentName">The name of the component to search for.</param>
     /// <returns>A pointer to the component if a match was found.
     /// Returns nullptr if a match wasn't found.</returns>
-    Component* getComponent(const char* componentName);
+    template <typename T>
+    T* getComponent(T* component);
+
     Component* addComponent(Component* component);
-    bool removeComponent(const char* componentName);
+
+    template <typename T>
+    bool removeComponent(T* component);
 
     /// <summary>
     /// Called during the first update after an actor is added to a scene.
@@ -95,7 +100,33 @@ private:
     bool m_started;
     Transform2D* m_transform;
     Collider* m_collider;
-    Component** m_components;
+    DynamicArray<Component*> m_components;
     int m_componentCount;
 };
 
+template<typename T>
+inline T* Actor::getComponent(T* component)
+{
+    for (int i = 0; i < m_components.Length(); i++)
+    {
+        if (m_components[i] == component)
+            return component;
+    }
+
+    return nullptr;
+}
+
+template<typename T>
+inline bool Actor::removeComponent(T* component)
+{
+    for (int i = 0; i < m_components.Length(); i++)
+    {
+        if (m_components[i] == component)
+        {
+            m_components.RemoveIndex(i);
+            return true;
+        }
+    }
+
+    return false;
+}

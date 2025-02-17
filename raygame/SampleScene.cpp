@@ -6,8 +6,10 @@ void SampleScene::start()
 {
 	//This is a better comment
 	Actor* test = new Actor(50, 50, "Test");
-	test->addComponent(new SpriteComponent(test, "Images/player.png"));
+	SpriteComponent* sprite = new SpriteComponent(test, "Images/player.png");
+	test->addComponent(sprite);
 	test->getTransform()->setScale({ 50, 50 });
+	test->removeComponent(sprite);
 
 	addActor(test);
 }

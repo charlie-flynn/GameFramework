@@ -110,7 +110,7 @@ int Engine::addScene(Scene* scene)
 
 	m_scenes.Add(scene);
 
-	return 0;
+	return m_scenes.Length() - 1;
 
 	// old deprecated code
 	/*
@@ -165,7 +165,9 @@ void Engine::addActorToDeletionList(Actor* actor)
 
 bool Engine::removeScene(Scene* scene)
 {
-	return false;
+	m_scenes.Remove(scene);
+
+	return true;
 
 	/*
 	//If the scene is null then return before running any other logic

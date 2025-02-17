@@ -42,9 +42,9 @@ public:
 
     /// <summary>
     /// Iterates through all components in the component array to find one
-    /// that matches the given name.
+    /// that matches the given component.
     /// </summary>
-    /// <param name="componentName">The name of the component to search for.</param>
+    /// <param name="component">The component to search for.</param>
     /// <returns>A pointer to the component if a match was found.
     /// Returns nullptr if a match wasn't found.</returns>
     template <typename T>

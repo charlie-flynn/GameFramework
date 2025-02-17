@@ -160,21 +160,21 @@ void Actor::start()
     m_started = true;
 
     Iterator<Component*> iter = m_components.begin();
-    do
+    while ((*iter) != nullptr)
     {
         (*iter)->start();
         iter++;
-    } while ((*iter) != nullptr);
+    }
 }
 
 void Actor::onCollision(Actor* other)
 {
     Iterator<Component*> iter = m_components.begin();
-    do
+    while ((*iter) != nullptr)
     {
         (*iter)->onCollision(other);
         iter++;
-    } while ((*iter) != nullptr);
+    }
 }
 
 void Actor::update(float deltaTime)
@@ -183,31 +183,31 @@ void Actor::update(float deltaTime)
 
     
     Iterator<Component*> iter = m_components.begin();
-    do
+    while ((*iter) != nullptr)
     {
         (*iter)->update(deltaTime);
         iter++;
-    } while ((*iter) != nullptr);
+    }
 }
 
 void Actor::draw()
 {
     Iterator<Component*> iter = m_components.begin();
-    do
+    while ((*iter) != nullptr)
     {
         (*iter)->draw();
         iter++;
-    } while ((*iter) != nullptr);
+    } 
 }
 
 void Actor::end()
 {
     Iterator<Component*> iter = m_components.begin();
-    do
+    while ((*iter) != nullptr)
     {
         (*iter)->end();
         iter++;
-    } while ((*iter) != nullptr);
+    }
 }
 
 void Actor::onDestroy()

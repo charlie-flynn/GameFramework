@@ -12,6 +12,6 @@ Agent::Agent(Component* behaviors[], int length) : Actor()
 
 	for (int i = 0; i < length; i++)
 	{
-		addComponent(behaviors[i]);
+		addBehavior(behaviors[i]);
 	}
 }

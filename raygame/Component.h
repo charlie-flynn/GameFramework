@@ -6,7 +6,7 @@ class Component
 {
 public:
 	Component();
-	Component(Actor* owner, const char* name);
+	Component(Actor* owner);
 
 	virtual ~Component() {}
 

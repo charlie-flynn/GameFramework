@@ -6,8 +6,7 @@ Component::Component()
 	m_name = nullptr;
 }
 
-Component::Component(Actor* owner, const char* name)
+Component::Component(Actor* owner)
 {
 	m_owner = owner;
-	m_name = name;
 }

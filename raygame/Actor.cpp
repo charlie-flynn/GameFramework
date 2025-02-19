@@ -43,7 +43,6 @@ Component* Actor::getComponent(const char* componentName)
 */
 
 /*
-*/
 Component* Actor::addComponent(Component* component)
 {
     //If this actor doesn't own this component...
@@ -58,7 +57,7 @@ Component* Actor::addComponent(Component* component)
 
     return component;
 
-    /*
+
     //Create a new array that has a size that is greater than the original by one.
     Component** tempArray = new Component * [m_components.Length() + 1];
 
@@ -81,9 +80,10 @@ Component* Actor::addComponent(Component* component)
 
     //Return the new component that was added.
     return component;
-    */
+    
 
 }
+*/
 
 /*
 bool Actor::removeComponent(const char* componentName)

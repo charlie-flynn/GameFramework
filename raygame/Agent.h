@@ -1,17 +1,19 @@
 #pragma once
 #include "Actor.h"
-#include "Vector2.h"
-#include <initializer_list>
+#include "DynamicArray.h"
 #include "List.h"
+
+class Behavior;
 
 class Agent : public Actor
 {
 private:
-	MathLibrary::Vector2 m_velocity;
-	MathLibrary::Vector2 m_heading;
-
-
+	DynamicArray<Behavior*> m_behaviors;
 public:
 	Agent();
-	Agent(Component* behaviors[], int length);
+	Agent(Behavior* behaviors[], int length);
+
+	void addBehavior(Behavior* behavior);
+	bool removeBehavior(Behavior* behavior);
+	Behavior* getBehavior(Behavior* behavior);
 };

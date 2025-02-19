@@ -1,8 +1,10 @@
 #pragma once
 #include "DynamicArray.h"
+#include "Component.h"
+
 class Transform2D;
 class Collider;
-class Component;
+
 
 class Actor
 {
@@ -50,7 +52,8 @@ public:
     template <typename T>
     T* getComponent(T* component);
 
-    Component* addComponent(Component* component);
+    template <typename T>
+    T* addComponent(T* component);
 
     template <typename T>
     bool removeComponent(T* component);
@@ -114,6 +117,14 @@ inline T* Actor::getComponent(T* component)
     }
 
     return nullptr;
+}
+
+template<typename T>
+inline T* Actor::addComponent(T* component)
+{
+    m_components.Add((Component*)component);
+
+    return component;
 }
 
 template<typename T>

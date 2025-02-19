@@ -29,9 +29,9 @@ public:
 	void Insert(int index, const T* array, int size);
 	void Insert(int index, const DynamicArray<T>& other);
 	void RemoveIndex(int index);
-	void Remove(const T& value);
-	void Remove(const T* array, int size);
-	void Remove(const DynamicArray<T>& other);
+	bool Remove(const T& value);
+	bool Remove(const T* array, int size);
+	bool Remove(const DynamicArray<T>& other);
 	void Clear();
 
 private:
@@ -233,34 +233,41 @@ inline void DynamicArray<T>::RemoveIndex(int index)
 }
 
 template<typename T>
-inline void DynamicArray<T>::Remove(const T& value)
+inline bool DynamicArray<T>::Remove(const T& value)
 {
 	for (int i = 0; i < m_length; i++)
 	{
 		if (m_array[i] == value)
 		{
 			RemoveIndex(i);
-			return;
+			return true;
 		}
 	}
+	return false;
 }
 
 template<typename T>
-inline void DynamicArray<T>::Remove(const T* array, int size)
+inline bool DynamicArray<T>::Remove(const T* array, int size)
 {
+	int removedCount = 0;
 	for (int i = 0; i < size; i++)
 	{
-		Remove(array[i]);
+		if (Remove(array[i]))
+			removedCount++;
 	}
+	return removedCount == size;
 }
 
 template<typename T>
-inline void DynamicArray<T>::Remove(const DynamicArray<T>& other)
+inline bool DynamicArray<T>::Remove(const DynamicArray<T>& other)
 {
+	int removedCount = 0;
 	for (int i = 0; i < other.m_length; i++)
 	{
-		Remove(other.m_array[i]);
+		if (Remove(other.m_array[i]))
+			removedCount++;
 	}
+	return removedCount == other.Length();
 }
 
 template<typename T>

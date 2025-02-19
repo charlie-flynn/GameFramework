@@ -3,6 +3,18 @@
 #include "Actor.h"
 #include "Transform2D.h"
 
+Seek::Seek() : Behavior()
+{
+}
+
+Seek::Seek(Actor* owner, float weight, Actor* targetActor) : Behavior(owner, weight, targetActor)
+{
+}
+
+Seek::Seek(Actor* owner, float weight, MathLibrary::Vector2 targetPosition) : Behavior(owner, weight, targetPosition)
+{
+}
+
 void Seek::update(float deltaTime)
 {
 	Behavior::update(deltaTime);
@@ -13,5 +25,8 @@ void Seek::update(float deltaTime)
 		return;
 	}
 
-	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getOwner()->getTransform()->getWorldPosition() - getTargetPosition());
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getOwner()->getTransform()->getWorldPosition() - getTargetPosition()) * getOwner()->getMaxVelocity();
+	MathLibrary::Vector2 turnForce = getOwner()->getVelocity() + (desiredDirection - getOwner()->getVelocity()) * getWeight();
+
+	getOwner()->setVelocity((getOwner()->getVelocity() + turnForce) * getWeight() * deltaTime);
 }

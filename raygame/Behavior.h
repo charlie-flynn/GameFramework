@@ -9,6 +9,7 @@ private:
 	MathLibrary::Vector2 m_targetPosition;
 	Actor* m_targetActor;
 public:
+	Behavior();
 	Behavior(Actor* owner, float weight = 0, Actor* targetActor = nullptr);
 	Behavior(Actor* owner, float weight = 0, MathLibrary::Vector2 targetPosition = {0, 0});
 

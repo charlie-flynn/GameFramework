@@ -2,6 +2,10 @@
 #include "Actor.h"
 #include "Transform2D.h"
 
+Behavior::Behavior() : Component()
+{
+}
+
 Behavior::Behavior(Actor* owner, float weight, Actor* targetActor) : Component(owner), m_targetActor(targetActor)
 {
 	setWeight(weight);

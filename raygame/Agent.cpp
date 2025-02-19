@@ -4,6 +4,10 @@ Agent::Agent() : Actor()
 {
 }
 
+Agent::Agent(float x, float y) : Actor(x, y, "remove name soon pls")
+{
+}
+
 Agent::Agent(Behavior* behaviors[], int length) : Actor()
 {
 	for (int i = 0; i < length; i++)

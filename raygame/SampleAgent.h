@@ -5,8 +5,9 @@
 class SampleAgent : public Agent
 {
 private:
-	Seek* behavior;
+	Seek* m_behavior;
 public:
+	SampleAgent(float x, float y);
 	void start() override;
 	void update(float deltaTime) override;
 	void draw() override;

@@ -11,6 +11,7 @@ private:
 	DynamicArray<Behavior*> m_behaviors;
 public:
 	Agent();
+	Agent(float x, float y);
 	Agent(Behavior* behaviors[], int length);
 
 	void addBehavior(Behavior* behavior);

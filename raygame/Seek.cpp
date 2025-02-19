@@ -27,6 +27,7 @@ void Seek::update(float deltaTime)
 
 	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getOwner()->getTransform()->getWorldPosition() - getTargetPosition()) * getOwner()->getMaxVelocity();
 	MathLibrary::Vector2 turnForce = getOwner()->getVelocity() + (desiredDirection - getOwner()->getVelocity()) * getWeight();
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2(getTargetPosition() - getOwner()->getTransform()->getWorldPosition()) * getOwner()->getMaxVelocity() * getWeight();
 
 	getOwner()->setVelocity((getOwner()->getVelocity() + turnForce) * getWeight() * deltaTime);
 }

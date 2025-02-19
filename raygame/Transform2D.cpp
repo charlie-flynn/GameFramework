@@ -44,7 +44,7 @@ MathLibrary::Vector2 Transform2D::getWorldPosition()
     return MathLibrary::Vector2(m_globalMatrix->m02, m_globalMatrix->m12);
 }
 
-void Transform2D::setWorldPostion(MathLibrary::Vector2 value)
+void Transform2D::setWorldPosition(MathLibrary::Vector2 value)
 {
     //If the transform has a parent...
     if (m_parent)

@@ -32,7 +32,7 @@ public:
     /// Sets the world position of the transform.
     /// </summary>
     /// <param name="value">The new world coordinates to place the transform.</param>
-    void setWorldPostion(MathLibrary::Vector2 value);
+    void setWorldPosition(MathLibrary::Vector2 value);
 
 
     /// <returns>Returns the position of the actor relative to its parent transform.</returns>

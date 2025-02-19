@@ -1,6 +1,7 @@
 #include "Actor.h"
 #include "Transform2D.h"
 #include <string.h>
+#include <cmath>
 #include "Collider.h"
 #include "Component.h"
 
@@ -155,6 +156,32 @@ void Actor::onCollision(Actor* other)
     {
         m_components[i]->onCollision(other);
     }
+}
+
+void Actor::setVelocity(MathLibrary::Vector2 value)
+{
+    if (value.x > 0)
+        m_velocity.x = std::fmin(value.x, m_maxVelocity.x);
+    else
+        m_velocity.x = std::fmax(value.x, -m_maxVelocity.x);
+
+    if (value.y > 0)
+        m_velocity.y = std::fmin(value.y, m_maxVelocity.y);
+    else
+        m_velocity.y = std::fmax(value.y, -m_maxVelocity.y);
+}
+
+void Actor::setVelocity(float x, float y)
+{
+    if (x > 0)
+        m_velocity.x = std::fmin(x, m_maxVelocity.x);
+    else
+        m_velocity.x = std::fmax(x, -m_maxVelocity.x);
+
+    if (y > 0)
+        m_velocity.y = std::fmin(y, m_maxVelocity.y);
+    else
+        m_velocity.y = std::fmax(y, -m_maxVelocity.y);
 }
 
 void Actor::update(float deltaTime)

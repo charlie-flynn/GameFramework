@@ -97,7 +97,13 @@ public:
     /// <param name="other">The actor this actor collided with.</param>
     virtual void onCollision(Actor* other);
 
+    MathLibrary::Vector2 getVelocity() { return m_velocity; }
+    void setVelocity(MathLibrary::Vector2 value);
+    void setVelocity(float x, float y);
 
+    MathLibrary::Vector2 getMaxVelocity() { return m_maxVelocity; }
+    void setMaxVelocity(MathLibrary::Vector2 value) { m_maxVelocity = value; }
+    void setMaxVelocity(float x, float y) { m_maxVelocity.x = x; m_maxVelocity.y = y; }
 
 protected:
     const char* m_name;

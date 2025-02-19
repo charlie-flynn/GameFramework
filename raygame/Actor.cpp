@@ -4,10 +4,12 @@
 #include <cmath>
 #include "Collider.h"
 #include "Component.h"
+#include "Vector3.h"
 
 Actor::Actor()
 {
     m_transform = new Transform2D(this);
+    m_maxVelocity = 200.0f;
 }
 
 Actor::~Actor()
@@ -22,6 +24,7 @@ Actor::Actor(float x, float y, const char* name = "Actor")
     m_transform = new Transform2D(this);
     m_transform->setLocalPosition({ x,y });
     m_name = name;
+    m_maxVelocity = 200.0f;
 }
 
 /*
@@ -192,6 +195,12 @@ void Actor::update(float deltaTime)
     {
         m_components[i]->update(deltaTime);
     }
+
+    // rotate and move according to the velocity
+    m_transform->rotate((MathLibrary::Vector2::findAngle(m_transform->getForward().getNormalized(), m_velocity.getNormalized())) * deltaTime);
+
+    if (m_velocity.x != 0.0f || m_velocity.y != 0.0f)
+        m_transform->setLocalPosition(m_transform->getLocalPosition() + m_velocity * deltaTime);
 }
 
 void Actor::draw()

@@ -3,18 +3,22 @@
 #include "Transform2D.h"
 
 
+SampleAgent::SampleAgent(float x, float y) : Agent(x, y), m_behavior(new Seek(this, 1.0f, {200, 200}))
+{
+}
+
 void SampleAgent::start()
 {
-	behavior = new Seek(this, 1.0f, {100, 100});
-	addComponent<Seek>(behavior);
+	addComponent<Seek>(m_behavior);
 }
 
 void SampleAgent::update(float deltaTime)
 {
+	m_behavior->setTargetPosition(MathLibrary::Vector2(GetMouseX(), GetMouseY()));
 	Agent::update(deltaTime);
 }
 
 void SampleAgent::draw()
 {
-	DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().x })
+	DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) - 15, GREEN);
 }

@@ -9,4 +9,5 @@ Component::Component()
 Component::Component(Actor* owner)
 {
 	m_owner = owner;
+	m_name = nullptr;
 }

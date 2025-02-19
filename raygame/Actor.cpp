@@ -54,7 +54,7 @@ Component* Actor::addComponent(Component* component)
         return nullptr;
     }
 
-    m_components.PushBack(component);
+    m_components.Add(component);
 
     return component;
 
@@ -83,22 +83,6 @@ Component* Actor::addComponent(Component* component)
     return component;
     */
 
-}
-
-Component* Actor::addBehavior(Component* behavior)
-{
-    //If this actor doesn't own this component...
-    Actor* owner = behavior->getOwner();
-    if (owner && owner != this)
-    {
-        //...return nullptr to prevent it from being added.
-        return nullptr;
-    }
-
-    m_components.PushFront(behavior);
-    behaviorCount++;
-
-    return behavior;
 }
 
 /*
@@ -159,55 +143,45 @@ void Actor::start()
 {
     m_started = true;
 
-    Iterator<Component*> iter = m_components.begin();
-    do
+    for (int i = 0; i < m_components.Length(); i++)
     {
-        (*iter)->start();
-        iter++;
-    } while ((*iter) != nullptr);
+        m_components[i]->start();
+    }
 }
 
 void Actor::onCollision(Actor* other)
 {
-    Iterator<Component*> iter = m_components.begin();
-    do
+    for (int i = 0; i < m_components.Length(); i++)
     {
-        (*iter)->onCollision(other);
-        iter++;
-    } while ((*iter) != nullptr);
+        m_components[i]->onCollision(other);
+    }
 }
 
 void Actor::update(float deltaTime)
 {
     m_transform->updateTransforms();
 
-    
-    Iterator<Component*> iter = m_components.begin();
-    do
+    for (int i = 0; i < m_components.Length(); i++)
     {
-        (*iter)->update(deltaTime);
-        iter++;
-    } while ((*iter) != nullptr);
+        m_components[i]->update(deltaTime);
+    }
 }
 
 void Actor::draw()
 {
-    Iterator<Component*> iter = m_components.begin();
-    do
+    for (int i = 0; i < m_components.Length(); i++)
     {
-        (*iter)->draw();
-        iter++;
-    } while ((*iter) != nullptr);
+        m_components[i]->draw();
+    }
 }
 
 void Actor::end()
 {
-    Iterator<Component*> iter = m_components.begin();
-    do
+    m_started = false;
+    for (int i = 0; i < m_components.Length(); i++)
     {
-        (*iter)->end();
-        iter++;
-    } while ((*iter) != nullptr);
+        m_components[i]->end();
+    }
 }
 
 void Actor::onDestroy()
@@ -216,9 +190,9 @@ void Actor::onDestroy()
     if (getTransform()->getParent())
         getTransform()->getParent()->removeChild(getTransform());
 
-    for (Iterator<Component*> iter = m_components.begin(); ++iter != nullptr; iter++)
+    for (int i = 0; i < m_components.Length(); i++)
     {
-        (*iter)->onDestroy();
+        m_components[i]->onDestroy();
     }
 }
 

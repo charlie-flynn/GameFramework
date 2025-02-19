@@ -1,6 +1,7 @@
 #pragma once
 #include "DynamicArray.h"
 #include "Component.h"
+#include "Vector2.h"
 
 class Transform2D;
 class Collider;
@@ -96,6 +97,8 @@ public:
     /// <param name="other">The actor this actor collided with.</param>
     virtual void onCollision(Actor* other);
 
+
+
 protected:
     const char* m_name;
 
@@ -104,7 +107,9 @@ private:
     Transform2D* m_transform;
     Collider* m_collider;
     DynamicArray<Component*> m_components;
-    int m_componentCount;
+
+    MathLibrary::Vector2 m_velocity;
+    MathLibrary::Vector2 m_maxVelocity;
 };
 
 template<typename T>

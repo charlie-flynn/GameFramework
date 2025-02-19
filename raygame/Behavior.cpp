@@ -1,10 +1,11 @@
 #include "Behavior.h"
 
-Behavior::Behavior() : Component(), m_weight(0)
+Behavior::Behavior(Actor* owner, float weight, Actor* targetActor) : Component(owner), m_targetActor(targetActor)
 {
+	setWeight(weight);
 }
 
-Behavior::Behavior(float weight)
+Behavior::Behavior(Actor* owner, float weight, MathLibrary::Vector2 targetPosition) : Component(owner), m_targetPosition(targetPosition)
 {
 	setWeight(weight);
 }

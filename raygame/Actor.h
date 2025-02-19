@@ -104,7 +104,7 @@ private:
     List<Component*> m_components;
 
     protected:
-        int behaviorCount;
+    int behaviorCount
 };
 
 template<typename T>

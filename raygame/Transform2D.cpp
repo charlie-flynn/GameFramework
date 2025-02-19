@@ -223,6 +223,12 @@ void Transform2D::lookAt(MathLibrary::Vector2 position)
     rotate(angle);
 }
 
+float Transform2D::getRotation()
+{
+    // returns the global rotation
+    return std::atan2(m_globalMatrix->m01, m_globalMatrix->m00);
+}
+
 MathLibrary::Matrix3* Transform2D::getGlobalMatrix()
 {
     return m_globalMatrix;

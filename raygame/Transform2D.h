@@ -107,6 +107,11 @@ public:
     /// <param name="position">The position the transform should be facing</param>
     void lookAt(MathLibrary::Vector2 position);
 
+    /// <summary>
+    /// Returns the rotation in radians.
+    /// <summary>
+    float getRotation();
+
     /// <returns>Gets the actor this transform is attached to.</returns>
     Actor* getOwner() { return m_owner; }
 

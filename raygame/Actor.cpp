@@ -161,27 +161,27 @@ void Actor::onCollision(Actor* other)
 void Actor::setVelocity(MathLibrary::Vector2 value)
 {
     if (value.x > 0)
-        m_velocity.x = std::fmin(value.x, m_maxVelocity.x);
+        m_velocity.x = std::fmin(value.x, m_maxVelocity);
     else
-        m_velocity.x = std::fmax(value.x, -m_maxVelocity.x);
+        m_velocity.x = std::fmax(value.x, -m_maxVelocity);
 
     if (value.y > 0)
-        m_velocity.y = std::fmin(value.y, m_maxVelocity.y);
+        m_velocity.y = std::fmin(value.y, m_maxVelocity);
     else
-        m_velocity.y = std::fmax(value.y, -m_maxVelocity.y);
+        m_velocity.y = std::fmax(value.y, -m_maxVelocity);
 }
 
 void Actor::setVelocity(float x, float y)
 {
     if (x > 0)
-        m_velocity.x = std::fmin(x, m_maxVelocity.x);
+        m_velocity.x = std::fmin(x, m_maxVelocity);
     else
-        m_velocity.x = std::fmax(x, -m_maxVelocity.x);
+        m_velocity.x = std::fmax(x, -m_maxVelocity);
 
     if (y > 0)
-        m_velocity.y = std::fmin(y, m_maxVelocity.y);
+        m_velocity.y = std::fmin(y, m_maxVelocity);
     else
-        m_velocity.y = std::fmax(y, -m_maxVelocity.y);
+        m_velocity.y = std::fmax(y, -m_maxVelocity);
 }
 
 void Actor::update(float deltaTime)

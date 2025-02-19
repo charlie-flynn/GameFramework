@@ -101,9 +101,8 @@ public:
     void setVelocity(MathLibrary::Vector2 value);
     void setVelocity(float x, float y);
 
-    MathLibrary::Vector2 getMaxVelocity() { return m_maxVelocity; }
-    void setMaxVelocity(MathLibrary::Vector2 value) { m_maxVelocity = value; }
-    void setMaxVelocity(float x, float y) { m_maxVelocity.x = x; m_maxVelocity.y = y; }
+    float getMaxVelocity() { return m_maxVelocity; }
+    void setMaxVelocity(float value) { m_maxVelocity = value; }
 
 protected:
     const char* m_name;
@@ -115,7 +114,7 @@ private:
     DynamicArray<Component*> m_components;
 
     MathLibrary::Vector2 m_velocity;
-    MathLibrary::Vector2 m_maxVelocity;
+    float m_maxVelocity;
 };
 
 template<typename T>

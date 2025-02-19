@@ -2,7 +2,6 @@
 #include "Vector2.h"
 #include "Actor.h"
 #include "Transform2D.h"
-#include <iostream>
 
 Seek::Seek() : Behavior()
 {
@@ -30,6 +29,4 @@ void Seek::update(float deltaTime)
 	MathLibrary::Vector2 steeringForce = desiredDirection - getOwner()->getVelocity();
 
 	getOwner()->setVelocity(getOwner()->getVelocity() + (steeringForce * deltaTime) * getWeight());
-
-
 }

@@ -130,14 +130,5 @@ inline T* Actor::addComponent(T* component)
 template<typename T>
 inline bool Actor::removeComponent(T* component)
 {
-    for (int i = 0; i < m_components.Length(); i++)
-    {
-        if (m_components[i] == component)
-        {
-            m_components.RemoveIndex(i);
-            return true;
-        }
-    }
-
-    return false;
+    return m_components.Remove((Component*)component);
 }

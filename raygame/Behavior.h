@@ -15,9 +15,11 @@ public:
 	float getWeight() { return m_weight; }
 	void setWeight(float value);
 
-	MathLibrary::Vector2 getTarget() { return m_targetPosition; }
-	void setTarget(MathLibrary::Vector2 value) { m_targetPosition = value; }
-	void setTarget(float x, float y) { m_targetPosition.x = x; m_targetPosition.y = y; }
+	MathLibrary::Vector2 getTargetPosition() { return m_targetPosition; }
+	void setTargetPosition(MathLibrary::Vector2 value) { m_targetPosition = value; }
+	void setTargetPosition(float x, float y) { m_targetPosition.x = x; m_targetPosition.y = y; }
 
 	void setTargetActor(Actor* value) { m_targetActor = value; }
+
+	void update(float deltaTime) override;
 };

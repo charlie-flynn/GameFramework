@@ -9,7 +9,6 @@ class Agent : public Actor
 private:
 	MathLibrary::Vector2 m_velocity;
 	MathLibrary::Vector2 m_heading;
-	List<Component*> m_behaviors;
 
 
 public:

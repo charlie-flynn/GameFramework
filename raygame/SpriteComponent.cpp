@@ -16,13 +16,13 @@ SpriteComponent::~SpriteComponent()
     delete m_texture;
 }
 
-SpriteComponent::SpriteComponent(Actor* owner, Texture2D* texture) : Component(owner, "SpriteComponent")
+SpriteComponent::SpriteComponent(Actor* owner, Texture2D* texture) : Component(owner)
 {
     m_texture = texture;
     color = { 1,1,1,1 };
 }
 
-SpriteComponent::SpriteComponent(Actor* owner, const char* path) : Component(owner, "SpriteComponent")
+SpriteComponent::SpriteComponent(Actor* owner, const char* path) : Component(owner)
 {
     m_texture = new Texture2D(RAYLIB_H::LoadTexture(path));
     color = { 1,1,1,1 };

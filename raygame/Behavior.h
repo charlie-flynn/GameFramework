@@ -8,7 +8,8 @@ public:
 	Behavior();
 	Behavior(float weight);
 	~Behavior() = default;
+
 	float getWeight() { return m_weight; }
-	void setWeight(float value) { m_weight = value; }
-	void calculate(float deltaTime) {}
+	void setWeight(float value);
+	void virtual calculate(float deltaTime) {}
 };

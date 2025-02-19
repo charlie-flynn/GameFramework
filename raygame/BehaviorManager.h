@@ -12,6 +12,10 @@ private:
 public:
 	BehaviorManager();
 	BehaviorManager(Actor* owner);
+
+	void addBehavior(Behavior* behavior);
+	bool removeBehavior(Behavior* behavior);
+
 	void start() override;
 	void update(float deltaTime) override;
 	void end() override;

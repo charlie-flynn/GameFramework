@@ -195,12 +195,6 @@ void Actor::update(float deltaTime)
     {
         m_components[i]->update(deltaTime);
     }
-
-    // rotate and move according to the velocity
-    m_transform->rotate((MathLibrary::Vector2::findAngle(m_transform->getForward().getNormalized(), m_velocity.getNormalized())) * deltaTime);
-
-    if (m_velocity.x != 0.0f || m_velocity.y != 0.0f)
-        m_transform->setLocalPosition(m_transform->getLocalPosition() + m_velocity * deltaTime);
 }
 
 void Actor::draw()

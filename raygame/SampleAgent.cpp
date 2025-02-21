@@ -20,5 +20,5 @@ void SampleAgent::update(float deltaTime)
 
 void SampleAgent::draw()
 {
-	DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) - 15, GREEN);
+	DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) + 18, GREEN);
 }

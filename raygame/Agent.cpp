@@ -1,4 +1,6 @@
 #include "Agent.h"
+#include "Transform2D.h"
+#include <iostream>
 
 Agent::Agent() : Actor()
 {
@@ -43,4 +45,16 @@ Behavior* Agent::getBehavior(Behavior* behavior)
 			return m_behaviors[i];
 	}
 	return nullptr;
+}
+
+void Agent::update(float deltaTime)
+{
+	Actor::update(deltaTime);
+
+	// rotate and move according to the velocity
+	getTransform()->rotate((MathLibrary::Vector2::findAngle(getTransform()->getForward().getNormalized(), getVelocity().getNormalized()) * -2) * deltaTime);
+	std::cout << (MathLibrary::Vector2::findAngle(getTransform()->getForward().getNormalized(), getVelocity().getNormalized())) << std::endl;
+
+	if (getVelocity().x != 0.0f || getVelocity().y != 0.0f)
+		getTransform()->setLocalPosition(getTransform()->getLocalPosition() + getTransform()->getForward() * getVelocity().getMagnitude() * deltaTime);
 }

@@ -39,7 +39,9 @@ void Wander::update(float deltaTime)
 	if (!getWeight())
 		return;
 
-	if (sqrt((getOwner()->getTransform()->getWorldPosition().x - getTargetPosition().x) + (getOwner()->getTransform()->getWorldPosition().y - getTargetPosition().y)) <= 10)
+	float distanceToTarget = sqrt((getOwner()->getTransform()->getWorldPosition().x - getTargetPosition().x) + (getOwner()->getTransform()->getWorldPosition().y - getTargetPosition().y));
+
+	if (distanceToTarget <= 10 || distanceToTarget >= m_wanderRadius + m_wanderDistance)
 	{
 		// get a random value between -1 and 1 for both the X and Y coordinates
 		int randomIntX = (rand() % 2001) - 1000;

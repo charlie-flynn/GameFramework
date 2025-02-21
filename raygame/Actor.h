@@ -53,8 +53,7 @@ public:
     template <typename T>
     T* getComponent(T* component);
 
-    template <typename T>
-    T* addComponent(T* component);
+    Component* addComponent(Component* component);
 
     template <typename T>
     bool removeComponent(T* component);
@@ -129,6 +128,7 @@ inline T* Actor::getComponent(T* component)
     return nullptr;
 }
 
+/*
 template<typename T>
 inline T* Actor::addComponent(T* component)
 {
@@ -136,6 +136,7 @@ inline T* Actor::addComponent(T* component)
 
     return component;
 }
+*/
 
 template<typename T>
 inline bool Actor::removeComponent(T* component)

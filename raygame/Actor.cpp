@@ -147,6 +147,16 @@ bool Actor::removeComponent(const char* componentName)
 }
 */
 
+Component* Actor::addComponent(Component* component)
+{
+    if (component->getOwner() != this)
+        return nullptr;
+
+    m_components.Add(component);
+
+    return component;
+}
+
 void Actor::start()
 {
     m_started = true;

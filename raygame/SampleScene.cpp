@@ -16,7 +16,7 @@ void SampleScene::start()
 	CursorChaser* cursorGuy = new CursorChaser(200, 200);
 	addActor(cursorGuy);
 
-	test->addBehavior(new Evade(test, 1.0f, cursorGuy));
+	test->addBehavior(new Pursue(test, 1.0f, cursorGuy));
 
 
 

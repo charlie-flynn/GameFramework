@@ -19,7 +19,7 @@ void Evade::update(float deltaTime)
 	MathLibrary::Vector2 targetVelocity = getTargetActor()->getVelocity();
 	MathLibrary::Vector2 ownerPosition = getOwner()->getTransform()->getWorldPosition();
 
-	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(ownerPosition - (getTargetPosition() + targetVelocity)) * getOwner()->getMaxVelocity() - getOwner()->getVelocity();
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(ownerPosition - (getTargetPosition() + targetVelocity)) * getOwner()->getMaxVelocity();
 	MathLibrary::Vector2 steeringForce = desiredDirection + getOwner()->getVelocity();
 
 	getOwner()->setVelocity(getOwner()->getVelocity() + (steeringForce * getWeight()) * deltaTime);

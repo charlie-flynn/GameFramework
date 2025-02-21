@@ -4,12 +4,12 @@
 
 CursorChaser::CursorChaser() : m_seek(new Seek(this, 1.0f, { 200, 200 }))
 {
-	setMaxVelocity(100.0f);
+	setMaxVelocity(200.0f);
 }
 
 CursorChaser::CursorChaser(float x, float y) : Agent(x, y), m_seek(new Seek(this, 1.0f, {200, 200}))
 {
-	setMaxVelocity(100.0f);
+	setMaxVelocity(200.0f);
 }
 
 void CursorChaser::start()

@@ -20,7 +20,7 @@ void Pursue::update(float deltaTime)
 	MathLibrary::Vector2 targetVelocity = getTargetActor()->getVelocity();
 	MathLibrary::Vector2 ownerPosition = getOwner()->getTransform()->getWorldPosition();
 
-	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize((getTargetPosition() + targetVelocity) - ownerPosition) * getOwner()->getMaxVelocity() - getOwner()->getVelocity();
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize((getTargetPosition() + targetVelocity) - ownerPosition) * getOwner()->getMaxVelocity();
 	MathLibrary::Vector2 steeringForce = desiredDirection - getOwner()->getVelocity();
 
 	getOwner()->setVelocity(getOwner()->getVelocity() + (steeringForce * getWeight()) * deltaTime);

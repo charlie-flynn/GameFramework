@@ -2,7 +2,7 @@
 #include "Actor.h"
 #include "Transform2D.h"
 
-Behavior::Behavior() : Component()
+Behavior::Behavior() : Component(), m_targetActor(nullptr), m_weight(0)
 {
 }
 

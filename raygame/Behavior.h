@@ -10,8 +10,8 @@ private:
 	Actor* m_targetActor;
 public:
 	Behavior();
-	Behavior(Actor* owner, float weight = 0, Actor* targetActor = nullptr);
-	Behavior(Actor* owner, float weight = 0, MathLibrary::Vector2 targetPosition = {0, 0});
+	Behavior(Actor* owner, float weight, Actor* targetActor = nullptr);
+	Behavior(Actor* owner, float weight, MathLibrary::Vector2 targetPosition = {0, 0});
 
 	float getWeight() { return m_weight; }
 	void setWeight(float value);

@@ -6,7 +6,7 @@
 #include <cmath>
 #include <iostream>
 
-Wander::Wander() : Behavior(), m_wanderRadius(0.0f)
+Wander::Wander() : Behavior(), m_wanderRadius(0.0f), m_wanderDistance(0.0f)
 {
 }
 
@@ -30,7 +30,6 @@ void Wander::start()
 	randomTarget = randomTarget + (getOwner()->getTransform()->getForward() * m_wanderDistance);
 
 	setTargetPosition(randomTarget);
-	std::cout << getTargetPosition().x << ", " << getTargetPosition().y;
 }
 
 void Wander::update(float deltaTime)
@@ -39,9 +38,9 @@ void Wander::update(float deltaTime)
 	if (!getWeight())
 		return;
 
-	float distanceToTarget = sqrt((getOwner()->getTransform()->getWorldPosition().x - getTargetPosition().x) + (getOwner()->getTransform()->getWorldPosition().y - getTargetPosition().y));
+	float distanceToTarget = sqrt(powf(2, getOwner()->getTransform()->getWorldPosition().x - getTargetPosition().x) + powf(2, getOwner()->getTransform()->getWorldPosition().y - getTargetPosition().y));
 
-	if (distanceToTarget <= 10 || distanceToTarget >= m_wanderRadius + m_wanderDistance)
+	if (distanceToTarget <= 1.0f || distanceToTarget >= m_wanderRadius + m_wanderDistance)
 	{
 		// get a random value between -1 and 1 for both the X and Y coordinates
 		int randomIntX = (rand() % 2001) - 1000;

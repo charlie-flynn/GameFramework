@@ -17,13 +17,13 @@ Seek::Seek(Actor* owner, float weight, MathLibrary::Vector2 targetPosition) : Be
 
 void Seek::update(float deltaTime)
 {
-	Behavior::update(deltaTime);
-
 	// if no weight, do nothing
 	if (!getWeight())
 	{
 		return;
 	}
+
+	Behavior::update(deltaTime);
 
 	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - getOwner()->getTransform()->getWorldPosition()) * getOwner()->getMaxVelocity();
 	MathLibrary::Vector2 steeringForce = desiredDirection - getOwner()->getVelocity();

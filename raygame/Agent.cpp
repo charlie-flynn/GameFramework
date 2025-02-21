@@ -46,6 +46,11 @@ Behavior* Agent::getBehavior(Behavior* behavior)
 	return nullptr;
 }
 
+Behavior* Agent::getBehavior(int index)
+{
+	return m_behaviors[index];
+}
+
 void Agent::start()
 {
 	Actor::start();

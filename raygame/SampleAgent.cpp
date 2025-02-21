@@ -3,9 +3,11 @@
 #include "Transform2D.h"
 
 
-SampleAgent::SampleAgent(float x, float y) : Agent(x, y), m_seek(new Seek(this, 1.0f, {200, 200})), m_flee(new Flee(this, 0.0f, {200, 200})), m_wander(new Wander(this, 0.7f, 50.0f, 30.0f))
+SampleAgent::SampleAgent(float x, float y) : Agent(x, y), m_seek(new Seek(this, 0.0f, {200, 200})), 
+m_flee(new Flee(this, 0.0f, {200, 200})), 
+m_wander(new Wander(this, 0.0f, 50.0f, 30.0f))
 {
-	setMaxVelocity(200.0f);
+	setMaxVelocity(100.0f);
 }
 
 void SampleAgent::start()

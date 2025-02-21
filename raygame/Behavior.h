@@ -20,6 +20,7 @@ public:
 	void setTargetPosition(MathLibrary::Vector2 value) { m_targetPosition = value; }
 	void setTargetPosition(float x, float y) { m_targetPosition.x = x; m_targetPosition.y = y; }
 
+	Actor* getTargetActor() { return m_targetActor; }
 	void setTargetActor(Actor* value) { m_targetActor = value; }
 
 	void update(float deltaTime) override;

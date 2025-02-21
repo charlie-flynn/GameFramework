@@ -2,13 +2,23 @@
 #include "SpriteComponent.h"
 #include "Transform2D.h"
 #include "SampleAgent.h"
+#include "CursorChaser.h"
+#include "Pursue.h"
+#include "Evade.h"
 
 void SampleScene::start()
 {
 	//This is a better comment
 
-	SampleAgent* test = new SampleAgent(500, 500);
+	SampleAgent* test = new SampleAgent(250, 250);
 	addActor(test);
+
+	CursorChaser* cursorGuy = new CursorChaser(200, 200);
+	addActor(cursorGuy);
+
+	test->addBehavior(new Evade(test, 1.0f, cursorGuy));
+
+
 
 	/*
 	Actor* test = new Actor(50, 50, "Test");

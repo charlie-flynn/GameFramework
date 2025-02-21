@@ -4,6 +4,8 @@
 #include "SampleScene.h"
 #include "DynamicArray.h"
 #include "Actor.h"
+#include <random>
+#include <chrono>
 
 bool Engine::m_applicationShouldClose = false;
 DynamicArray<Scene*> Engine::m_scenes = DynamicArray<Scene*>();
@@ -28,6 +30,9 @@ void Engine::start()
 	int screenHeight = 800;
 	InitWindow(screenWidth, screenHeight, "Intro To C++");
 	SetTargetFPS(0);
+
+	// Seed randomizer
+	srand(time(0));
 
 	//Start the scene
 	m_currentSceneIndex = addScene(new SampleScene());

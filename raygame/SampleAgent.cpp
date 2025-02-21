@@ -12,6 +12,8 @@ void SampleAgent::start()
 	addComponent<Seek>(m_seek);
 	addComponent<Flee>(m_flee);
 	addComponent<Wander>(m_wander);
+
+	Agent::start();
 }
 
 void SampleAgent::update(float deltaTime)

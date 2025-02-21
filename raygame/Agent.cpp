@@ -46,6 +46,11 @@ Behavior* Agent::getBehavior(Behavior* behavior)
 	return nullptr;
 }
 
+void Agent::start()
+{
+	Actor::start();
+}
+
 void Agent::update(float deltaTime)
 {
 	Actor::update(deltaTime);

@@ -4,13 +4,33 @@
 #include "Vector2.h"
 #include <random>
 #include <cmath>
+#include <iostream>
 
 Wander::Wander() : Behavior(), m_wanderRadius(0.0f)
 {
 }
 
-Wander::Wander(Actor* owner, float weight, float wanderRadius, float wanderDistance) : Behavior(owner, weight, nullptr), m_wanderRadius(wanderRadius), m_wanderDistance(wanderDistance)
+Wander::Wander(Actor* owner, float weight, float wanderRadius, float wanderDistance) : Behavior(owner, weight, {0, 0}), m_wanderRadius(wanderRadius), m_wanderDistance(wanderDistance)
 {
+}
+
+void Wander::start()
+{
+	// get a random value between -1 and 1 for both the X and Y coordinates
+	int randomIntX = (rand() % 2001) - 1000;
+	int randomIntY = (rand() % 2001) - 1000;
+
+	MathLibrary::Vector2 randomTarget = { (float)randomIntX / 1000, (float)randomIntY / 1000 };
+
+	randomTarget.normalize();
+
+	randomTarget = randomTarget * m_wanderRadius;
+
+	randomTarget = randomTarget + getOwner()->getTransform()->getWorldPosition();
+	randomTarget = randomTarget + (getOwner()->getTransform()->getForward() * m_wanderDistance);
+
+	setTargetPosition(randomTarget);
+	std::cout << getTargetPosition().x << ", " << getTargetPosition().y;
 }
 
 void Wander::update(float deltaTime)
@@ -19,7 +39,7 @@ void Wander::update(float deltaTime)
 	if (!getWeight())
 		return;
 
-	if (sqrt((getOwner()->getTransform()->getWorldPosition().x - getTargetPosition().x) + (getOwner()->getTransform()->getWorldPosition().y - getTargetPosition().y)) <= 5)
+	if (sqrt((getOwner()->getTransform()->getWorldPosition().x - getTargetPosition().x) + (getOwner()->getTransform()->getWorldPosition().y - getTargetPosition().y)) <= 10)
 	{
 		// get a random value between -1 and 1 for both the X and Y coordinates
 		int randomIntX = (rand() % 2001) - 1000;
@@ -31,7 +51,8 @@ void Wander::update(float deltaTime)
 
 		randomTarget = randomTarget * m_wanderRadius;
 
-		randomTarget = randomTarget + getOwner()->getTransform()->getWorldPosition() + (getOwner()->getTransform()->getForward() * m_wanderDistance);
+		randomTarget = randomTarget + getOwner()->getTransform()->getWorldPosition();
+		randomTarget = randomTarget + (getOwner()->getTransform()->getForward() * m_wanderDistance);
 
 		setTargetPosition(randomTarget);
 	}

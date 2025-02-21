@@ -10,6 +10,8 @@ Actor::Actor()
 {
     m_transform = new Transform2D(this);
     m_maxVelocity = 200.0f;
+    m_started = false;
+    m_components = DynamicArray<Component*>();
 }
 
 Actor::~Actor()
@@ -25,6 +27,8 @@ Actor::Actor(float x, float y, const char* name = "Actor")
     m_transform->setLocalPosition({ x,y });
     m_name = name;
     m_maxVelocity = 200.0f;
+    m_started = false;
+    m_components = DynamicArray<Component*>();
 }
 
 /*
@@ -146,6 +150,8 @@ bool Actor::removeComponent(const char* componentName)
 void Actor::start()
 {
     m_started = true;
+
+    m_transform->updateTransforms();
 
     for (int i = 0; i < m_components.Length(); i++)
     {

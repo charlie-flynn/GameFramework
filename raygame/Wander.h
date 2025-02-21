@@ -10,6 +10,7 @@ public:
 	Wander();
 	Wander(Actor* owner, float weight, float wanderRadius, float wanderDistance);
 
+	void start() override;
 	void update(float deltaTime) override;
 
 	float getWanderRadius() { return m_wanderRadius; }

@@ -18,5 +18,6 @@ public:
 	bool removeBehavior(Behavior* behavior);
 	Behavior* getBehavior(Behavior* behavior);
 
+	void start() override;
 	void update(float deltaTime) override;
 };

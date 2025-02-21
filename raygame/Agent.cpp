@@ -19,7 +19,7 @@ Agent::Agent(Behavior* behaviors[], int length) : Actor()
 
 void Agent::addBehavior(Behavior* behavior)
 {
-	addComponent(behavior);
+	addComponent((Component*)behavior);
 	m_behaviors.Add(behavior);
 }
 

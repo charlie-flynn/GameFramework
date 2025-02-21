@@ -162,6 +162,7 @@
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="Transform2D.cpp" />
+    <ClCompile Include="Wander.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AABBCollider.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Seek.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="Transform2D.h" />
+    <ClInclude Include="Wander.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Images\bullet.png">

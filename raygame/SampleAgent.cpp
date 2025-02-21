@@ -3,7 +3,7 @@
 #include "Transform2D.h"
 
 
-SampleAgent::SampleAgent(float x, float y) : Agent(x, y), m_seek(new Seek(this, 0.5f, {200, 200})), m_flee(new Flee(this, 0.5f, {200, 200}))
+SampleAgent::SampleAgent(float x, float y) : Agent(x, y), m_seek(new Seek(this, 0.0f, {200, 200})), m_flee(new Flee(this, 0.0f, {200, 200})), m_wander(new Wander(this, 1.0f, 20.0f, 20.0f))
 {
 }
 
@@ -11,6 +11,7 @@ void SampleAgent::start()
 {
 	addComponent<Seek>(m_seek);
 	addComponent<Flee>(m_flee);
+	addComponent<Wander>(m_wander);
 }
 
 void SampleAgent::update(float deltaTime)

@@ -26,14 +26,17 @@ void Arrival::update(float deltaTime)
 
 	Behavior::update(deltaTime);
 
-	float distance = (getTargetPosition() - getOwner()->getTransform()->getWorldPosition()).getMagnitude();
+	Actor* owner = getOwner();
+	Transform2D* ownerTransform = owner->getTransform();
+
+	float distance = (getTargetPosition() - ownerTransform->getWorldPosition()).getMagnitude();
 
 
-	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - getOwner()->getTransform()->getWorldPosition()) * getOwner()->getMaxVelocity();
-	MathLibrary::Vector2 steeringForce = (desiredDirection - getOwner()->getVelocity());
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - ownerTransform->getWorldPosition()) * owner->getMaxVelocity();
+	MathLibrary::Vector2 steeringForce = (desiredDirection - owner->getVelocity());
 
-	if (distance > getOwner()->getMaxVelocity() / 2)
-		getOwner()->setVelocity(getOwner()->getVelocity() + (steeringForce * getWeight()) * deltaTime);
+	if (distance > owner->getMaxVelocity() / 2)
+		owner->setVelocity(owner->getVelocity() + (steeringForce * getWeight()) * deltaTime);
 	else
-		getOwner()->setVelocity(getOwner()->getVelocity() - (getOwner()->getVelocity().getNormalized() * 0.14f / getWeight()) * deltaTime);
+		owner->setVelocity(owner->getVelocity() - (owner->getVelocity().getNormalized() * 0.14f / getWeight()) * deltaTime);
 }

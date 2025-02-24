@@ -23,10 +23,13 @@ void Seek::update(float deltaTime)
 		return;
 	}
 
+	Actor* owner = getOwner();
+	Transform2D* ownerTransform = owner->getTransform();
+
 	Behavior::update(deltaTime);
 
-	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - getOwner()->getTransform()->getWorldPosition()) * getOwner()->getMaxVelocity();
-	MathLibrary::Vector2 steeringForce = desiredDirection - getOwner()->getVelocity();
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - ownerTransform->getWorldPosition()) * owner->getMaxVelocity();
+	MathLibrary::Vector2 steeringForce = desiredDirection - owner->getVelocity();
 
-	getOwner()->setVelocity(getOwner()->getVelocity() + (steeringForce * getWeight()) * deltaTime);
+	owner->setVelocity(owner->getVelocity() + (steeringForce * getWeight()) * deltaTime);
 }

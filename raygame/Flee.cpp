@@ -24,8 +24,11 @@ void Flee::update(float deltaTime)
 
 	Behavior::update(deltaTime);
 
-	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getOwner()->getTransform()->getWorldPosition() - getTargetPosition()) * getOwner()->getMaxVelocity();
-	MathLibrary::Vector2 steeringForce = desiredDirection - getOwner()->getVelocity();
+	Actor* owner = getOwner();
+	Transform2D* ownerTransform = owner->getTransform();
 
-	getOwner()->setVelocity(getOwner()->getVelocity() + (steeringForce * getWeight()) * deltaTime);
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(ownerTransform->getWorldPosition() - getTargetPosition())* owner->getMaxVelocity();
+	MathLibrary::Vector2 steeringForce = desiredDirection - owner->getVelocity();
+
+	owner->setVelocity(owner->getVelocity() + (steeringForce * getWeight()) * deltaTime);
 }

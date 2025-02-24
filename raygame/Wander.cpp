@@ -40,6 +40,9 @@ void Wander::update(float deltaTime)
 
 	float distanceToTarget = (getTargetPosition() - getOwner()->getTransform()->getWorldPosition()).getMagnitude();
 
+	Actor* owner = getOwner();
+	Transform2D* ownerTransform = owner->getTransform();
+
 	if (distanceToTarget <= 10.0f || distanceToTarget >= m_wanderRadius + m_wanderDistance)
 	{
 		// get a random value between -1 and 1 for both the X and Y coordinates
@@ -52,16 +55,16 @@ void Wander::update(float deltaTime)
 
 		randomTarget = randomTarget * m_wanderRadius;
 
-		randomTarget = randomTarget + getOwner()->getTransform()->getWorldPosition();
-		randomTarget = randomTarget + (getOwner()->getTransform()->getForward() * m_wanderDistance);
+		randomTarget = randomTarget + owner->getTransform()->getWorldPosition();
+		randomTarget = randomTarget + (owner->getTransform()->getForward() * m_wanderDistance);
 
 		setTargetPosition(randomTarget);
 	}
 
 
-	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - getOwner()->getTransform()->getWorldPosition()) * getOwner()->getMaxVelocity();
-	MathLibrary::Vector2 steeringForce = desiredDirection - getOwner()->getVelocity();
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - ownerTransform->getWorldPosition()) * owner->getMaxVelocity();
+	MathLibrary::Vector2 steeringForce = desiredDirection - owner->getVelocity();
 
-	getOwner()->setVelocity(getOwner()->getVelocity() + (steeringForce * getWeight()) * deltaTime);
+	owner->setVelocity(owner->getVelocity() + (steeringForce * getWeight()) * deltaTime);
 
 }

@@ -28,15 +28,17 @@ void Arrival::update(float deltaTime)
 
 	Actor* owner = getOwner();
 	Transform2D* ownerTransform = owner->getTransform();
+	MathLibrary::Vector2 ownerVelocity = owner->getVelocity();
 
 	float distance = (getTargetPosition() - ownerTransform->getWorldPosition()).getMagnitude();
 
 
 	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - ownerTransform->getWorldPosition()) * owner->getMaxVelocity();
-	MathLibrary::Vector2 steeringForce = (desiredDirection - owner->getVelocity());
+	MathLibrary::Vector2 steeringForce = (desiredDirection - ownerVelocity);
 
-	if (distance > owner->getMaxVelocity() / 2)
-		owner->setVelocity(owner->getVelocity() + (steeringForce * getWeight()) * deltaTime);
+	if (distance > owner->getMaxVelocity() / 1.5f)
+		owner->setVelocity(ownerVelocity + (steeringForce * getWeight()) * deltaTime);
 	else
-		owner->setVelocity(owner->getVelocity() - (owner->getVelocity().getNormalized() * 0.14f / getWeight()) * deltaTime);
+		owner->setVelocity(ownerVelocity - (ownerVelocity * 0.00094f / getWeight()) * deltaTime);
+
 }

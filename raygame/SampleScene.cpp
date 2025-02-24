@@ -15,8 +15,9 @@ void SampleScene::start()
 	CursorChaser* cursorGuy = new CursorChaser(200, 200);
 	addActor(cursorGuy);
 
-	Hunter* hunter = new Hunter(400, 400, cursorGuy);
-	addActor(hunter);
+
+	//Hunter* hunter = new Hunter(400, 400, cursorGuy);
+	//addActor(hunter);
 
 
 

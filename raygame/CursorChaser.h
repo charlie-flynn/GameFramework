@@ -1,11 +1,11 @@
 #pragma once
 #include "Agent.h"
-#include "Seek.h"
+#include "Arrival.h"
 
 class CursorChaser : public Agent
 {
 private:
-	Seek* m_seek;
+	Arrival* m_arrival;
 public:
 	CursorChaser();
 	CursorChaser(float x, float y);

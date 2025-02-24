@@ -2,24 +2,24 @@
 #include "raylib.h"
 #include "Transform2D.h"
 
-CursorChaser::CursorChaser() : m_seek(new Seek(this, 1.0f, { 200, 200 }))
+CursorChaser::CursorChaser() : m_arrival(new Arrival(this, 1.0f, { 200, 200 }))
 {
 	setMaxVelocity(200.0f);
 }
 
-CursorChaser::CursorChaser(float x, float y) : Agent(x, y), m_seek(new Seek(this, 1.0f, {200, 200}))
+CursorChaser::CursorChaser(float x, float y) : Agent(x, y), m_arrival(new Arrival(this, 1.0f, {200, 200}))
 {
 	setMaxVelocity(200.0f);
 }
 
 void CursorChaser::start()
 {
-	addComponent(m_seek);
+	addComponent(m_arrival);
 }
 
 void CursorChaser::update(float deltaTime)
 {
-	m_seek->setTargetPosition(MathLibrary::Vector2(GetMouseX(), GetMouseY()));
+	m_arrival->setTargetPosition(MathLibrary::Vector2(GetMouseX(), GetMouseY()));
 	Agent::update(deltaTime);
 }
 

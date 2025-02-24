@@ -149,6 +149,7 @@
     <ClCompile Include="AABBCollider.cpp" />
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="Arrival.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="CircleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="AABBCollider.h" />
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Agent.h" />
+    <ClInclude Include="Arrival.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />

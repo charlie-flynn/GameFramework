@@ -38,7 +38,7 @@ void Wander::update(float deltaTime)
 	if (!getWeight())
 		return;
 
-	float distanceToTarget = sqrt(powf(2, getOwner()->getTransform()->getWorldPosition().x - getTargetPosition().x) + powf(2, getOwner()->getTransform()->getWorldPosition().y - getTargetPosition().y));
+	float distanceToTarget = (getTargetPosition() - getOwner()->getTransform()->getWorldPosition()).getMagnitude();
 
 	if (distanceToTarget <= 1.0f || distanceToTarget >= m_wanderRadius + m_wanderDistance)
 	{

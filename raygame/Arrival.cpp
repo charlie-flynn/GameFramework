@@ -3,7 +3,6 @@
 #include "Vector2.h"
 #include "Actor.h"
 #include <cmath>
-#include <iostream>
 
 Arrival::Arrival()
 {
@@ -36,5 +35,5 @@ void Arrival::update(float deltaTime)
 	if (distance > getOwner()->getMaxVelocity() / 2)
 		getOwner()->setVelocity(getOwner()->getVelocity() + (steeringForce * getWeight()) * deltaTime);
 	else
-		getOwner()->setVelocity(getOwner()->getVelocity() - (getOwner()->getVelocity() * 0.001f ) * deltaTime);
+		getOwner()->setVelocity(getOwner()->getVelocity() - (getOwner()->getVelocity().getNormalized() * 0.14f / getWeight()) * deltaTime);
 }

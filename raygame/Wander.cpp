@@ -40,7 +40,7 @@ void Wander::update(float deltaTime)
 
 	float distanceToTarget = (getTargetPosition() - getOwner()->getTransform()->getWorldPosition()).getMagnitude();
 
-	if (distanceToTarget <= 1.0f || distanceToTarget >= m_wanderRadius + m_wanderDistance)
+	if (distanceToTarget <= 10.0f || distanceToTarget >= m_wanderRadius + m_wanderDistance)
 	{
 		// get a random value between -1 and 1 for both the X and Y coordinates
 		int randomIntX = (rand() % 2001) - 1000;

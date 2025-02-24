@@ -6,17 +6,17 @@
 #include "Pursue.h"
 #include "Evade.h"
 
+#include "Hunter.h"
+
 void SampleScene::start()
 {
 	//This is a better comment
 
-	SampleAgent* test = new SampleAgent(250, 250);
-	addActor(test);
-
 	CursorChaser* cursorGuy = new CursorChaser(200, 200);
 	addActor(cursorGuy);
 
-	test->addBehavior(new Pursue(test, 1.0f, cursorGuy));
+	Hunter* hunter = new Hunter(400, 400, cursorGuy);
+	addActor(hunter);
 
 
 

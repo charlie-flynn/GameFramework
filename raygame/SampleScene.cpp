@@ -1,12 +1,12 @@
 #include "SampleScene.h"
 #include "SpriteComponent.h"
 #include "Transform2D.h"
-#include "SampleAgent.h"
 #include "CursorChaser.h"
-#include "Pursue.h"
-#include "Evade.h"
 
 #include "Hunter.h"
+
+#include <raylib.h>
+#include <string>
 
 void SampleScene::start()
 {
@@ -15,8 +15,7 @@ void SampleScene::start()
 	CursorChaser* cursorGuy = new CursorChaser(200, 200);
 	addActor(cursorGuy);
 
-
-	//Hunter* hunter = new Hunter(400, 400, cursorGuy);
+	//Hunter* hunter = new Hunter(400, 400, nullptr);
 	//addActor(hunter);
 
 
@@ -29,4 +28,11 @@ void SampleScene::start()
 
 	addActor(test);
 	*/
+}
+
+void SampleScene::update(float deltaTime)
+{
+	Scene::update(deltaTime);
+	DrawText(std::to_string(deltaTime).c_str(), 20, 20, 20, WHITE);
+	DrawFPS(20, 50);
 }

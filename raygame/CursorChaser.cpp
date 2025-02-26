@@ -12,6 +12,12 @@ CursorChaser::CursorChaser(float x, float y) : Agent(x, y), m_arrival(new Arriva
 	setMaxVelocity(200.0f);
 }
 
+CursorChaser::~CursorChaser()
+{
+	delete m_arrival;
+	m_arrival = nullptr;
+}
+
 void CursorChaser::start()
 {
 	addComponent(m_arrival);
@@ -25,5 +31,6 @@ void CursorChaser::update(float deltaTime)
 
 void CursorChaser::draw()
 {
-	DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 10, (-(getTransform()->getRotation()) * (180 / PI)) + 18, RED);
+	Transform2D* transform = getTransform();
+	DrawPoly({ transform->getWorldPosition().x,  transform->getWorldPosition().y }, 3, 10, (-(transform->getRotation()) * (180 / PI)) + 18, RED);
 }

@@ -40,7 +40,12 @@ void Hunter::update(float deltaTime)
 {
 	Agent::update(deltaTime);
 
-	float distanceToTarget = (getTransform()->getWorldPosition() - m_target->getTransform()->getWorldPosition()).getMagnitude();
+	float distanceToTarget;
+	
+	if (m_target)
+		distanceToTarget = (getTransform()->getWorldPosition() - m_target->getTransform()->getWorldPosition()).getMagnitude();
+	else
+		distanceToTarget = 9999;
 
 	switch (m_state)
 	{

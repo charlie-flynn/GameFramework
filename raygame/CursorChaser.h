@@ -9,6 +9,7 @@ private:
 public:
 	CursorChaser();
 	CursorChaser(float x, float y);
+	~CursorChaser();
 
 	void start() override;
 	void update(float deltaTime) override;

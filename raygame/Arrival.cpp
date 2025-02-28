@@ -35,11 +35,8 @@ void Arrival::update(float deltaTime)
 	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - ownerTransform->getWorldPosition()) * owner->getMaxVelocity();
 	MathLibrary::Vector2 steeringForce = desiredDirection - ownerVelocity;
 
-	// ok so somehwere in this game engine there's a memory leak i think????????? and it's messing up the deceleration
-	// so at least i KNOW what the hell is going on now. almost. i have no clue where the memory leak could possibly be
-
 	if (distance > owner->getMaxVelocity() / 1.5f)
 		owner->setVelocity(ownerVelocity + (steeringForce * getWeight()) * deltaTime);
 	else
-		owner->setVelocity(ownerVelocity - (ownerVelocity * 0.99f / getWeight()) * deltaTime);
+		owner->setVelocity(ownerVelocity - (ownerVelocity * 0.00023f / getWeight()) * deltaTime);
 }

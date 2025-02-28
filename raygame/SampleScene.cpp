@@ -17,10 +17,8 @@ void SampleScene::start()
 	//SampleAgent* sampleGuy = new SampleAgent(400, 400);
 	//addActor(sampleGuy);
 
-	Hunter* hunter = new Hunter(400, 400, cursorGuy);
-	addActor(hunter);
-
-
+	//Hunter* hunter = new Hunter(400, 400, cursorGuy);
+	//addActor(hunter);
 
 	/*
 	Actor* test = new Actor(50, 50, "Test");

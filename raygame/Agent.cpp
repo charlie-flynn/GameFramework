@@ -63,6 +63,7 @@ void Agent::update(float deltaTime)
 	// rotate and move according to the velocity
 	if (getVelocity().x != 0.0f || getVelocity().y != 0.0f)
 	{
+		// the -2 over there is because. i need things to turn and also turn the right way :thumbsup:
 		getTransform()->rotate((MathLibrary::Vector2::findAngle(getTransform()->getForward().getNormalized(), getVelocity().getNormalized()) * -2) * deltaTime);
 		getTransform()->setLocalPosition(getTransform()->getLocalPosition() + getTransform()->getForward() * getVelocity().getMagnitude() * deltaTime);
 	}

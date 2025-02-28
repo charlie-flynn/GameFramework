@@ -41,5 +41,5 @@ void Arrival::update(float deltaTime)
 	if (distance > owner->getMaxVelocity() / 1.5f)
 		owner->setVelocity(ownerVelocity + (steeringForce * getWeight()) * deltaTime);
 	else
-		owner->setVelocity(ownerVelocity - (ownerVelocity * 0.00023f / getWeight()) * deltaTime);
+		owner->setVelocity(ownerVelocity - (ownerVelocity * 0.99f / getWeight()) * deltaTime);
 }

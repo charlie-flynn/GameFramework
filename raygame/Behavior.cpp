@@ -16,6 +16,18 @@ Behavior::Behavior(Actor* owner, float weight, MathLibrary::Vector2 targetPositi
 	setWeight(weight);
 }
 
+MathLibrary::Vector2 Behavior::seekToPoint(MathLibrary::Vector2 point)
+{
+	if (point == MathLibrary::Vector2(0, 0))
+		point = getTargetPosition();
+
+	Actor* owner = getOwner();
+	Transform2D* ownerTransform = owner->getTransform();
+
+	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(point - ownerTransform->getWorldPosition()) * owner->getMaxVelocity();
+	return desiredDirection - owner->getVelocity();
+}
+
 void Behavior::setWeight(float value)
 {
 	if (value > 1)

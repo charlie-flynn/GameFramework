@@ -20,6 +20,7 @@ CursorChaser::~CursorChaser()
 
 void CursorChaser::start()
 {
+	Agent::start();
 	addComponent(m_arrival);
 }
 

@@ -18,13 +18,7 @@ void Evade::update(float deltaTime)
 
 	Actor* owner = getOwner();
 	Transform2D* ownerTransform = owner->getTransform();
-
 	MathLibrary::Vector2 targetVelocity = getTargetActor()->getVelocity();
-	MathLibrary::Vector2 ownerPosition = ownerTransform->getWorldPosition();
-	MathLibrary::Vector2 ownerVelocity = owner->getVelocity();
 
-	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(ownerPosition - (getTargetPosition() + targetVelocity)) * owner->getMaxVelocity();
-	MathLibrary::Vector2 steeringForce = desiredDirection + ownerVelocity;
-
-	owner->setVelocity(ownerVelocity + (steeringForce * getWeight()) * deltaTime);
+	owner->setVelocity(owner->getVelocity() + ((seekToPoint(getTargetPosition() + targetVelocity) * -1) * getWeight()) * deltaTime);
 }

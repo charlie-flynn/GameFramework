@@ -31,6 +31,7 @@ Hunter::~Hunter()
 
 void Hunter::start()
 {
+	Agent::start();
 	addComponent(m_wander);
 	addComponent(m_pursue);
 	addComponent(m_seek);
@@ -97,9 +98,9 @@ void Hunter::draw()
 		break;
 	default:
 		color.a = 255;
-		color.r = 30;
-		color.g = 200;
-		color.b = 60;
+		color.r = 255;
+		color.g = 0;
+		color.b = 0;
 		break;
 	}
 

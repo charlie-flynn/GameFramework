@@ -13,6 +13,13 @@ public:
 	Behavior(Actor* owner, float weight, Actor* targetActor = nullptr);
 	Behavior(Actor* owner, float weight, MathLibrary::Vector2 targetPosition = {0, 0});
 
+	/// <summary>
+	/// Performs seek behavior towards a point. If argument not inputted (or the argument happens to be 0, 0), seek to target position.
+	/// </summary>
+	/// <param name="point">The point to seek towards.</param>
+	/// <returns>The required turning force to turn towards the point.</returns>
+	MathLibrary::Vector2 seekToPoint(MathLibrary::Vector2 point = {0, 0});
+
 	float getWeight() { return m_weight; }
 	void setWeight(float value);
 

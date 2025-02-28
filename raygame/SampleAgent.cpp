@@ -4,10 +4,10 @@
 
 
 SampleAgent::SampleAgent(float x, float y) : Agent(x, y), m_seek(new Seek(this, 0.0f, {200, 200})), 
-m_flee(new Flee(this, 0.0f, {200, 200})), 
+m_flee(new Flee(this, 1.0f, {200, 200})), 
 m_wander(new Wander(this, 0.0f, 50.0f, 30.0f))
 {
-	setMaxVelocity(210.0f);
+	setMaxVelocity(100.0f);
 }
 
 void SampleAgent::start()

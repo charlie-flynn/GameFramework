@@ -1,8 +1,9 @@
 #include "SampleScene.h"
 #include "SpriteComponent.h"
 #include "Transform2D.h"
-#include "CursorChaser.h"
 
+#include "CursorChaser.h"
+#include "SampleAgent.h"
 #include "Hunter.h"
 
 #include <raylib.h>
@@ -10,13 +11,14 @@
 
 void SampleScene::start()
 {
-	//This is a better comment
-
 	CursorChaser* cursorGuy = new CursorChaser(200, 200);
 	addActor(cursorGuy);
 
-	//Hunter* hunter = new Hunter(400, 400, nullptr);
-	//addActor(hunter);
+	//SampleAgent* sampleGuy = new SampleAgent(400, 400);
+	//addActor(sampleGuy);
+
+	Hunter* hunter = new Hunter(400, 400, cursorGuy);
+	addActor(hunter);
 
 
 

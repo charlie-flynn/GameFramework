@@ -160,6 +160,7 @@
     <ClCompile Include="Flee.cpp" />
     <ClCompile Include="Hunter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pathfinding\NodeMap.cpp" />
     <ClCompile Include="Pathfinding\Pathfinding.cpp" />
     <ClCompile Include="Pursue.cpp" />
     <ClCompile Include="SampleAgent.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Pathfinding\NodeMap.h" />
     <ClInclude Include="Pathfinding\Pathfinding.h" />
     <ClInclude Include="Pursue.h" />
     <ClInclude Include="SampleAgent.h" />

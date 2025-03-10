@@ -9,10 +9,12 @@
 #include <raylib.h>
 #include <string>
 
+#include "Pathfinding/Pathfinding.h"
+
 void SampleScene::start()
 {
-	CursorChaser* cursorGuy = new CursorChaser(200, 200);
-	addActor(cursorGuy);
+	//CursorChaser* cursorGuy = new CursorChaser(200, 200);
+	//addActor(cursorGuy);
 
 	//SampleAgent* sampleGuy = new SampleAgent(400, 400);
 	//addActor(sampleGuy);
@@ -35,4 +37,25 @@ void SampleScene::update(float deltaTime)
 	Scene::update(deltaTime);
 	DrawText(std::to_string(deltaTime).c_str(), 20, 20, 20, WHITE);
 	DrawFPS(20, 50);
+
+	Pathfinding::Node a(100, 100);
+	Pathfinding::Node b(200, 100);
+	Pathfinding::Node c(100, 300);
+
+	a.ConnectTo(&b, 1.0f);
+	a.ConnectTo(&c, 4.0f);
+	b.ConnectTo(&c, 1.0f);
+
+	List<Pathfinding::Node*> path = Pathfinding::DijkstrasSearch(&a, &c);
+
+	//Pathfinding::DrawGraph(&a, &list);
+
+	/*
+	List<Pathfinding::Node*> path = { &a, &b, &c };
+	Pathfinding::DrawPath(path, RED);
+
+	Pathfinding::DrawNode(&a, false);
+	Pathfinding::DrawNode(&b, true);
+	Pathfinding::DrawNode(&c, false);
+	*/
 }

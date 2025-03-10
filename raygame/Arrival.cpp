@@ -35,8 +35,5 @@ void Arrival::update(float deltaTime)
 	MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - ownerTransform->getWorldPosition()) * owner->getMaxVelocity();
 	MathLibrary::Vector2 steeringForce = desiredDirection - ownerVelocity;
 
-	if (distance > owner->getMaxVelocity() / 1.5f)
-		owner->setVelocity(ownerVelocity + (steeringForce * getWeight()) * deltaTime);
-	else
-		owner->setVelocity(ownerVelocity - (ownerVelocity * 0.00023f / getWeight()) * deltaTime);
+	owner->setVelocity(ownerVelocity + (steeringForce * getWeight() * fmin(distance, 1.0f)) * deltaTime);
 }

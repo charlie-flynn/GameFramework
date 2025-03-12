@@ -170,6 +170,8 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
+    <ClCompile Include="TDGame\GameScene.cpp" />
+    <ClCompile Include="TDGame\TitleScene.cpp" />
     <ClCompile Include="Transform2D.cpp" />
     <ClCompile Include="Wander.cpp" />
   </ItemGroup>

@@ -92,6 +92,12 @@
     <ClCompile Include="Pathfinding\PathScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TDGame\GameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TDGame\TitleScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Scene.h">

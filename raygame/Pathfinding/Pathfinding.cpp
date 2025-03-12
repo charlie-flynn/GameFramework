@@ -2,6 +2,14 @@
 #include <algorithm>
 #include <vector> 
 
+#define SEARCH_TIMING
+
+#ifdef SEARCH_TIMING
+#include <chrono>
+#include <iostream>
+#endif // SEARCH_TIMING
+
+
 namespace Pathfinding
 {
 	//Use this function to sort nodes using their gScore value
@@ -36,6 +44,11 @@ namespace Pathfinding
 			singleNodePath.push_back(startNode);
 			return singleNodePath;
 		}
+
+#ifdef SEARCH_TIMING
+		// clock at start
+		auto start = std::chrono::high_resolution_clock::now();
+#endif
 
 		//Initialize the starting node
 		startNode->gScore = 0;
@@ -117,6 +130,14 @@ namespace Pathfinding
 			currentNode = currentNode->previous;
 		}
 
+#ifdef SEARCH_TIMING
+		// clock at end
+		auto end = std::chrono::high_resolution_clock::now();
+		auto duration = end - start;
+		auto durationAsValue = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
+		std::cout << durationAsValue << std::endl;
+#endif
+
 		return path;
 	}
 
@@ -134,6 +155,11 @@ namespace Pathfinding
 			singleNodePath.push_back(startNode);
 			return singleNodePath;
 		}
+
+#ifdef SEARCH_TIMING
+		// clock at start
+		auto start = std::chrono::high_resolution_clock::now();
+#endif
 
 		//Initialize the starting node
 		startNode->gScore = 0;
@@ -219,6 +245,14 @@ namespace Pathfinding
 			//Go to the previous node
 			currentNode = currentNode->previous;
 		}
+
+#ifdef SEARCH_TIMING
+		// clock at end
+		auto end = std::chrono::high_resolution_clock::now();
+		auto duration = end - start;
+		auto durationAsValue = std::chrono::duration_cast<std::chrono::nanoseconds>(duration).count();
+		std::cout << durationAsValue << std::endl;
+#endif
 
 		return path;
 	}

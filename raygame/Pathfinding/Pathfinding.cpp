@@ -2,13 +2,6 @@
 #include <algorithm>
 #include <vector> 
 
-#define SEARCH_TIMER
-
-#ifdef SEARCH_TIMER
-#include <chrono>
-#include <iostream>
-#endif
-
 namespace Pathfinding
 {
 	//Use this function to sort nodes using their gScore value
@@ -44,11 +37,6 @@ namespace Pathfinding
 			return singleNodePath;
 		}
 
-#ifdef SEARCH_TIMER
-		auto timer = std::chrono::steady_clock();
-		auto duration = std::chrono::steady_clock::time_point(timer.now());
-#endif
-
 		//Initialize the starting node
 		startNode->gScore = 0;
 		startNode->previous = nullptr;
@@ -59,7 +47,6 @@ namespace Pathfinding
 
 		//Add the starting node to openList
 		openList.push_back(startNode);
-
 
 		while (!openList.empty())
 		{
@@ -130,10 +117,6 @@ namespace Pathfinding
 			currentNode = currentNode->previous;
 		}
 
-#ifdef SEARCH_TIMER
-		std::cout << duration.time_since_epoch().count() / 1000000 << std::endl;
-#endif
-
 		return path;
 	}
 
@@ -151,11 +134,6 @@ namespace Pathfinding
 			singleNodePath.push_back(startNode);
 			return singleNodePath;
 		}
-
-#ifdef SEARCH_TIMER
-		auto timer = std::chrono::steady_clock();
-		auto duration = std::chrono::time_point<std::chrono::steady_clock>(timer.now());
-#endif
 
 		//Initialize the starting node
 		startNode->gScore = 0;
@@ -241,9 +219,6 @@ namespace Pathfinding
 			currentNode = currentNode->previous;
 		}
 
-#ifdef SEARCH_TIMER
-		std::cout << duration.time_since_epoch().count() / 1000000 << std::endl;
-#endif
 		return path;
 	}
 

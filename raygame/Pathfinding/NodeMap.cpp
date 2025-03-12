@@ -7,6 +7,7 @@ namespace Pathfinding
 	void NodeMap::Initialise(std::vector<std::string> asciiMap)
 	{
 		const char emptySquare = '0';
+		const char weightySquare = '2';
 
 		// assume all strings are the same length, so we'll size the map according to the number of strings and the length of the first one
 		height = asciiMap.size();
@@ -46,16 +47,52 @@ namespace Pathfinding
 					Node* nodeWest = x == 0 ? nullptr : GetNode(x - 1, y);
 					if (nodeWest)
 					{
-						node->ConnectTo(nodeWest, 1); // TODO weights
-						nodeWest->ConnectTo(node, 1);
+						switch (asciiMap[y][x - 1])
+						{
+						case (weightySquare):
+							node->ConnectTo(nodeWest, 500);
+							break;
+						default:
+							node->ConnectTo(nodeWest, 1);
+							break;
+						}
+
+						switch (asciiMap[y][x])
+						{
+						case (weightySquare):
+							nodeWest->ConnectTo(node, 500);
+							break;
+						default:
+							nodeWest->ConnectTo(node, 1);
+							break;
+						}
 					}
 
 					// see if there's a node south of us, checking for array index overruns again
 					Node* nodeSouth = y == 0 ? nullptr : GetNode(x, y - 1);
 					if (nodeSouth)
 					{
+						switch (asciiMap[y - 1][x])
+						{
+						case (weightySquare):
+							node->ConnectTo(nodeSouth, 500);
+							break;
+						default:
+							node->ConnectTo(nodeSouth, 1);
+						}
+
+						switch (asciiMap[y][x])
+						{
+						case (weightySquare):
+							nodeSouth->ConnectTo(node, 500);
+							break;
+						default:
+							nodeSouth->ConnectTo(node, 1);
+						}
+						/*
 						node->ConnectTo(nodeSouth, 1);
 						nodeSouth->ConnectTo(node, 1);
+						*/
 					}
 				}
 			}

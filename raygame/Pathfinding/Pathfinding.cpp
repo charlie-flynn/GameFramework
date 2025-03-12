@@ -10,7 +10,7 @@ namespace Pathfinding
 		return (i->gScore < j->gScore); 
 	}
 
-	//Or this function to sort nodes using the sum of their gScore and hScore
+	//Or use this function to sort nodes using the sum of their gScore and hScore (aka their fScore)
 	bool AStarNodeSort(Node* i, Node* j)
 	{
 		return (i->gScore + i->hScore < j->gScore + j->hScore);
@@ -184,6 +184,7 @@ namespace Pathfinding
 					e.target->previous = currentNode;
 					//Find the earliest point we should insert the node
 					//to the list to keep it sorted
+
 					auto insertionPos = openList.end();
 					for (auto i = openList.begin(); i != openList.end(); i++) {
 						if (e.target->gScore + e.target->hScore < (*i)->gScore + (*i)->hScore) {

@@ -8,7 +8,7 @@ void PathScene::start()
 	std::vector<std::string> asciiMap;
 	asciiMap.push_back("00000000000000000000");
 	asciiMap.push_back("01111111100111111110");
-	asciiMap.push_back("01111110100101111110");
+	asciiMap.push_back("02222210100101111110");
 	asciiMap.push_back("01111110100101111110");
 	asciiMap.push_back("01111110000001111110");
 	asciiMap.push_back("01111111000011111110");

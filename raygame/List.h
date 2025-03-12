@@ -26,7 +26,7 @@ public:
 	T Last() const;
 	Iterator<T> begin() const;
 	Iterator<T> end() const;
-	Iterator<T> find(const T& value);
+	Iterator<T> Find(const T& value);
 	void Destroy();
 	int GetLength() const;
 };
@@ -316,7 +316,7 @@ inline Iterator<T> List<T>::end() const
 }
 
 template<typename T>
-inline Iterator<T> List<T>::find(const T& value)
+inline Iterator<T> List<T>::Find(const T& value)
 {
 	for (Iterator<T> iter = begin(); iter != end(); iter++)
 	{

@@ -4,6 +4,7 @@
 #include "SampleScene.h"
 #include "DynamicArray.h"
 #include "Actor.h"
+#include "Pathfinding/PathScene.h"
 #include <random>
 #include <chrono>
 
@@ -35,7 +36,7 @@ void Engine::start()
 	srand(time(0));
 
 	//Start the scene
-	m_currentSceneIndex = addScene(new SampleScene());
+	m_currentSceneIndex = addScene(new PathScene());
 	m_scenes[m_currentSceneIndex]->start();
 }
 

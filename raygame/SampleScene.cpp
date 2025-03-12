@@ -46,7 +46,7 @@ void SampleScene::update(float deltaTime)
 	a.ConnectTo(&c, 4.0f);
 	b.ConnectTo(&c, 1.0f);
 
-	List<Pathfinding::Node*> path = Pathfinding::DijkstrasSearch(&a, &c);
+	std::vector<Pathfinding::Node*> path = Pathfinding::DijkstrasSearch(&a, &c);
 
 	//Pathfinding::DrawGraph(&a, &list);
 

@@ -1,11 +1,11 @@
 #pragma once
-#include "Pathfinding.h"
 #include <string>
+#include "pathfinding.h"
 
 namespace Pathfinding
 {
 	// class that represents the nodes on a map, shared between all Pathfind objects
-// this data is initialised and startup and doesn't change at runtime
+	// this data is initialised and startup and doesn't change at runtime
 	class NodeMap
 	{
 	public:
@@ -14,7 +14,7 @@ namespace Pathfinding
 
 		Node** nodes;
 
-		void Initialise(List<std::string> asciiMap);
+		void Initialise(std::vector<std::string> asciiMap);
 		void Draw(bool drawConnections);
 
 		// utility functions 
@@ -22,3 +22,4 @@ namespace Pathfinding
 		Node* GetClosestNode(Vector2 worldPos);
 	};
 }
+

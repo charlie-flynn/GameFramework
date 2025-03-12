@@ -201,6 +201,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Seek.h" />
     <ClInclude Include="SpriteComponent.h" />
+    <ClInclude Include="TDGame\GameScene.h" />
+    <ClInclude Include="TDGame\TitleScene.h" />
     <ClInclude Include="Transform2D.h" />
     <ClInclude Include="Wander.h" />
   </ItemGroup>

@@ -181,6 +181,12 @@
     <ClInclude Include="Pathfinding\PathScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TDGame\TitleScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TDGame\GameScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Images\bullet.png">

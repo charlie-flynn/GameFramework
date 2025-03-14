@@ -8,5 +8,7 @@ public:
 	void update(float deltaTime) override;
 
 private:
+	int m_sceneIndex;
+
 	void startGame();
 };

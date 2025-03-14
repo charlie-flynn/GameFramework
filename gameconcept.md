@@ -1,35 +1,20 @@
-# THE IDEA
+# ok actually the idea that isnt super out of scope
 
-"tower" defense game that trolls you
+3-4 scenes that show the things i learned
 
-you can shoot the enemies and also place traps on the track that enemies go around no matter what
+# scenes
 
-# THE WAVES
+## scene 1
 
-- 1: basic enemies going down the path using a pre-a*'d route. map has a loop-de-loop that no-one takes
-- 2: summore' basic enemies but this time the player will have placed traps. the enemies will go around the traps because they are weighted more than the surrounding terrain
-- 3: basic enemies for a bit, but this time also a type of enemy that dodges your projectiles by rerouting around them using a*! you will have unlocked a homing upgrade just for this
-- 4: more of the dodging enemies for a little bit, maybe a third type of enemy that's just bigger and bulkier and runs into your projectiles via pursuit/seek
-- 5: every enemy will decide they will just run to the end instead of following the path by using seek behavior (dodger enemies will avoid using evade behavior instead of rerouting)
+plauying tag (swappable mode from pursue/evade to seek/flee)
 
-# GAME OVER CUTSCENE
+## scene 2
 
-a ball will arrive at another ball and the moment it stops you go back to the title screen
+cursor guy + The Hunter (i already made those guys so it will be easy)
 
-# TITLE SCREEN
+## scene 3
 
-a bajjilion spheres run away from your cursor using flee ig idk
+some fun way to show ~~djikstra's~~ a* algorithm (it may just be the thing i copied over)
 
-# UPGRADES
+## scene 4
 
-- homing (using pursue)
-- damage up
-- firerate up
-- 'splosive up
-
-# TRAPS
-
-- one spike trap
-- explosive trap that exclusively detonates while nothing is around to be killed by it
-- nuclear trap that explodes so hard it closes the game
-- golden spike trap (really expensive)

@@ -15,7 +15,7 @@ Hunter::Hunter()
 Hunter::Hunter(float x, float y, Actor* target) : Agent(x, y), 
 m_target(target),
 m_state(STATE_FIND),
-m_wander(new Wander(this, 0.6f, 80.0f, 110.0f)),
+m_wander(new Wander(this, 0.6f, 70.0f, 90.0f)),
 m_pursue(new Pursue(this, 0.0f, target)),
 m_seek(new Seek(this, 0.3f, target))
 {

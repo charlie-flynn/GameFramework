@@ -4,12 +4,12 @@
 
 CursorChaser::CursorChaser() : m_arrival(new Arrival(this, 1.0f, { 200, 200 }))
 {
-	setMaxVelocity(200.0f);
+	setMaxVelocity(400.0f);
 }
 
 CursorChaser::CursorChaser(float x, float y) : Agent(x, y), m_arrival(new Arrival(this, 1.0f, {200, 200}))
 {
-	setMaxVelocity(200.0f);
+	setMaxVelocity(400.0f);
 }
 
 CursorChaser::~CursorChaser()

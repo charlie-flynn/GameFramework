@@ -1,20 +1,19 @@
-# ok actually the idea that isnt super out of scope
+# alien simulation game
 
-3-4 scenes that show the things i learned
+game where there are aliens and you can give them touys to play with
 
-# scenes
+# aliens what do they do
 
-## scene 1
+- wander around path using a*
+- when they see something new they go look at it and also tell everyone else to go look at it using arrival
+- when something attacks them they flee (some of them wear cool hats and they use evade behavior)
+- if they have a ray gun they shoot from a distance
+- if they have a saber they seek (cool hat guys use pursue)
 
-plauying tag (swappable mode from pursue/evade to seek/flee)
+# things you can give them
 
-## scene 2
-
-cursor guy + The Hunter (i already made those guys so it will be easy)
-
-## scene 3
-
-some fun way to show ~~djikstra's~~ a* algorithm (it may just be the thing i copied over)
-
-## scene 4
+- ray gun
+- saber
+- walterberry
+- fiendish creature
 

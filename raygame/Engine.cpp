@@ -36,7 +36,7 @@ void Engine::start()
 	srand(time(0));
 
 	//Start the scene
-	m_currentSceneIndex = addScene(new PathScene());
+	m_currentSceneIndex = addScene(new SampleScene());
 	m_scenes[m_currentSceneIndex]->start();
 }
 

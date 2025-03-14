@@ -13,14 +13,14 @@
 
 void SampleScene::start()
 {
-	//CursorChaser* cursorGuy = new CursorChaser(200, 200);
-	//addActor(cursorGuy);
+	CursorChaser* cursorGuy = new CursorChaser(200, 200);
+	addActor(cursorGuy);
 
 	//SampleAgent* sampleGuy = new SampleAgent(400, 400);
 	//addActor(sampleGuy);
 
-	//Hunter* hunter = new Hunter(400, 400, cursorGuy);
-	//addActor(hunter);
+	Hunter* hunter = new Hunter(400, 400, cursorGuy);
+	addActor(hunter);
 
 	/*
 	Actor* test = new Actor(50, 50, "Test");
@@ -35,6 +35,7 @@ void SampleScene::start()
 void SampleScene::update(float deltaTime)
 {
 	Scene::update(deltaTime);
+	/*
 	DrawText(std::to_string(deltaTime).c_str(), 20, 20, 20, WHITE);
 	DrawFPS(20, 50);
 
@@ -47,6 +48,7 @@ void SampleScene::update(float deltaTime)
 	b.ConnectTo(&c, 1.0f);
 
 	std::vector<Pathfinding::Node*> path = Pathfinding::DijkstrasSearch(&a, &c);
+	*/
 
 	//Pathfinding::DrawGraph(&a, &list);
 

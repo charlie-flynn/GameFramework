@@ -4,7 +4,14 @@
 #include "Vector2.h"
 #include <random>
 #include <cmath>
-#include <iostream>
+
+//#define DEBUG_DRAW
+
+#ifdef DEBUG_DRAW
+#include <string>
+#include "raylib.h"
+#endif
+
 
 Wander::Wander() : Behavior(), m_wanderRadius(0.0f), m_wanderDistance(0.0f)
 {
@@ -23,7 +30,6 @@ void Wander::start()
 	MathLibrary::Vector2 randomTarget = { (float)randomIntX / 1000, (float)randomIntY / 1000 };
 
 	randomTarget.normalize();
-
 	randomTarget = randomTarget * m_wanderRadius;
 
 	randomTarget = randomTarget + getOwner()->getTransform()->getWorldPosition();
@@ -43,7 +49,7 @@ void Wander::update(float deltaTime)
 	Actor* owner = getOwner();
 	Transform2D* ownerTransform = owner->getTransform();
 
-	if (distanceToTarget <= 1.0f || distanceToTarget >= m_wanderRadius + m_wanderDistance)
+	if (distanceToTarget <= 20.0f || distanceToTarget >= m_wanderRadius + m_wanderDistance)
 	{
 		// get a random value between -1 and 1 for both the X and Y coordinates
 		int randomIntX = (rand() % 2001) - 1000;
@@ -67,4 +73,20 @@ void Wander::update(float deltaTime)
 
 	owner->setVelocity(owner->getVelocity() + (steeringForce * getWeight()) * deltaTime);
 
+}
+
+void Wander::draw()
+{
+	Behavior::draw();
+#ifdef DEBUG_DRAW
+	Actor* owner = getOwner();
+
+	DrawCircle(getTargetPosition().x, getTargetPosition().y, 5, GREEN);
+	DrawText(std::to_string((getTargetPosition() - getOwner()->getTransform()->getWorldPosition()).getMagnitude()).c_str(), getTargetPosition().x, getTargetPosition().y, 5, WHITE);
+
+	MathLibrary::Vector2 circlePosition = owner->getTransform()->getWorldPosition();
+	circlePosition = circlePosition + (owner->getTransform()->getForward() * m_wanderDistance);
+
+	DrawCircleLines(circlePosition.x, circlePosition.y, m_wanderRadius, GREEN);
+#endif
 }

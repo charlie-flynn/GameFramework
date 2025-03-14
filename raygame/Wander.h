@@ -18,4 +18,6 @@ public:
 
 	float getWanderDistance() { return m_wanderDistance; }
 	void setWanderDistance(float value) { m_wanderDistance = value; }
+
+	void draw() override;
 };

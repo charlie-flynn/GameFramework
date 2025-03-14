@@ -92,10 +92,7 @@
     <ClCompile Include="Pathfinding\PathScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TDGame\GameScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TDGame\TitleScene.cpp">
+    <ClCompile Include="Game\TitleScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -187,10 +184,7 @@
     <ClInclude Include="Pathfinding\PathScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TDGame\TitleScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TDGame\GameScene.h">
+    <ClInclude Include="Game\TitleScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

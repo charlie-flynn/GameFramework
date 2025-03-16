@@ -180,6 +180,7 @@
     <ClInclude Include="Agent.h" />
     <ClInclude Include="Arrival.h" />
     <ClInclude Include="Behavior.h" />
+    <ClInclude Include="Blackboard.h" />
     <ClInclude Include="CircleCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />

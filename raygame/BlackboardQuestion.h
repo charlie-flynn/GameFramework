@@ -1,11 +1,12 @@
 #pragma once
 #include "DynamicArray.h"
 #include "BlackboardAnswer.h"
+#include "BlackboardItem.h"
 
 class Actor;
 
 template <typename T>
-class BlackboardQuestion
+class BlackboardQuestion : public BlackboardItem
 {
 private:
 	Actor* m_asker;
@@ -24,7 +25,7 @@ private:
 };
 
 template<typename T>
-inline BlackboardQuestion<T>::BlackboardQuestion(Actor* asker) : m_asker(asker) {}
+inline BlackboardQuestion<T>::BlackboardQuestion(Actor* asker) : m_asker(asker), BlackboardItem(QUESTION) {}
 
 template<typename T>
 inline Actor* BlackboardQuestion<T>::evaluateAnswers()

@@ -146,6 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlackboardData.cpp" />
+    <ClCompile Include="BlackboardQuestion.cpp" />
     <ClCompile Include="Framework\AABBCollider.cpp" />
     <ClCompile Include="Framework\Actor.cpp" />
     <ClCompile Include="Framework\Agent.cpp" />
@@ -175,6 +177,8 @@
     <ClCompile Include="Wander.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlackboardData.h" />
+    <ClInclude Include="BlackboardQuestion.h" />
     <ClInclude Include="Framework\AABBCollider.h" />
     <ClInclude Include="Framework\Actor.h" />
     <ClInclude Include="Framework\Agent.h" />

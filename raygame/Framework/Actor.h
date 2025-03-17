@@ -103,6 +103,12 @@ public:
     float getMaxVelocity() { return m_maxVelocity; }
     void setMaxVelocity(float value) { m_maxVelocity = value; }
 
+    /// <summary>
+    /// Called when an answer this actor gave ends up being the best answer.
+    /// </summary>
+    /// <param name="asker">The actor who asked the question.</param>
+    virtual void onAnswerSuccess(Actor* asker) {};
+
 protected:
     const char* m_name;
 

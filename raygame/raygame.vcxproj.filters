@@ -50,7 +50,7 @@
     <ClCompile Include="Framework\Agent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Behavior.cpp">
+    <ClCompile Include="Framework\Behavior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SampleAgent.cpp">
@@ -98,9 +98,6 @@
     <ClCompile Include="BlackboardData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BlackboardQuestion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Scene.h">
@@ -139,10 +136,10 @@
     <ClInclude Include="Framework\Agent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Behavior.h">
+    <ClInclude Include="Framework\Behavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Iterator.h">
+    <ClInclude Include="Framework\Iterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Framework\List.h">
@@ -200,6 +197,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BlackboardQuestion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackboardAnswer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

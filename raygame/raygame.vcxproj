@@ -147,12 +147,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BlackboardData.cpp" />
-    <ClCompile Include="BlackboardQuestion.cpp" />
     <ClCompile Include="Framework\AABBCollider.cpp" />
     <ClCompile Include="Framework\Actor.cpp" />
     <ClCompile Include="Framework\Agent.cpp" />
     <ClCompile Include="Arrival.cpp" />
-    <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="Framework\Behavior.cpp" />
     <ClCompile Include="Framework\CircleCollider.cpp" />
     <ClCompile Include="Framework\Collider.cpp" />
     <ClCompile Include="Framework\Component.cpp" />
@@ -177,13 +176,19 @@
     <ClCompile Include="Wander.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlackboardAnswer.h" />
     <ClInclude Include="BlackboardData.h" />
-    <ClInclude Include="BlackboardQuestion.h" />
+    <ClInclude Include="BlackboardQuestion.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Framework\AABBCollider.h" />
     <ClInclude Include="Framework\Actor.h" />
     <ClInclude Include="Framework\Agent.h" />
     <ClInclude Include="Arrival.h" />
-    <ClInclude Include="Behavior.h" />
+    <ClInclude Include="Framework\Behavior.h" />
     <ClInclude Include="Blackboard.h" />
     <ClInclude Include="Framework\CircleCollider.h" />
     <ClInclude Include="Framework\Collider.h" />
@@ -194,7 +199,7 @@
     <ClInclude Include="Evade.h" />
     <ClInclude Include="Flee.h" />
     <ClInclude Include="Hunter.h" />
-    <ClInclude Include="Iterator.h" />
+    <ClInclude Include="Framework\Iterator.h" />
     <ClInclude Include="Framework\List.h" />
     <ClInclude Include="Framework\Node.h" />
     <ClInclude Include="Pathfinding\NodeMap.h" />

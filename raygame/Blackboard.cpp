@@ -1,6 +1,8 @@
 #include "Blackboard.h"
 #include <string>
 
+
+
 // Hashes the given character pointer using ELF hash.
 unsigned int Hash(unsigned char* value)
 {

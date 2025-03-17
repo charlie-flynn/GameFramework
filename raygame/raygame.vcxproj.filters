@@ -98,6 +98,9 @@
     <ClCompile Include="BlackboardData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Blackboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Scene.h">
@@ -200,6 +203,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BlackboardAnswer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackboardItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

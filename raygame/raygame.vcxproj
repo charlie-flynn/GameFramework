@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Blackboard.cpp" />
     <ClCompile Include="BlackboardData.cpp" />
     <ClCompile Include="Framework\AABBCollider.cpp" />
     <ClCompile Include="Framework\Actor.cpp" />
@@ -178,6 +179,7 @@
   <ItemGroup>
     <ClInclude Include="BlackboardAnswer.h" />
     <ClInclude Include="BlackboardData.h" />
+    <ClInclude Include="BlackboardItem.h" />
     <ClInclude Include="BlackboardQuestion.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>

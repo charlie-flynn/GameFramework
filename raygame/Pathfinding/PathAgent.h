@@ -1,11 +1,12 @@
 #pragma once
 #include "raylib.h"
 #include "pathfinding.h"
+#include "Agent.h"
 #include <vector>
 
 namespace Pathfinding
 {
-	class PathAgent
+	class PathAgent : public Agent
 	{
 	public:
 		Vector2 position;

@@ -11,6 +11,11 @@
 
 #include "Pathfinding/Pathfinding.h"
 
+SampleScene::SampleScene() : Scene()
+{
+
+}
+
 void SampleScene::start()
 {
 	CursorChaser* cursorGuy = new CursorChaser(200, 200);

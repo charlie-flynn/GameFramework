@@ -4,8 +4,11 @@
 class SampleScene :
     public Scene
 {
+private:
+    BlackboardQuestion* m_test;
+
 public:
-    BlackboardQuestion test;
+    SampleScene();
 
     void start() override;
     void update(float deltaTime) override;

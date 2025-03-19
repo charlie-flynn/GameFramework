@@ -2,6 +2,7 @@
 #include <Matrix3.h>
 #include "Actor.h"
 #include "DynamicArray.h"
+#include "Blackboard.h"
 
 class Scene
 {
@@ -52,7 +53,7 @@ public:
     /// <param name="actor">The actor to look for in the scene's array.</param>
     void removeActor(Actor* actor);
 
-
+    Blackboard* getBlackboard() { return m_blackboard; }
 
     virtual void start();
 
@@ -71,4 +72,5 @@ private:
     bool m_started;
     int m_actorCount;
     int m_UIElementCount;
+    Blackboard* m_blackboard;
 };

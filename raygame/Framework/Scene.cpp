@@ -7,6 +7,7 @@ Scene::Scene()
     m_actorCount = 0;
     m_actors = DynamicArray<Actor*>();
     m_world = new MathLibrary::Matrix3();
+    m_blackboard = new Blackboard(this);
 }
 
 MathLibrary::Matrix3* Scene::getWorld()

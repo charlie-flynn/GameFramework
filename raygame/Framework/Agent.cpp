@@ -1,15 +1,15 @@
 #include "Agent.h"
 #include "Transform2D.h"
 
-Agent::Agent() : Actor()
+Agent::Agent() : Actor(), m_blackboard(new Blackboard(this))
 {
 }
 
-Agent::Agent(float x, float y) : Actor(x, y, "remove name soon pls")
+Agent::Agent(float x, float y) : Actor(x, y, "remove name soon pls"), m_blackboard(new Blackboard(this))
 {
 }
 
-Agent::Agent(Behavior* behaviors[], int length) : Actor()
+Agent::Agent(Behavior* behaviors[], int length) : Actor(), m_blackboard(new Blackboard(this))
 {
 	for (int i = 0; i < length; i++)
 	{

@@ -19,3 +19,33 @@ unsigned int Hash(unsigned char* value)
     }
     return (hash & 0x7FFFFFFF);
 }
+
+Blackboard::Blackboard()
+{
+}
+
+Blackboard::Blackboard(Actor* owner)
+{
+}
+
+Blackboard::Blackboard(Scene* owner)
+{
+}
+
+void Blackboard::addData(char* key, BlackboardData* value)
+{
+    unsigned int hash = Hash((unsigned char*)key);
+    m_data.insert(std::pair<unsigned int, BlackboardData*>(hash, value));
+}
+
+bool Blackboard::removeData(char* key)
+{
+    unsigned int hash = Hash((unsigned char*)key);
+    return m_data.erase(hash);
+}
+
+BlackboardData* Blackboard::getData(char* key)
+{
+    unsigned int hash = Hash((unsigned char*)key);
+    return m_data[hash];
+}

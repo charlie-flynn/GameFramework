@@ -9,6 +9,7 @@ public:
 	Actor* owner;
 	T value;
 
+	[[deprecated("couldnt make questions work, blackboard only stores questions right now")]]
 	BlackboardAnswer(Actor* owner, T value);
 };
 

@@ -257,6 +257,40 @@ namespace Pathfinding
 		return path;
 	}
 
+	std::vector<Node*> GetSmoothedPath(std::vector<Node*> path)
+	{
+		std::vector<Node*> newPath = std::vector<Node*>();
+
+		// push the front onto the path
+		newPath.push_back(path.front());
+
+		// record iters for the node after and before the iterator
+		auto nextIter = path.begin();
+		nextIter++;
+		auto prevIter = path.begin();
+
+		for (auto iter = path.begin(); nextIter != path.end(); iter++, nextIter++)
+		{
+			// skip the first node
+			if (iter == path.begin())
+				continue;
+
+			Pathfinding::Node* prevNode = *prevIter;
+			Pathfinding::Node* nextNode = *nextIter;
+
+			// add iter to the smoothed path if it's in a corner
+			if (prevNode->position.x != nextNode->position.x && prevNode->position.y != nextNode->position.y)
+				newPath.push_back(*iter);
+
+			prevIter++;
+		}
+
+		// add the end node to the smoothed path
+		newPath.push_back(path.back());
+
+		return newPath;
+	}
+
 	void DrawPath(std::vector<Node*>& path, Color lineColor)
 	{
 		for (int i = 1; i < path.size(); i++)

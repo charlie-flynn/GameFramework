@@ -17,7 +17,7 @@ namespace Pathfinding {
 	struct Node {
 
 		Node() {}
-		Node(float x, float y) { position.x = x; position.y = y; gScore = 0; previous = nullptr; }
+		Node(float x, float y) { position.x = x; position.y = y; gScore = 0; hScore = 0; previous = nullptr; }
 
 		Vector2 position;
 
@@ -32,6 +32,7 @@ namespace Pathfinding {
 
 	std::vector<Node*> DijkstrasSearch(Node* startNode, Node* endNode);
 	std::vector<Node*> AStarSearch(Node* startNode, Node* endNode);
+	std::vector<Node*> GetSmoothedPath(std::vector<Node*> path);
 	void DrawPath(std::vector<Node*>& path, Color lineColor);
 	void DrawNode(Node* node, bool selected = false);
 	void DrawGraph(Node* node, std::vector<Node*>* drawnList);

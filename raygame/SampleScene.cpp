@@ -10,8 +10,9 @@
 #include <string>
 
 #include "Pathfinding/Pathfinding.h"
+#include "Pathfinding/NodeMap.h"
 
-SampleScene::SampleScene() : Scene()
+SampleScene::SampleScene() : Scene(), m_nodeMap(Pathfinding::NodeMap())
 {
 
 }
@@ -21,11 +22,32 @@ void SampleScene::start()
 	CursorChaser* cursorGuy = new CursorChaser(200, 200);
 	addActor(cursorGuy);
 
-	//SampleAgent* sampleGuy = new SampleAgent(400, 400);
-	//addActor(sampleGuy);
+	SampleAgent* sampleGuy = new SampleAgent(50, 50);
+	addActor(sampleGuy);
 
 	Hunter* hunter = new Hunter(400, 400, cursorGuy);
 	addActor(hunter);
+
+	std::vector<std::string> asciimap;
+	asciimap.push_back("0000000000");
+	asciimap.push_back("0111101110");
+	asciimap.push_back("0111101110");
+	asciimap.push_back("0111101110");
+	asciimap.push_back("0111111110");
+	asciimap.push_back("0000000000");
+
+	m_nodeMap.cellSize = 80;
+	m_nodeMap.Initialise(asciimap);
+
+
+	Pathfinding::Node* nodeA = m_nodeMap.GetNode(2, 2);
+	Pathfinding::Node* nodeB = m_nodeMap.GetNode(8, 1);
+
+	std::vector<Pathfinding::Node*> path = Pathfinding::AStarSearch(nodeA, nodeB);
+
+	path = Pathfinding::GetSmoothedPath(path);
+
+	sampleGuy->setPath(path);
 
 	/*
 	Actor* test = new Actor(50, 50, "Test");
@@ -40,6 +62,8 @@ void SampleScene::start()
 void SampleScene::update(float deltaTime)
 {
 	Scene::update(deltaTime);
+
+	m_nodeMap.Draw(true);
 	/*
 	DrawText(std::to_string(deltaTime).c_str(), 20, 20, 20, WHITE);
 	DrawFPS(20, 50);

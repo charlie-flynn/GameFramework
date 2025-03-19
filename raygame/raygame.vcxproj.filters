@@ -101,6 +101,9 @@
     <ClCompile Include="Framework\Blackboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pathfinding\PathBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Scene.h">
@@ -197,6 +200,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Framework\BlackboardData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pathfinding\PathBehavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -164,6 +164,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pathfinding\NodeMap.cpp" />
     <ClCompile Include="Pathfinding\PathAgent.cpp" />
+    <ClCompile Include="Pathfinding\PathBehavior.cpp" />
     <ClCompile Include="Pathfinding\Pathfinding.cpp" />
     <ClCompile Include="Pathfinding\PathScene.cpp" />
     <ClCompile Include="Pursue.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Framework\Node.h" />
     <ClInclude Include="Pathfinding\NodeMap.h" />
     <ClInclude Include="Pathfinding\PathAgent.h" />
+    <ClInclude Include="Pathfinding\PathBehavior.h" />
     <ClInclude Include="Pathfinding\Pathfinding.h" />
     <ClInclude Include="Pathfinding\PathScene.h" />
     <ClInclude Include="Pursue.h" />

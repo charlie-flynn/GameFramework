@@ -1,11 +1,12 @@
 #pragma once
 #include "Scene.h"
-#include "BlackboardQuestion.h"
+#include "Pathfinding/NodeMap.h"
+
 class SampleScene :
     public Scene
 {
 private:
-    BlackboardQuestion* m_test;
+    Pathfinding::NodeMap m_nodeMap;
 
 public:
     SampleScene();

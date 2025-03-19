@@ -14,7 +14,7 @@ private:
 		Actor* m_actorOwner;
 		Scene* m_sceneOwner;
 	};
-	DynamicArray<BlackboardItem> m_questions;
+	DynamicArray<BlackboardQuestion> m_questions;
 
 public:
 

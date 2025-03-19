@@ -2,50 +2,46 @@
 #include "DynamicArray.h"
 #include "BlackboardAnswer.h"
 #include "BlackboardItem.h"
+#include "Vector2.h"
+
+#include <iostream>
 
 class Actor;
 
-template <typename T>
-class BlackboardQuestion : public BlackboardItem
+enum EAnswerTypes
+{
+	ANSWER_UNKNOWN = 0,
+	INT,
+	VECTOR2
+};
+
+class BlackboardQuestion
 {
 private:
 	Actor* m_asker;
-	DynamicArray<BlackboardAnswer<T>*> m_answers;
+	EAnswerTypes m_type;
+	union
+	{
+		DynamicArray<BlackboardAnswer<int>*> m_intAnswers;
+		DynamicArray<BlackboardAnswer<MathLibrary::Vector2>*> m_vector2Answers;
+	};
 
 public:
-	BlackboardQuestion(Actor* asker);
+	BlackboardQuestion(Actor* asker, EAnswerTypes type);
 
 	Actor* getAsker() { return m_asker; }
-	void addAnswer(BlackboardAnswer<T>* answer) { m_answers.Add(answer); }
 
-	Actor* evaluateAnswers();
+	// returns false if type does not match up with stored type
+	bool addAnswer(BlackboardAnswer<int>* answer) { return m_type == INT ? m_intAnswers.Add(answer), true : false; }
+	bool addAnswer(BlackboardAnswer<MathLibrary::Vector2>* answer) { return m_type == VECTOR2 ? m_vector2Answers.Add(answer), true : false; }
+
+	// this solution objectively sucks but it's the least hard-codey hard-coding i can do
+	BlackboardAnswer<int>* evaluateIntAnswers();
+	BlackboardAnswer<MathLibrary::Vector2>* evaluateVector2Answers();
+	
 
 private:
-	virtual bool evaluateAnswer(Actor* answer, Actor* bestAnswer) = 0;
+	virtual bool compareIntAnswers(BlackboardAnswer<int>* answer, BlackboardAnswer<int>* bestAnswer) {};
+	virtual bool compareVector2Answers(BlackboardAnswer<MathLibrary::Vector2>* answer, BlackboardAnswer<MathLibrary::Vector2>* bestAnswer) {};
 };
 
-template<typename T>
-inline BlackboardQuestion<T>::BlackboardQuestion(Actor* asker) : m_asker(asker), BlackboardItem(QUESTION) {}
-
-template<typename T>
-inline Actor* BlackboardQuestion<T>::evaluateAnswers()
-{
-	Actor* bestExpert = nullptr;
-	T bestAnswer = T();
-
-	for (BlackboardAnswer<T> answer : m_answers)
-	{
-		if (evaluateAnswer(answer, bestAnswer))
-		{
-			bestExpert = answer.owner;
-			bestAnswer = answer.value;
-		}
-	}
-
-	if (bestExpert && bestAnswer)
-	{
-		return bestExpert;
-	}
-
-	return nullptr;
-}

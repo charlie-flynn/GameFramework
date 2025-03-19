@@ -3,9 +3,9 @@
 
 enum EBlackboardDataTypes
 {
-	UNKNOWN = 0,
-	INT,
-	VECTOR2,
+	DATA_UNKNOWN = 0,
+	DATA_INT,
+	DATA_VECTOR2,
 };
 
 struct BlackboardData

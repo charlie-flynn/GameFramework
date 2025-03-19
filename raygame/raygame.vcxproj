@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="Blackboard.cpp" />
     <ClCompile Include="BlackboardData.cpp" />
+    <ClCompile Include="BlackboardQuestion.cpp" />
     <ClCompile Include="Framework\AABBCollider.cpp" />
     <ClCompile Include="Framework\Actor.cpp" />
     <ClCompile Include="Framework\Agent.cpp" />

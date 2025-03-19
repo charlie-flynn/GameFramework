@@ -18,5 +18,5 @@ public:
 	void update(float deltaTime) override;
 	void draw() override;
 
-	void setPath(std::vector<Pathfinding::Node*> path) { m_pathBehavior->setPath(path); }
+	void setPath(std::vector<Pathfinding::Node*>* path) { m_pathBehavior->setPath(path); }
 };

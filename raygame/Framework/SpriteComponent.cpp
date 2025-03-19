@@ -16,13 +16,13 @@ SpriteComponent::~SpriteComponent()
     delete m_texture;
 }
 
-SpriteComponent::SpriteComponent(Actor* owner, Texture2D* texture) : Component(owner)
+SpriteComponent::SpriteComponent(Actor* owner, Texture2D* texture) : Component(owner), m_drawRotatedTexture(true)
 {
     m_texture = texture;
     color = { 1,1,1,1 };
 }
 
-SpriteComponent::SpriteComponent(Actor* owner, const char* path) : Component(owner)
+SpriteComponent::SpriteComponent(Actor* owner, const char* path) : Component(owner), m_drawRotatedTexture(true)
 {
     m_texture = new Texture2D(RAYLIB_H::LoadTexture(path));
     color = { 1,1,1,1 };
@@ -56,6 +56,7 @@ void SpriteComponent::setColor(float r, float g, float b, float a)
 void SpriteComponent::draw()
 {
     MathLibrary::Matrix3* transform = getOwner()->getTransform()->getGlobalMatrix();
+
     //Finds the scale of the sprite
     float xMagnitude = (float)round(MathLibrary::Vector2(transform->m00, transform->m10).getMagnitude());
     float yMagnitude = (float)round(MathLibrary::Vector2(transform->m01, transform->m11).getMagnitude());
@@ -70,7 +71,10 @@ void SpriteComponent::draw()
     pos = pos - (up.getNormalized() * getHeight() / 2);
 
     //Find the transform rotation in radians 
-    float rotation = atan2(transform->m10, transform->m00);
+    float rotation = 0;
+    if (m_drawRotatedTexture)
+        rotation = atan2(transform->m10, transform->m00);
+
     RAYLIB_H::Vector2 rayPos = { pos.x, pos.y };
 
     MathLibrary::Vector4 colorConverted = color * 255;

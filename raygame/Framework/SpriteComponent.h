@@ -6,8 +6,14 @@ class Transform2D;
 
 class SpriteComponent : public Component
 {
+private:
+    bool m_drawRotatedTexture;
+
 public:
     SpriteComponent() {}
+
+    void setTextureRotating(bool value) { m_drawRotatedTexture = true; }
+
     ~SpriteComponent();
     /// <summary>
     /// Loads the given texture
@@ -54,7 +60,7 @@ public:
     /// Draws the sprite using the rotation, translation, and scale
     /// of the given transform
     /// </summary>
-    /// <param name="transform"></param>
+    /// <param name="isRotated">whether or not to rotate the texture</param>
     void draw() override;
 
 private:

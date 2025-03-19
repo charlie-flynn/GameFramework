@@ -8,7 +8,7 @@
 SampleAgent::SampleAgent(float x, float y) : Agent(x, y), m_seek(new Seek(this, 0.0f, {200, 200})), 
 m_flee(new Flee(this, 0.0f, {200, 200})), 
 m_wander(new Wander(this, 0.0f, 50.0f, 30.0f)),
-m_pathBehavior(new PathBehavior(this, 1.0f, std::vector<Pathfinding::Node*>()))
+m_pathBehavior(new PathBehavior(this, 1.0f, new std::vector<Pathfinding::Node*>()))
 {
 	setMaxVelocity(100.0f);
 }

@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alien.cpp" />
     <ClCompile Include="Framework\Blackboard.cpp" />
     <ClCompile Include="Framework\BlackboardData.cpp" />
     <ClCompile Include="Framework\AABBCollider.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="Wander.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alien.h" />
     <ClInclude Include="Framework\BlackboardData.h" />
     <ClInclude Include="Framework\AABBCollider.h" />
     <ClInclude Include="Framework\Actor.h" />

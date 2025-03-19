@@ -13,5 +13,5 @@ public:
 	void update(float deltaTime) override;
 
 	void setPath(std::vector<Pathfinding::Node*>* path);
-	bool isPathEmpty() { return m_path->empty(); }
+	bool isPathEmpty();
 };

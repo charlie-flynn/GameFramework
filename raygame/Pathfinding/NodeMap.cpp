@@ -148,6 +148,16 @@ namespace Pathfinding
 
 		return GetNode(i, j);
 	}
+	Node* NodeMap::GetClosestNode(float x, float y)
+	{
+		int i = x / cellSize;
+		if (i < 0 || i >= width) return nullptr;
+
+		int j = y / cellSize;
+		if (j < 0 || j >= height) return nullptr;
+
+		return GetNode(i, j);
+	}
 }
 
 

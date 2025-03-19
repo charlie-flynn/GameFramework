@@ -47,5 +47,9 @@ bool Blackboard::removeData(char* key)
 BlackboardData* Blackboard::getData(char* key)
 {
     unsigned int hash = Hash((unsigned char*)key);
+
+    if (m_data.find(hash) == m_data.end())
+        return nullptr;
+
     return (*(m_data.find(hash))).second;
 }

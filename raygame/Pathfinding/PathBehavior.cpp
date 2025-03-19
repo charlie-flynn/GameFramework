@@ -50,3 +50,10 @@ void PathBehavior::setPath(std::vector<Pathfinding::Node*>* path)
     m_path = path;
     setTargetPosition(m_path->front()->position.x, m_path->front()->position.y);
 }
+
+bool PathBehavior::isPathEmpty()
+{
+    if (!m_path)
+        return true;
+    return m_path->empty();
+}

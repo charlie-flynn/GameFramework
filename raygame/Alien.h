@@ -58,7 +58,6 @@ private:
 	void blastTargetUpdate();
 	void fleeTargetUpdate();
 
-	void onEnterInvestigate();
-
-
+	void setState(EAlienStateMachine state);
+	void setBehaviorWeights(float pathWeight, float arrivalWeight, float fleeWeight, float evadeWeight, float seekWeight, float pursueWeight);
 };

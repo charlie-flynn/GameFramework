@@ -146,9 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Blackboard.cpp" />
-    <ClCompile Include="BlackboardData.cpp" />
-    <ClCompile Include="BlackboardQuestion.cpp" />
+    <ClCompile Include="Framework\Blackboard.cpp" />
+    <ClCompile Include="Framework\BlackboardData.cpp" />
     <ClCompile Include="Framework\AABBCollider.cpp" />
     <ClCompile Include="Framework\Actor.cpp" />
     <ClCompile Include="Framework\Agent.cpp" />
@@ -178,21 +177,13 @@
     <ClCompile Include="Wander.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BlackboardAnswer.h" />
-    <ClInclude Include="BlackboardData.h" />
-    <ClInclude Include="BlackboardItem.h" />
-    <ClInclude Include="BlackboardQuestion.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Framework\BlackboardData.h" />
     <ClInclude Include="Framework\AABBCollider.h" />
     <ClInclude Include="Framework\Actor.h" />
     <ClInclude Include="Framework\Agent.h" />
     <ClInclude Include="Arrival.h" />
     <ClInclude Include="Framework\Behavior.h" />
-    <ClInclude Include="Blackboard.h" />
+    <ClInclude Include="Framework\Blackboard.h" />
     <ClInclude Include="Framework\CircleCollider.h" />
     <ClInclude Include="Framework\Collider.h" />
     <ClInclude Include="Framework\Component.h" />

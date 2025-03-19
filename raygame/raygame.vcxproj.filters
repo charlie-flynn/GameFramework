@@ -95,13 +95,10 @@
     <ClCompile Include="Game\TitleScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BlackboardData.cpp">
+    <ClCompile Include="Framework\BlackboardData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Blackboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BlackboardQuestion.cpp">
+    <ClCompile Include="Framework\Blackboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -196,19 +193,10 @@
     <ClInclude Include="Game\TitleScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Blackboard.h">
+    <ClInclude Include="Framework\Blackboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BlackboardData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BlackboardQuestion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BlackboardAnswer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BlackboardItem.h">
+    <ClInclude Include="Framework\BlackboardData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,15 +20,15 @@ unsigned int Hash(unsigned char* value)
     return (hash & 0x7FFFFFFF);
 }
 
-Blackboard::Blackboard()
+Blackboard::Blackboard() : m_ownerIsScene(false), m_sceneOwner(nullptr)
 {
 }
 
-Blackboard::Blackboard(Actor* owner)
+Blackboard::Blackboard(Actor* owner) : m_ownerIsScene(false), m_actorOwner(owner)
 {
 }
 
-Blackboard::Blackboard(Scene* owner)
+Blackboard::Blackboard(Scene* owner) : m_ownerIsScene(true), m_sceneOwner(owner)
 {
 }
 
@@ -47,5 +47,5 @@ bool Blackboard::removeData(char* key)
 BlackboardData* Blackboard::getData(char* key)
 {
     unsigned int hash = Hash((unsigned char*)key);
-    return m_data[hash];
+    return (*(m_data.find(hash))).second;
 }

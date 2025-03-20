@@ -211,9 +211,6 @@
     <ClInclude Include="Pathfinding\PathComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pathfinding\PathComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Images\bullet.png">

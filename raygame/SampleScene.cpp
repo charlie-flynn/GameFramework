@@ -14,7 +14,7 @@
 
 #include "Alien.h"
 
-SampleScene::SampleScene() : Scene(), m_nodeMap(Pathfinding::NodeMap())
+SampleScene::SampleScene() : Scene(), m_nodeMap(Pathfinding::NodeMap()), m_mapTexture(Texture2D())
 {
 
 }
@@ -67,6 +67,8 @@ void SampleScene::start()
 	Alien* alienC = new Alien(&m_nodeMap, 360, 200);
 	addActor(alienC);
 
+	m_mapTexture = LoadTexture("Images/game map.png");
+
 	/*
 	Actor* test = new Actor(50, 50, "Test");
 	SpriteComponent* sprite = new SpriteComponent(test, "Images/player.png");
@@ -79,8 +81,9 @@ void SampleScene::start()
 
 void SampleScene::update(float deltaTime)
 {
+	DrawTexture(m_mapTexture, 0, 0, { 255, 255, 255, 255 });
 	Scene::update(deltaTime);
-	m_nodeMap.Draw(true);
+	//m_nodeMap.Draw(true);
 
 	//m_nodeMap.Draw(true);
 	/*

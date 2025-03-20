@@ -8,6 +8,8 @@ class SpriteComponent : public Component
 {
 private:
     bool m_drawRotatedTexture;
+    float m_xOffset;
+    float m_yOffset;
 
 public:
     SpriteComponent() {}
@@ -62,6 +64,9 @@ public:
     /// </summary>
     /// <param name="isRotated">whether or not to rotate the texture</param>
     void draw() override;
+
+    void setXOffset(float value) { m_xOffset = value; }
+    void setYOffset(float value) { m_yOffset = value; }
 
 private:
     Texture2D* m_texture;

@@ -98,6 +98,7 @@ void Alien::start()
 	setCollider(new CircleCollider(40, this));
 
 	m_sprite->setTextureRotating(false);
+	m_sprite->setYOffset(-20.0f);
 	addComponent(m_sprite);
 
 	//m_pathBehavior->setWeight(1.0f);

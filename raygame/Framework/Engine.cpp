@@ -29,7 +29,7 @@ void Engine::start()
 	//Initialize window
 	int screenWidth = 700;
 	int screenHeight = 800;
-	InitWindow(screenWidth, screenHeight, "Intro To C++");
+	InitWindow(screenWidth, screenHeight, "AI Demo");
 	SetTargetFPS(0);
 
 	// Seed randomizer

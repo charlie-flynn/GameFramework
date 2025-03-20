@@ -7,6 +7,7 @@ class SampleScene :
 {
 private:
     Pathfinding::NodeMap m_nodeMap;
+    Texture2D m_mapTexture;
 
 public:
     SampleScene();

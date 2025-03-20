@@ -64,7 +64,7 @@ void SpriteComponent::draw()
     setHeight((int)yMagnitude);
 
     //Sets the sprite center to the transform 
-    MathLibrary::Vector2 pos = MathLibrary::Vector2(transform->m02, transform->m12);
+    MathLibrary::Vector2 pos = MathLibrary::Vector2(transform->m02 + m_xOffset, transform->m12 + m_yOffset);
     if (m_drawRotatedTexture)
     {
         MathLibrary::Vector2 forward = MathLibrary::Vector2(transform->m00, transform->m10);

@@ -199,7 +199,6 @@
     <ClInclude Include="Framework\Iterator.h" />
     <ClInclude Include="Framework\List.h" />
     <ClInclude Include="Framework\Node.h" />
-    <ClInclude Include="Pathfinding\PathComponent.h" />
     <ClInclude Include="Pathfinding\NodeMap.h" />
     <ClInclude Include="Pathfinding\PathAgent.h" />
     <ClInclude Include="Pathfinding\PathBehavior.h" />

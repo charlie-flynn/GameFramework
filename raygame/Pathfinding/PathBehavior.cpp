@@ -1,8 +1,6 @@
 #include "PathBehavior.h"
 #include "Actor.h"
 #include "Transform2D.h"
-
-#include <iostream>
 PathBehavior::PathBehavior(Actor* owner, float weight, std::vector<Pathfinding::Node*> path) : m_path(path), Behavior(owner, weight, MathLibrary::Vector2(0, 0))
 {
     if (!path.empty())
@@ -18,7 +16,7 @@ void PathBehavior::update(float deltaTime)
     MathLibrary::Vector2 ownerPosition = owner->getTransform()->getWorldPosition();
     MathLibrary::Vector2 ownerVelocity = owner->getVelocity();
 
-    float distance = (getTargetPosition() - ownerPosition).getMagnitude();
+    float distance = (getTargetPosition() - (ownerPosition + ownerVelocity)).getMagnitude();
 
     // if distance is less than that, pop off the front node and set the target position to the new front node (if there is one)
     if (distance < 20.0f && !m_path.empty())
@@ -33,8 +31,8 @@ void PathBehavior::update(float deltaTime)
     // this is just slightly tweaked arrival
     MathLibrary::Vector2 desiredDirection = MathLibrary::Vector2::normalize(getTargetPosition() - ownerPosition) * owner->getMaxVelocity();
 
-    if (distance < owner->getMaxVelocity())
-        desiredDirection = desiredDirection.getNormalized() * owner->getMaxVelocity() * (distance / (owner->getMaxVelocity() * 1.6f));
+    if (distance < 80)
+        desiredDirection = desiredDirection.getNormalized() * owner->getMaxVelocity() * (distance / (owner->getMaxVelocity() * 2.0f));
 
     MathLibrary::Vector2 steeringForce = desiredDirection - ownerVelocity;
 

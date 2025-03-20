@@ -44,6 +44,12 @@ public:
     const char* getName() { return m_name; }
 
     /// <summary>
+    /// Returns the ID of this actor
+    /// </summary>
+    /// <returns></returns>
+    const int getID() { return m_id; }
+
+    /// <summary>
     /// Iterates through all components in the component array to find one
     /// that matches the given component.
     /// </summary>
@@ -111,6 +117,7 @@ public:
 
 protected:
     const char* m_name;
+    int m_id;
 
 private:
     bool m_started;

@@ -11,6 +11,7 @@
 #include "Pursue.h"
 
 #include "SpriteComponent.h"
+#include "Pathfinding/PathComponent.h"
 
 
 
@@ -30,6 +31,7 @@ private:
 	Actor* m_target;
 
 	// behaviors
+	PathComponent* m_pathComponent;
 	PathBehavior* m_pathBehavior;
 	Arrival* m_arrival;
 	Flee* m_flee;
@@ -45,6 +47,9 @@ private:
 	bool m_isDead;
 	int m_health;
 	int m_maxHealth;
+
+	float m_investigateTimer;
+	float m_blastTimer;
 
 public:
 	Alien();
@@ -65,14 +70,15 @@ public:
 private:
 
 	void wanderUpdate();
-	void investigateUpdate();
+	void investigateUpdate(float deltaTime);
 	void eatTargetUpdate();
-	void blastTargetUpdate();
+	void blastTargetUpdate(float deltaTime);
 	void fleeTargetUpdate();
 
 	void setState(EAlienStateMachine state);
 	void setBehaviorWeights(float pathWeight, float arrivalWeight, float fleeWeight, float seekWeight);
 
-	void setSeekTargetPosition(float x, float y);
-	void setSeekTargetPosition(MathLibrary::Vector2 position);
+	void setSeekTarget(Actor* target);
+
+	void setFleeTarget(Actor* target);
 };

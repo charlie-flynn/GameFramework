@@ -7,6 +7,7 @@ class PathBehavior : public Behavior
 {
 private:
 	std::vector<Pathfinding::Node*> m_path;
+
 public:
 	PathBehavior(Actor* owner, float weight, std::vector<Pathfinding::Node*> path);
 

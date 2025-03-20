@@ -104,6 +104,9 @@
     <ClCompile Include="Alien.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Pathfinding\PathComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Scene.h">
@@ -203,6 +206,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Alien.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pathfinding\PathComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pathfinding\PathComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

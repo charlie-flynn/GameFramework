@@ -21,27 +21,41 @@ SampleScene::SampleScene() : Scene(), m_nodeMap(Pathfinding::NodeMap())
 
 void SampleScene::start()
 {
-	CursorChaser* cursorGuy = new CursorChaser(200, 200);
-	addActor(cursorGuy);
-
-	SampleAgent* sampleGuy = new SampleAgent(50, 50);
-	addActor(sampleGuy);
-
-	Hunter* hunter = new Hunter(400, 400, cursorGuy);
-	addActor(hunter);
-
 	std::vector<std::string> asciimap;
-	asciimap.push_back("0000000000");
-	asciimap.push_back("0111101110");
-	asciimap.push_back("0111101110");
-	asciimap.push_back("0111101110");
-	asciimap.push_back("0111111110");
-	asciimap.push_back("0111111110");
-	asciimap.push_back("0000111110");
-	asciimap.push_back("0111111110");
-	asciimap.push_back("0000000000");
+	asciimap.push_back("0000000000000000000000000000");
+	asciimap.push_back("0000000000000000000000000000");
+	asciimap.push_back("0000000000000000000000000000");
+	asciimap.push_back("0000000000000000000000000000");
+	asciimap.push_back("0111111111111000111111111110");
+	asciimap.push_back("0111111111111000111111111110");
+	asciimap.push_back("0111111111111000111111111110");
+	asciimap.push_back("0111111111111111111111111110");
+	asciimap.push_back("0111000000111000111111111110");
+	asciimap.push_back("0111000000111000111111111110");
+	asciimap.push_back("0111000000111000000100010000");
+	asciimap.push_back("0111000000111000000100010000");
+	asciimap.push_back("0111000000111000000100010000");
+	asciimap.push_back("0111111111111111111111111110");
+	asciimap.push_back("0111111111111111111111111110");
+	asciimap.push_back("0111111111111111111111111110");
+	asciimap.push_back("0111111111111111111111111110");
+	asciimap.push_back("0010000000000000000000000100");
+	asciimap.push_back("0111111111110111111111111110");
+	asciimap.push_back("0111111111110111111111111110");
+	asciimap.push_back("0111111111110111111111111110");
+	asciimap.push_back("0111111111110111111111111110");
+	asciimap.push_back("0111111111110111111111111110");
+	asciimap.push_back("0111111111110111111111111110");
+	asciimap.push_back("0111111111110000000000010000");
+	asciimap.push_back("0111111111110000000000010000");
+	asciimap.push_back("0111111111110000000000010000");
+	asciimap.push_back("0111111111111111111111110000");
+	asciimap.push_back("0111111111110000000000000000");
+	asciimap.push_back("0000000000000000000000000000");
+	asciimap.push_back("0000000000000000000000000000");
+	asciimap.push_back("0000000000000000000000000000");
 
-	m_nodeMap.cellSize = 80;
+	m_nodeMap.cellSize = 25;
 	m_nodeMap.Initialise(asciimap);
 
 	Alien* alien = new Alien(&m_nodeMap, 200, 200);
@@ -52,13 +66,6 @@ void SampleScene::start()
 
 	Alien* alienC = new Alien(&m_nodeMap, 360, 200);
 	addActor(alienC);
-
-	Pathfinding::Node* nodeA = m_nodeMap.GetNode(2, 2);
-	Pathfinding::Node* nodeB = m_nodeMap.GetNode(8, 1);
-
-	std::vector<Pathfinding::Node*> path = Pathfinding::GetSmoothedPath(Pathfinding::AStarSearch(nodeA, nodeB));
-
-	sampleGuy->setPath(path);
 
 	/*
 	Actor* test = new Actor(50, 50, "Test");

@@ -12,6 +12,8 @@
 
 #include "SpriteComponent.h"
 
+#include "CircleCollider.h"
+
 enum EAlienStateMachine
 {
 	WANDER_STATE = 0,
@@ -35,11 +37,13 @@ private:
 	Seek* m_seek;
 	Pursue* m_pursue;
 
-	bool m_isSmarter;
 
 	Pathfinding::NodeMap* m_nodeMap;
-
 	SpriteComponent* m_sprite;
+
+	bool m_isSmarter;
+	int m_health;
+
 public:
 	Alien();
 	Alien(float x, float y);
@@ -48,7 +52,10 @@ public:
 	void start() override;
 	void update(float deltaTime) override;
 
+	void draw() override;
+
 	void setTarget(Actor* target) { m_target = target; }
+	void setNodeMap(Pathfinding::NodeMap* nodemap) { m_nodeMap = nodemap; }
 
 private:
 

@@ -15,3 +15,7 @@ BlackboardData::BlackboardData(MathLibrary::Vector2 data) : dataType(DATA_VECTOR
 BlackboardData::BlackboardData(float vector2DataX, float vector2DataY) : dataType(DATA_VECTOR2), vector2Data(MathLibrary::Vector2(vector2DataX, vector2DataY))
 {
 }
+
+BlackboardData::BlackboardData(Actor* data) : dataType(DATA_ACTORPOINTER), actorData(data)
+{
+}

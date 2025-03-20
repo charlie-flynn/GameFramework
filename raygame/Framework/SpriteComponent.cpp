@@ -63,12 +63,19 @@ void SpriteComponent::draw()
     setWidth((int)xMagnitude);
     setHeight((int)yMagnitude);
 
-    //Sets the sprite center to the transform origin
+    //Sets the sprite center to the transform 
     MathLibrary::Vector2 pos = MathLibrary::Vector2(transform->m02, transform->m12);
-    MathLibrary::Vector2 forward = MathLibrary::Vector2(transform->m00, transform->m10);
-    MathLibrary::Vector2 up = MathLibrary::Vector2(transform->m01, transform->m11);
-    pos = pos - (forward.getNormalized() * getWidth() / 2);
-    pos = pos - (up.getNormalized() * getHeight() / 2);
+    if (m_drawRotatedTexture)
+    {
+        MathLibrary::Vector2 forward = MathLibrary::Vector2(transform->m00, transform->m10);
+        MathLibrary::Vector2 up = MathLibrary::Vector2(transform->m01, transform->m11);
+        pos = pos - (forward.getNormalized() * getWidth() / 2);
+        pos = pos - (up.getNormalized() * getHeight() / 2);
+    }
+    else
+    {
+        pos = pos - MathLibrary::Vector2(xMagnitude / 2, yMagnitude / 2);
+    }
 
     //Find the transform rotation in radians 
     float rotation = 0;

@@ -36,24 +36,27 @@ void SampleScene::start()
 	asciimap.push_back("0111101110");
 	asciimap.push_back("0111101110");
 	asciimap.push_back("0111111110");
+	asciimap.push_back("0111111110");
+	asciimap.push_back("0000111110");
+	asciimap.push_back("0111111110");
 	asciimap.push_back("0000000000");
 
 	m_nodeMap.cellSize = 80;
 	m_nodeMap.Initialise(asciimap);
 
-	Alien* alien = new Alien(m_nodeMap, 200, 200);
+	Alien* alien = new Alien(&m_nodeMap, 200, 200);
 	addActor(alien);
 
-	Alien* alienB = new Alien(m_nodeMap, 280, 200);
+	Alien* alienB = new Alien(&m_nodeMap, 280, 200);
 	addActor(alienB);
 
-	Alien* alienC = new Alien(m_nodeMap, 360, 200);
+	Alien* alienC = new Alien(&m_nodeMap, 360, 200);
 	addActor(alienC);
 
 	Pathfinding::Node* nodeA = m_nodeMap.GetNode(2, 2);
 	Pathfinding::Node* nodeB = m_nodeMap.GetNode(8, 1);
 
-	std::vector<Pathfinding::Node*>* path = new std::vector<Pathfinding::Node*>(Pathfinding::GetSmoothedPath(Pathfinding::AStarSearch(nodeA, nodeB)));
+	std::vector<Pathfinding::Node*> path = Pathfinding::GetSmoothedPath(Pathfinding::AStarSearch(nodeA, nodeB));
 
 	sampleGuy->setPath(path);
 
@@ -70,6 +73,7 @@ void SampleScene::start()
 void SampleScene::update(float deltaTime)
 {
 	Scene::update(deltaTime);
+	m_nodeMap.Draw(true);
 
 	//m_nodeMap.Draw(true);
 	/*

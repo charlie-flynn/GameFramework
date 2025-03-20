@@ -12,7 +12,7 @@ private:
 public:
     SpriteComponent() {}
 
-    void setTextureRotating(bool value) { m_drawRotatedTexture = true; }
+    void setTextureRotating(bool value) { m_drawRotatedTexture = value; }
 
     ~SpriteComponent();
     /// <summary>

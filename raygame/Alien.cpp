@@ -12,25 +12,7 @@ Alien::Alien()
 }
 
 Alien::Alien(float x, float y) :
-	m_pathBehavior(new PathBehavior(this, 0.0f, nullptr)),
-	m_arrival(new Arrival(this, 0.0f, {0, 0})),
-	m_flee(new Flee(this, 0.0f, {0, 0})),
-	m_evade(new Evade(this, 0.0f, nullptr)),
-	m_seek(new Seek(this, 0.0f, {0, 0})),
-	m_pursue(new Pursue(this, 0.0f, nullptr)),
-	m_isSmarter(false),
-	m_state(WANDER_STATE),
-	m_nodeMap(nullptr),
-	m_target(nullptr)
-{
-	getTransform()->setWorldPosition(MathLibrary::Vector2(x, y));
-	getTransform()->setScale(MathLibrary::Vector2(50, 50));
-
-	setCollider(new CircleCollider(40, this));
-}
-
-Alien::Alien(Pathfinding::NodeMap nodeMap, float x, float y) :
-	m_pathBehavior(new PathBehavior(this, 0.0f, nullptr)),
+	m_pathBehavior(new PathBehavior(this, 0.0f, std::vector<Pathfinding::Node*>())),
 	m_arrival(new Arrival(this, 0.0f, { 0, 0 })),
 	m_flee(new Flee(this, 0.0f, { 0, 0 })),
 	m_evade(new Evade(this, 0.0f, nullptr)),
@@ -39,12 +21,29 @@ Alien::Alien(Pathfinding::NodeMap nodeMap, float x, float y) :
 	m_isSmarter(false),
 	m_state(WANDER_STATE),
 	m_nodeMap(nullptr),
-	m_target(nullptr)
+	m_target(nullptr),
+	m_isDead(false),
+	m_health(10),
+	m_maxHealth(10)
+{
+}
+
+Alien::Alien(Pathfinding::NodeMap* nodeMap, float x, float y) :
+	m_pathBehavior(new PathBehavior(this, 0.0f, std::vector<Pathfinding::Node*>())),
+	m_arrival(new Arrival(this, 0.0f, { 0, 0 })),
+	m_flee(new Flee(this, 0.0f, { 0, 0 })),
+	m_evade(new Evade(this, 0.0f, nullptr)),
+	m_seek(new Seek(this, 0.0f, { 0, 0 })),
+	m_pursue(new Pursue(this, 0.0f, nullptr)),
+	m_isSmarter(false),
+	m_state(WANDER_STATE),
+	m_nodeMap(nodeMap),
+	m_target(nullptr),
+	m_isDead(false),
+	m_health(10),
+	m_maxHealth(10)
 {
 	getTransform()->setWorldPosition(MathLibrary::Vector2(x, y));
-	getTransform()->setScale(MathLibrary::Vector2(50, 50));
-
-	setCollider(new CircleCollider(40, this));
 }
 
 void Alien::start()
@@ -84,15 +83,50 @@ void Alien::start()
 		}
 	}
 
+
+	getTransform()->setScale(MathLibrary::Vector2(50, 50));
+
+	setCollider(new CircleCollider(40, this));
+
 	m_sprite->setTextureRotating(false);
 	addComponent(m_sprite);
 
+	m_pathBehavior->setWeight(1.0f);
+	setMaxVelocity(200.0f);
+
 	setState(WANDER_STATE);
+
+	addBehavior(m_pathBehavior);
+	addBehavior(m_arrival);
+	addBehavior(m_seek);
+
+	if (m_isSmarter)
+	{
+		delete m_flee;
+		m_flee = nullptr;
+		// we cant delete seek because
+		// we're using it in wanderUpdate
+
+		addBehavior(m_pursue);
+		addBehavior(m_evade);
+	}
+	else
+	{
+		delete m_pursue;
+		m_pursue = nullptr;
+		delete m_evade;
+		m_evade = nullptr;
+
+		addBehavior(m_flee);
+	}
 }
 
 void Alien::update(float deltaTime)
 {
 	Agent::update(deltaTime);
+
+	if (m_isDead)
+		return;
 	
 	// finite state machine
 	switch (m_state)
@@ -107,7 +141,8 @@ void Alien::update(float deltaTime)
 		// arrives at a spot kinda close to the target
 		// based on what the target does and if the alien
 		// has a blaster, switches to any of the other four states
-		// can also access memory to switch faster
+		// can also use blackboard memory to switch faster if it has seen
+		// the target before
 		investigateUpdate();
 		break;
 	case EAT_TARGET_STATE:
@@ -140,6 +175,26 @@ void Alien::update(float deltaTime)
 void Alien::draw()
 {
 	m_sprite->draw();
+
+	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
+
+	DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) + 18, GREEN);
+}
+
+void Alien::takeDamage(int damage)
+{
+	m_health -= damage;
+
+	if (m_health <= 0)
+		m_isDead = true;
+}
+
+void Alien::heal(int healing)
+{
+	m_health += healing;
+
+	if (m_health >= m_maxHealth)
+		m_health = m_maxHealth;
 }
 
 void Alien::wanderUpdate()
@@ -155,18 +210,13 @@ void Alien::wanderUpdate()
 
 			if ((getTransform()->getWorldPosition() - actorPosition).getMagnitude() < 150)
 			{
-				// get a random value between -1 and 1 for both the X and Y coordinates
-				int randomIntX = (rand() % 2001) - 1000;
-				int randomIntY = (rand() % 2001) - 1000;
+				// get the vector pointing from the actor to the alien
+				// and use it to get a position a slight distance away from the actor
 
-				MathLibrary::Vector2 randomTarget = { (float)randomIntX / 1000, (float)randomIntY / 1000 };
+				MathLibrary::Vector2 targetPosition = (actorPosition - getTransform()->getWorldPosition()).getNormalized();
+				targetPosition = (targetPosition * 80) + actorPosition;
 
-				randomTarget.normalize();
-				randomTarget = randomTarget * 15;
-
-				randomTarget = randomTarget + actorPosition;
-
-				m_arrival->setTargetPosition(randomTarget);
+				m_arrival->setTargetPosition(targetPosition);
 
 				setState(INVESTIGATE_STATE);
 			}
@@ -199,7 +249,7 @@ void Alien::wanderUpdate()
 
 			path = Pathfinding::GetSmoothedPath(path);
 
-			m_pathBehavior->setPath(&path);
+			m_pathBehavior->setPath(path);
 
 		}
 		else
@@ -235,40 +285,35 @@ void Alien::setState(EAlienStateMachine state)
 	switch (m_state)
 	{
 	case WANDER_STATE:	
-		setBehaviorWeights(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+		setBehaviorWeights(1.0f, 0.0f, 0.0f, 0.0f);
 		break;
 	case INVESTIGATE_STATE:
-		setBehaviorWeights(0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+		setBehaviorWeights(0.0f, 1.0f, 0.0f, 0.0f);
 		break;
 	case EAT_TARGET_STATE:
-		if (m_isSmarter)
-			setBehaviorWeights(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-		else
-			setBehaviorWeights(0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-		break;
+		setBehaviorWeights(0.0f, 0.0f, 0.0f, 0.0f);
 	case BLAST_TARGET_STATE:
-		if (m_isSmarter)
-			setBehaviorWeights(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
-		else
-			setBehaviorWeights(0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f);
-		break;
+		setBehaviorWeights(0.0f, 0.0f, 0.0f, 1.0f);
 	case FLEE_TARGET_STATE:
-		if (m_isSmarter)
-			setBehaviorWeights(0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f);
-		else
-			setBehaviorWeights(0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f);
-		break;
+		setBehaviorWeights(0.0f, 0.0f, 0.0f, 1.0f);
 	default:
 		break;
 	}
 }
 
-void Alien::setBehaviorWeights(float pathWeight, float arrivalWeight, float fleeWeight, float evadeWeight, float seekWeight, float pursueWeight)
+void Alien::setBehaviorWeights(float pathWeight, float arrivalWeight, float fleeWeight, float seekWeight)
 {
 	m_pathBehavior->setWeight(pathWeight);
 	m_arrival->setWeight(arrivalWeight);
-	m_flee->setWeight(fleeWeight);
-	m_evade->setWeight(evadeWeight);
-	m_seek->setWeight(seekWeight);
-	m_pursue->setWeight(pursueWeight);
+	
+	if (m_isSmarter)
+	{
+		m_evade->setWeight(fleeWeight);
+		m_pursue->setWeight(seekWeight);
+	}
+	else
+	{
+		m_flee->setWeight(fleeWeight);
+		m_seek->setWeight(seekWeight);
+	}
 }

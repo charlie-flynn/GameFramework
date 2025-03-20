@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <vector> 
 
-#define SEARCH_TIMING
+//#define SEARCH_TIMING
 
 #ifdef SEARCH_TIMING
 #include <chrono>

@@ -12,7 +12,7 @@
 
 #include "SpriteComponent.h"
 
-#include "CircleCollider.h"
+
 
 enum EAlienStateMachine
 {
@@ -42,12 +42,14 @@ private:
 	SpriteComponent* m_sprite;
 
 	bool m_isSmarter;
+	bool m_isDead;
 	int m_health;
+	int m_maxHealth;
 
 public:
 	Alien();
 	Alien(float x, float y);
-	Alien(Pathfinding::NodeMap nodeMap, float x, float y);
+	Alien(Pathfinding::NodeMap* nodeMap, float x, float y);
 
 	void start() override;
 	void update(float deltaTime) override;
@@ -56,6 +58,9 @@ public:
 
 	void setTarget(Actor* target) { m_target = target; }
 	void setNodeMap(Pathfinding::NodeMap* nodemap) { m_nodeMap = nodemap; }
+
+	void takeDamage(int damage = 1);
+	void heal(int healing = 1);
 
 private:
 
@@ -66,5 +71,8 @@ private:
 	void fleeTargetUpdate();
 
 	void setState(EAlienStateMachine state);
-	void setBehaviorWeights(float pathWeight, float arrivalWeight, float fleeWeight, float evadeWeight, float seekWeight, float pursueWeight);
+	void setBehaviorWeights(float pathWeight, float arrivalWeight, float fleeWeight, float seekWeight);
+
+	void setSeekTargetPosition(float x, float y);
+	void setSeekTargetPosition(MathLibrary::Vector2 position);
 };

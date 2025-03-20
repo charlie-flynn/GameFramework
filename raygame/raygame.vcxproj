@@ -174,7 +174,6 @@
     <ClCompile Include="Framework\Scene.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="Framework\SpriteComponent.cpp" />
-    <ClCompile Include="Game\TitleScene.cpp" />
     <ClCompile Include="Framework\Transform2D.cpp" />
     <ClCompile Include="Wander.cpp" />
   </ItemGroup>
@@ -210,7 +209,6 @@
     <ClInclude Include="Framework\Scene.h" />
     <ClInclude Include="Seek.h" />
     <ClInclude Include="Framework\SpriteComponent.h" />
-    <ClInclude Include="Game\TitleScene.h" />
     <ClInclude Include="Framework\Transform2D.h" />
     <ClInclude Include="Wander.h" />
   </ItemGroup>

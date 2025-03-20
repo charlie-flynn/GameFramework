@@ -76,7 +76,7 @@ private:
 	void fleeTargetUpdate();
 
 	void setState(EAlienStateMachine state);
-	void setBehaviorWeights(float pathWeight, float arrivalWeight, float fleeWeight, float seekWeight);
+	void setBehaviorWeights(bool pathEnabled, float arrivalWeight, float fleeWeight, float seekWeight);
 
 	void setSeekTarget(Actor* target);
 

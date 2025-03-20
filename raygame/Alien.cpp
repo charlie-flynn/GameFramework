@@ -329,9 +329,9 @@ void Alien::setState(EAlienStateMachine state)
 	}
 }
 
-void Alien::setBehaviorWeights(float pathWeight, float arrivalWeight, float fleeWeight, float seekWeight)
+void Alien::setBehaviorWeights(bool pathEnabled, float arrivalWeight, float fleeWeight, float seekWeight)
 {
-	m_pathBehavior->setWeight(pathWeight);
+	m_pathComponent->setEnabled(pathEnabled);
 	m_arrival->setWeight(arrivalWeight);
 	
 	if (m_isSmarter)

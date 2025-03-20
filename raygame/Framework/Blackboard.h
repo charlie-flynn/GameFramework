@@ -26,7 +26,11 @@ public:
 	Blackboard(Actor* owner);
 	Blackboard(Scene* owner);
 
-	void addData(char* key, BlackboardData* value);
-	bool removeData(char* key);
+	int addData(char* key, BlackboardData* value);
+	bool removeData(char* key, int offset = 0);
+	int removeAllData(char* key);
 	BlackboardData* getData(char* key);
+	BlackboardData* getData(char* key, int offset);
+
+	int getCount() { return m_data.size(); }
 };

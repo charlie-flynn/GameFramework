@@ -12,7 +12,7 @@ Alien::Alien()
 }
 
 Alien::Alien(float x, float y) :
-	m_pathBehavior(new PathBehavior(this, 0.0f, std::vector<Pathfinding::Node*>())),
+	m_pathComponent(new PathComponent(this, 150.0f, std::vector<Pathfinding::Node*>())),
 	m_arrival(new Arrival(this, 0.0f, { 0, 0 })),
 	m_flee(new Flee(this, 0.0f, { 0, 0 })),
 	m_evade(new Evade(this, 0.0f, nullptr)),
@@ -29,7 +29,6 @@ Alien::Alien(float x, float y) :
 }
 
 Alien::Alien(Pathfinding::NodeMap* nodeMap, float x, float y) :
-	m_pathBehavior(new PathBehavior(this, 0.0f, std::vector<Pathfinding::Node*>())),
 	m_pathComponent(new PathComponent(this, 150.0f, std::vector<Pathfinding::Node*>())),
 	m_arrival(new Arrival(this, 0.0f, { 0, 0 })),
 	m_flee(new Flee(this, 0.0f, { 0, 0 })),
@@ -95,23 +94,23 @@ void Alien::start()
 
 	getTransform()->setScale(MathLibrary::Vector2(50 + scaleVarianceX, 50 + scaleVarianceY));
 
-	setCollider(new CircleCollider(40, this));
+	setCollider(new CircleCollider(10, this));
 
 	m_sprite->setTextureRotating(false);
 	m_sprite->setYOffset(-20.0f);
 	addComponent(m_sprite);
 
-	//m_pathBehavior->setWeight(1.0f);
+
 	m_pathComponent->setEnabled(true);
 	setMaxVelocity(200.0f);
 
 	setState(WANDER_STATE);
 
 	addComponent(m_pathComponent);
-	//addBehavior(m_pathBehavior);
+
+	// add all the behaviors
 	addBehavior(m_arrival);
 	addBehavior(m_seek);
-
 	if (m_isSmarter)
 	{
 		delete m_flee;
@@ -188,6 +187,9 @@ void Alien::draw()
 {
 	m_sprite->draw();
 
+	getCollider()->draw();
+
+
 
 	//MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
 	//DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) + 18, GREEN);
@@ -200,7 +202,12 @@ void Alien::takeDamage(int damage)
 	if (m_health <= 0)
 		m_isDead = true;
 	else if (m_state == INVESTIGATE_STATE)
+	{
+		if (!getBlackboard()->getData((char*)"AGRESSIVE", m_target->getID()))
+			getBlackboard()->addData((char*)"AGRESSIVE" + m_target->getID(), new BlackboardData(m_target->getID()));
+
 		setState(FLEE_TARGET_STATE);
+	}
 }
 
 void Alien::heal(int healing)

@@ -21,6 +21,7 @@ public:
 		MathLibrary::Vector2 vector2Data;
 		Actor* actorData;
 	};
+	unsigned int key;
 
 	BlackboardData();
 	BlackboardData(int data);

@@ -3,6 +3,7 @@
 #include <Vector2.h>
 #include "Actor.h"
 #include "Transform2D.h"
+#include "raylib.h"
 
 CircleCollider::CircleCollider(Actor* owner) : Collider::Collider(owner, ColliderType::CIRCLE)
 {
@@ -55,4 +56,11 @@ bool CircleCollider::checkCollisionAABB(AABBCollider* otherCollider)
         return true;
 
     return false;
+}
+
+void CircleCollider::draw()
+{
+    MathLibrary::Vector2 ownerPosition = getOwner()->getTransform()->getWorldPosition();
+
+    DrawCircleLines(ownerPosition.x, ownerPosition.y, m_collisionRadius, RED);
 }

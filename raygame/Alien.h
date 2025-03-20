@@ -3,7 +3,6 @@
 #include "Blackboard.h"
 
 #include "Pathfinding/NodeMap.h"
-#include "Pathfinding/PathBehavior.h"
 #include "Arrival.h"
 #include "Flee.h"
 #include "Evade.h"
@@ -24,6 +23,12 @@ enum EAlienStateMachine
 	FLEE_TARGET_STATE
 };
 
+enum EAlienMemory
+{
+	EDIBLE = 0,
+	AGGRESSIVE
+};
+
 class Alien : public Agent
 {
 private:
@@ -32,7 +37,6 @@ private:
 
 	// behaviors
 	PathComponent* m_pathComponent;
-	PathBehavior* m_pathBehavior;
 	Arrival* m_arrival;
 	Flee* m_flee;
 	Evade* m_evade;
@@ -66,6 +70,8 @@ public:
 
 	void takeDamage(int damage = 1);
 	void heal(int healing = 1);
+
+	EAlienStateMachine getState() { return m_state; }
 
 private:
 

@@ -83,8 +83,11 @@ void Alien::start()
 		}
 	}
 
+	int scaleVarianceX = ((std::rand() % 20) + 1) - 10;
+	int scaleVarianceY = ((std::rand() % 20) + 1) - 10;
 
-	getTransform()->setScale(MathLibrary::Vector2(50, 50));
+
+	getTransform()->setScale(MathLibrary::Vector2(50 + scaleVarianceX, 50 + scaleVarianceY));
 
 	setCollider(new CircleCollider(40, this));
 
@@ -178,7 +181,7 @@ void Alien::draw()
 
 	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
 
-	DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) + 18, GREEN);
+	//DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) + 18, GREEN);
 }
 
 void Alien::takeDamage(int damage)

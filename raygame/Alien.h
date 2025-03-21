@@ -23,12 +23,6 @@ enum EAlienStateMachine
 	FLEE_TARGET_STATE
 };
 
-enum EAlienMemory
-{
-	EDIBLE = 0,
-	AGGRESSIVE
-};
-
 class Alien : public Agent
 {
 private:
@@ -59,6 +53,7 @@ public:
 	Alien();
 	Alien(float x, float y);
 	Alien(Pathfinding::NodeMap* nodeMap, float x, float y);
+	~Alien();
 
 	void start() override;
 	void update(float deltaTime) override;

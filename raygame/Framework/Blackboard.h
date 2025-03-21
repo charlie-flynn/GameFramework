@@ -2,6 +2,7 @@
 #include "DynamicArray.h"
 #include "BlackboardData.h"
 #include <map>
+#include <vector>
 
 class Actor;
 class Scene;
@@ -26,11 +27,9 @@ public:
 	Blackboard(Actor* owner);
 	Blackboard(Scene* owner);
 
-	int addData(char* key, BlackboardData* value);
-	bool removeData(char* key, int offset = 0);
-	int removeAllData(char* key);
+	bool addData(char* key, BlackboardData* value);
+	bool removeData(char* key);
 	BlackboardData* getData(char* key);
-	BlackboardData* getData(char* key, int offset);
 
 	int getCount() { return m_data.size(); }
 };

@@ -32,65 +32,26 @@ Blackboard::Blackboard(Scene* owner) : m_ownerIsScene(true), m_sceneOwner(owner)
 {
 }
 
-int Blackboard::addData(char* key, BlackboardData* value)
+// Adds data with the given key and value.
+bool Blackboard::addData(char* key, BlackboardData* value)
 {
     unsigned int hash = Hash((unsigned char*)key);
-    int offset = 0;
-
-    while (!m_data.insert(std::pair<unsigned int, BlackboardData*>(hash + offset, value)).second)
-    {
-        offset++;
-    }
-    
-    value->key = hash;
-
-    return offset;
+    return m_data.insert(std::pair<unsigned int, BlackboardData*>(hash, value)).second;
 }
 
-bool Blackboard::removeData(char* key, int offset)
+// Removes a single data with the same key.
+bool Blackboard::removeData(char* key)
 {
     unsigned int hash = Hash((unsigned char*)key);
-    return m_data.erase(hash + offset);
+    return m_data.erase(hash);
 }
 
-int Blackboard::removeAllData(char* key)
-{
-    int count = 0;
-    unsigned int hash = Hash((unsigned char*)key);
-
-    for (auto iter = m_data.begin(); iter != m_data.end(); iter++)
-    {
-        if ((*iter).second->key == hash)
-        {
-            count++;
-            m_data.erase(iter);
-        }
-    }
-
-    return count;
-}
-
+// Returns the data with the given key, or nullptr if it's not found.
 BlackboardData* Blackboard::getData(char* key)
 {
     unsigned int hash = Hash((unsigned char*)key);
-
-    for (auto iter = m_data.begin(); iter != m_data.end(); iter++)
-    {
-        if ((*iter).second->key == hash)
-        {
-            return (*iter).second;
-        }
-    }
-
-    return nullptr;
-}
-
-BlackboardData* Blackboard::getData(char* key, int offset)
-{
-    unsigned int hash = Hash((unsigned char*)key);
-    
-    if (m_data.find(hash + offset) == m_data.end())
+    if (m_data.find(hash) == m_data.end())
         return nullptr;
-
-    return (*(m_data.find(hash))).second;
+    return (*m_data.find(hash)).second;
 }
+

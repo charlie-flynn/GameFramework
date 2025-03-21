@@ -46,6 +46,34 @@ Alien::Alien(Pathfinding::NodeMap* nodeMap, float x, float y) :
 	getTransform()->setWorldPosition(MathLibrary::Vector2(x, y));
 }
 
+Alien::~Alien()
+{
+	Actor::~Actor();
+
+	delete m_pathComponent;
+	m_pathComponent = nullptr;
+	delete m_arrival;
+	m_arrival = nullptr;
+
+	delete m_seek;
+	m_seek = nullptr;
+
+	if (m_flee)
+		delete m_flee;
+	m_flee = nullptr;
+
+	if (m_evade)
+		delete m_evade;
+	m_evade = nullptr;
+
+	if (m_pursue)
+		delete m_pursue;
+	m_pursue = nullptr;
+
+	delete m_sprite;
+	m_sprite = nullptr;
+}
+
 void Alien::start()
 {
 	Agent::start();
@@ -151,7 +179,7 @@ void Alien::update(float deltaTime)
 	case INVESTIGATE_STATE:
 		// arrives at a spot kinda close to the target
 		// based on what the target does and if the alien
-		// has a blaster, switches to any of the other four states
+		// has a blaster, switches to any of the other three states
 		// can also use blackboard memory to switch faster if it has seen
 		// the target before
 		investigateUpdate(deltaTime);
@@ -179,17 +207,13 @@ void Alien::update(float deltaTime)
 		wanderUpdate();
 		break;
 	}
-
-
 }
 
 void Alien::draw()
 {
 	m_sprite->draw();
 
-	getCollider()->draw();
-
-
+	//getCollider()->draw();
 
 	//MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
 	//DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) + 18, GREEN);
@@ -203,8 +227,7 @@ void Alien::takeDamage(int damage)
 		m_isDead = true;
 	else if (m_state == INVESTIGATE_STATE)
 	{
-		if (!getBlackboard()->getData((char*)"AGRESSIVE", m_target->getID()))
-			getBlackboard()->addData((char*)"AGRESSIVE" + m_target->getID(), new BlackboardData(m_target->getID()));
+		getBlackboard()->addData((char*)"AGRESSIVE", new BlackboardData(m_target->getID()));
 
 		setState(FLEE_TARGET_STATE);
 	}

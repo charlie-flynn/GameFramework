@@ -165,19 +165,26 @@ void Alien::start()
 void Alien::update(float deltaTime)
 {
 
-	// check if target has been deleted every frame
+	// check if the current target has been deleted every frame via checking the blackboard for notices
+	// if it has, set target to nullptr
 	BlackboardData* deletedActorData = Engine::getCurrentScene()->getBlackboard()->getData((char*)"ActorDeleted!");
 
-	if (deletedActorData && deletedActorData->dataType == DATA_ACTORPOINTER && m_target == deletedActorData->actorData)
+	if (deletedActorData && m_target && deletedActorData->dataType == DATA_ACTORPOINTER && m_target == deletedActorData->actorData)
 	{
 		m_target = nullptr;
 		setSeekTarget(nullptr);
 		setFleeTarget(nullptr);
 	}
 
+	if (m_invincibilityFramesTimer > 0)
+		m_invincibilityFramesTimer -= deltaTime;
+
 	if (m_isDead)
-		return;
-	
+	{
+		Engine::getCurrentScene()->getBlackboard()->replaceOrAddData((char*)"ActorDeleted!", new BlackboardData(this));
+		Engine::destroy(this);
+	}
+
 	Agent::update(deltaTime);
 	// finite state machine
 	switch (m_state)
@@ -225,23 +232,43 @@ void Alien::draw()
 {
 	m_sprite->draw();
 
+	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
+
+	Vector2 startPos = Vector2();
+	Vector2 endPos = Vector2();
+
+	startPos.x = worldPosition.x - 25;
+	startPos.y = worldPosition.y - 80;
+
+	endPos.x = (startPos.x) + ((50 * m_health) / m_maxHealth);
+	endPos.y = worldPosition.y - 80;
+
+	DrawLineEx(startPos, endPos, 4, RED);
+
 	//getCollider()->draw();
 
 	//MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
 	//DrawPoly({ getTransform()->getWorldPosition().x,  getTransform()->getWorldPosition().y }, 3, 20, (-(getTransform()->getRotation()) * (180 / PI)) + 18, GREEN);
 }
 
-void Alien::takeDamage(int damage)
+void Alien::takeDamage(int damage, Actor* source)
 {
+	if (m_invincibilityFramesTimer > 0)
+		return;
+
+	m_invincibilityFramesTimer = 3.0f;
+
 	m_health -= damage;
 
 	if (m_health <= 0)
 		m_isDead = true;
-	else if (m_state == INVESTIGATE_STATE)
+	else if (source)
 	{
-		BlackboardData* newData = new BlackboardData(m_target->getID());
-		if (!getBlackboard()->addData((char*)"AGRESSIVE" + m_target->getID(), newData))
+		BlackboardData* newData = new BlackboardData(source->getID());
+		if (!getBlackboard()->addData((char*)"AGRESSIVE" + source->getID(), newData))
 			delete newData;
+
+		m_target = source;
 
 		setState(FLEE_TARGET_STATE);
 	}
@@ -358,6 +385,8 @@ void Alien::fleeTargetUpdate()
 {
 	if (!m_target)
 		setState(WANDER_STATE);
+
+
 }
 
 void Alien::setState(EAlienStateMachine state)
@@ -428,5 +457,17 @@ void Alien::onCollision(Actor* collidedActor)
 	if (collidedActor->getID() == 2)
 	{
 		heal(1);
+	}
+	else if (collidedActor->getID() == 3)
+	{
+		MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
+		MathLibrary::Vector2 collidedActorPosition = collidedActor->getTransform()->getWorldPosition();
+
+		float distance = (worldPosition - collidedActorPosition).getMagnitude();
+
+		if (distance <= 30)
+			takeDamage(1, collidedActor);
+
+
 	}
 }

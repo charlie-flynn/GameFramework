@@ -48,6 +48,7 @@ private:
 
 	float m_investigateTimer;
 	float m_blastTimer;
+	float m_invincibilityFramesTimer;
 
 public:
 	Alien();
@@ -63,7 +64,7 @@ public:
 	void setTarget(Actor* target) { m_target = target; }
 	void setNodeMap(Pathfinding::NodeMap* nodemap) { m_nodeMap = nodemap; }
 
-	void takeDamage(int damage = 1);
+	void takeDamage(int damage = 1, Actor* source = nullptr);
 	void heal(int healing = 1);
 
 	EAlienStateMachine getState() { return m_state; }

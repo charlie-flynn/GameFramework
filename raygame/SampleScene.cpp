@@ -14,6 +14,9 @@
 
 #include "Alien.h"
 #include "Walterberry.h"
+#include "EMUDog.h"
+
+#include "ActorPlacer.h"
 
 SampleScene::SampleScene() : Scene(), m_nodeMap(Pathfinding::NodeMap()), m_mapTexture(Texture2D())
 {
@@ -68,10 +71,13 @@ void SampleScene::start()
 	Alien* alienC = new Alien(&m_nodeMap, 200, 280);
 	addActor(alienC);
 
-	Walterberry* walterberry = new Walterberry(250, 200);
-	addActor(walterberry);
+	EMUDog* EMUdog = new EMUDog(200, 300);
+	addActor(EMUdog);
 
 	m_mapTexture = LoadTexture("Images/game map.png");
+
+	ActorPlacer* placer = new ActorPlacer(&m_nodeMap);
+	addUIElement(placer);
 
 	/*
 	Actor* test = new Actor(50, 50, "Test");
@@ -85,6 +91,15 @@ void SampleScene::start()
 
 void SampleScene::update(float deltaTime)
 {
+	BlackboardData* deletedActorData = getBlackboard()->getData((char*)"ActorDeleted!");
+	BlackboardData* alienInvestigateData = getBlackboard()->getData((char*)"AlienCanInvestigate");
+
+	if (deletedActorData && alienInvestigateData && deletedActorData->actorData == alienInvestigateData->actorData)
+	{
+		getBlackboard()->removeData((char*)"AlienCanInvestigate");
+	}
+
+
 	DrawTexture(m_mapTexture, 0, 0, { 255, 255, 255, 255 });
 	Scene::update(deltaTime);
 	//m_nodeMap.Draw(true);

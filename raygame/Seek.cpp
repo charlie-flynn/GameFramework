@@ -23,6 +23,8 @@ void Seek::update(float deltaTime)
 		return;
 	}
 
+	Behavior::update(deltaTime);
+	
 	Actor* owner = getOwner();
 
 	Behavior::update(deltaTime);

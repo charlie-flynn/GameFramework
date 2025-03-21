@@ -228,10 +228,10 @@ void Alien::update(float deltaTime)
 		break;
 	case INVESTIGATE_STATE:
 		// arrives at a spot kinda close to the target
-		// based on what the target does and if the alien
-		// has a blaster, switches to any of the other three states
-		// can also use blackboard memory to switch faster if it has seen
-		// the target before
+		// if the alien doesnt get hurt in the middle, switch to 
+		// eat target state
+		// can also use blackboard memory to switch to flee if it has seen
+		// the target before and it hurted them
 		investigateUpdate(deltaTime);
 		break;
 	case EAT_TARGET_STATE:
@@ -240,6 +240,8 @@ void Alien::update(float deltaTime)
 		eatTargetUpdate();
 		break;
 	case BLAST_TARGET_STATE:
+		// UNUSED STATE: i didn't have the time to implement a blaster
+
 		// attempts to run away from the target using flee or evade
 		// and after reaching a certain distance, begin blasting the target
 		// return to wander state after the target dies
@@ -247,8 +249,8 @@ void Alien::update(float deltaTime)
 		break;
 	case FLEE_TARGET_STATE:
 		// attempts to run away from the target using flee or evade
-		// after reaching a certain distance, continue maintaining that distance
 		// return to wander state after the target dies
+		// always switch into this whenever hurt by something known
 		fleeTargetUpdate();
 		break;
 	default:
@@ -261,6 +263,7 @@ void Alien::update(float deltaTime)
 	// i wanted to make this a component but it didn't work for no reason
 	// so i'm hard coding this in. sorry !! ^^'  i really really hate this too
 
+	// prevent alien from leaving screen bounds
 	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
 	float screenWidth = (float)GetScreenWidth();
 	float screenHeight = (float)GetScreenHeight();
@@ -287,16 +290,17 @@ void Alien::draw()
 {
 	m_sprite->draw();
 
+	// draws health bar
 	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
 
 	Vector2 startPos = Vector2();
 	Vector2 endPos = Vector2();
 
 	startPos.x = worldPosition.x - 25;
-	startPos.y = worldPosition.y - 80;
+	startPos.y = worldPosition.y + 10;
 
 	endPos.x = (startPos.x) + ((50 * m_health) / m_maxHealth);
-	endPos.y = worldPosition.y - 80;
+	endPos.y = worldPosition.y + 10;
 
 	DrawLineEx(startPos, endPos, 4, RED);
 
@@ -347,6 +351,7 @@ void Alien::wanderUpdate()
 {
 	BlackboardData* data = Engine::getCurrentScene()->getBlackboard()->getData((char*)"AlienCanInvestigate");
 
+	// if there is something to investigate and it's kinda nearby, investigate it
 	if (data)
 	{
 		if (data->dataType == DATA_ACTORPOINTER)

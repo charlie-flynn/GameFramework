@@ -8,7 +8,7 @@
 #include "EMUDog.h"
 #include "Alien.h"
 
-ActorPlacer::ActorPlacer(Pathfinding::NodeMap* nodemap) : Actor(GetScreenWidth() / 2, 200, 5),
+ActorPlacer::ActorPlacer(Pathfinding::NodeMap* nodemap) : Actor(GetScreenWidth() / 2, 100, 5),
 m_spriteOne(new SpriteComponent(this, "Images/walterberry.png")),
 m_spriteTwo(new SpriteComponent(this, "Images/EMU dog.png")),
 m_spriteThree(new SpriteComponent(this, "Images/purple alien.png")),
@@ -32,7 +32,7 @@ void ActorPlacer::update(float deltaTime)
 {
 	Actor::update(deltaTime);
 
-	if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
 		MathLibrary::Vector2 mousePosition = { (float)GetMouseX(), (float)GetMouseY() };
 
@@ -51,10 +51,26 @@ void ActorPlacer::update(float deltaTime)
 			break;
 		}
 	}
+	if (IsKeyPressed(KEY_RIGHT))
+	{
+		m_selected = (EPlaceableActors)((m_selected + 1) % 3);
+	}
+	if (IsKeyPressed(KEY_LEFT))
+	{
+		m_selected = (EPlaceableActors)((m_selected - 1) % 3);
+		if (m_selected < 0)
+		{
+			m_selected = ALIEN;
+		}
+	}
 }
 
 void ActorPlacer::draw()
 {
+	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
+
+	DrawRectangle(worldPosition.x - 50, worldPosition.y - 50, 100, 100, { 255, 255, 255, 125 });
+
 	switch (m_selected)
 	{
 	case WALTERBERRY:

@@ -65,7 +65,7 @@ public:
 	void setNodeMap(Pathfinding::NodeMap* nodemap) { m_nodeMap = nodemap; }
 
 	void takeDamage(int damage = 1, Actor* source = nullptr);
-	void heal(int healing = 1);
+	void heal(int healing = 1, Actor* source = nullptr);
 
 	EAlienStateMachine getState() { return m_state; }
 

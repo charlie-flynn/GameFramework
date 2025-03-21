@@ -26,6 +26,38 @@ Alien::Alien(float x, float y) :
 	m_health(10),
 	m_maxHealth(10)
 {
+	if (std::rand() % 4096 == 0)
+	{
+		m_sprite = new SpriteComponent(this, "Images/rainbow alien RARE.png");
+		m_isSmarter = true;
+	}
+	else
+	{
+		int rand = std::rand() % 5;
+		switch (rand)
+		{
+		case 0:
+			m_sprite = new SpriteComponent(this, "Images/blue alien.png");
+			m_isSmarter = false;
+			break;
+		case 1:
+			m_sprite = new SpriteComponent(this, "Images/purple alien.png");
+			m_isSmarter = false;
+			break;
+		case 2:
+			m_sprite = new SpriteComponent(this, "Images/pink alien.png");
+			m_isSmarter = true;
+			break;
+		case 3:
+			m_sprite = new SpriteComponent(this, "Images/burgundy alien.png");
+			m_isSmarter = true;
+			break;
+		case 4:
+			m_sprite = new SpriteComponent(this, "Images/yellow alien.png");
+			m_isSmarter = true;
+			break;
+		}
+	}
 }
 
 Alien::Alien(Pathfinding::NodeMap* nodeMap, float x, float y) :
@@ -44,6 +76,38 @@ Alien::Alien(Pathfinding::NodeMap* nodeMap, float x, float y) :
 	m_health(10),
 	m_maxHealth(10)
 {
+	if (std::rand() % 4096 == 0)
+	{
+		m_sprite = new SpriteComponent(this, "Images/rainbow alien RARE.png");
+		m_isSmarter = true;
+	}
+	else
+	{
+		int rand = std::rand() % 5;
+		switch (rand)
+		{
+		case 0:
+			m_sprite = new SpriteComponent(this, "Images/blue alien.png");
+			m_isSmarter = false;
+			break;
+		case 1:
+			m_sprite = new SpriteComponent(this, "Images/purple alien.png");
+			m_isSmarter = false;
+			break;
+		case 2:
+			m_sprite = new SpriteComponent(this, "Images/pink alien.png");
+			m_isSmarter = true;
+			break;
+		case 3:
+			m_sprite = new SpriteComponent(this, "Images/burgundy alien.png");
+			m_isSmarter = true;
+			break;
+		case 4:
+			m_sprite = new SpriteComponent(this, "Images/yellow alien.png");
+			m_isSmarter = true;
+			break;
+		}
+	}
 }
 
 Alien::~Alien()
@@ -78,38 +142,7 @@ void Alien::start()
 {
 	Agent::start();
 
-	if (std::rand() % 4096 == 0)
-	{
-		m_sprite = new SpriteComponent(this, "Images/rainbow alien RARE.png");
-		m_isSmarter = true;
-	}
-	else
-	{
-		int rand = std::rand() % 5;
-		switch (rand)
-		{
-		case 0:
-			m_sprite = new SpriteComponent(this, "Images/blue alien.png");
-			m_isSmarter = false;
-			break;
-		case 1:
-			m_sprite = new SpriteComponent(this, "Images/purple alien.png");
-			m_isSmarter = false;
-			break;
-		case 2:
-			m_sprite = new SpriteComponent(this, "Images/pink alien.png");
-			m_isSmarter = true;
-			break;
-		case 3:
-			m_sprite = new SpriteComponent(this, "Images/burgundy alien.png");
-			m_isSmarter = true;
-			break;
-		case 4:
-			m_sprite = new SpriteComponent(this, "Images/yellow alien.png");
-			m_isSmarter = true;
-			break;
-		}
-	}
+	
 
 	int scaleVarianceX = ((std::rand() % 20) + 1) - 10;
 	int scaleVarianceY = ((std::rand() % 20) + 1) - 10;
@@ -274,12 +307,18 @@ void Alien::takeDamage(int damage, Actor* source)
 	}
 }
 
-void Alien::heal(int healing)
+void Alien::heal(int healing, Actor* source)
 {
 	m_health += healing;
 
 	if (m_health >= m_maxHealth)
 		m_health = m_maxHealth;
+	if (source)
+	{
+		BlackboardData* newData = new BlackboardData(source->getID());
+		if (!getBlackboard()->addData((char*)"YUMMY" + source->getID(), newData))
+			delete newData;
+	}
 }
 
 void Alien::wanderUpdate()
@@ -358,14 +397,21 @@ void Alien::investigateUpdate(float deltaTime)
 
 	m_investigateTimer -= deltaTime;
 
-	// if the timer runs out and nothing bad happened, eat the target
+	// if the timer runs out and nothing bad happened, attempt to eat the target
 	if (m_investigateTimer <= 0.0f)
 	{
-		BlackboardData* newData = new BlackboardData(m_target->getID());
-		if (!getBlackboard()->addData((char*)"YUMMY" + m_target->getID(), newData))
-			delete newData;
-
 		setState(EAT_TARGET_STATE);
+	}
+
+	// if the timer is slightly less than timed out and there is memory, act accordingly
+	if (m_investigateTimer <= 8.5f)
+	{
+		if (getBlackboard()->getData((char*)"AGRESSIVE" + m_target->getID()))
+			setState(FLEE_TARGET_STATE);
+
+		if (getBlackboard()->getData((char*)"YUMMY" + m_target->getID()))
+			setState(EAT_TARGET_STATE);
+
 	}
 }
 
@@ -456,7 +502,7 @@ void Alien::onCollision(Actor* collidedActor)
 {
 	if (collidedActor->getID() == 2)
 	{
-		heal(1);
+		heal(1, collidedActor);
 	}
 	else if (collidedActor->getID() == 3)
 	{

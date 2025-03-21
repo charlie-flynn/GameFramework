@@ -31,7 +31,7 @@ void EMUDog::start()
 {
 	Agent::start();
 
-	setCollider(new CircleCollider(30.0f, this));
+	setCollider(new CircleCollider(80.0f, this));
 	int rng = std::rand() % 10;
 
 	m_hasHat = rng == 0;
@@ -87,7 +87,7 @@ void EMUDog::draw()
 	if (m_hasHat)
 	{
 		MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
-		DrawRectangle(worldPosition.x, worldPosition.y - 40, 20, 30, BLUE);
+		DrawRectangle(worldPosition.x - 5, worldPosition.y - 40, 20, 30, BLUE);
 	}
 }
 

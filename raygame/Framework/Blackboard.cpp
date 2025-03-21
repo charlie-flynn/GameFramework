@@ -46,6 +46,25 @@ bool Blackboard::removeData(char* key)
     return m_data.erase(hash);
 }
 
+// Replaces the data at a key, and returns if it is successful.
+bool Blackboard::replaceData(char* key, BlackboardData* value)
+{
+    if (!getData(key))
+        return false;
+    unsigned int hash = Hash((unsigned char*)key);
+    m_data[hash] = value;
+    return true;
+}
+
+// Replaces the data at a key if there is any, or adds the data if there isn't.
+bool Blackboard::replaceOrAddData(char* key, BlackboardData* value)
+{
+    if (!replaceData(key, value))
+        return addData(key, value);
+    else
+        return true;
+}
+
 // Returns the data with the given key, or nullptr if it's not found.
 BlackboardData* Blackboard::getData(char* key)
 {

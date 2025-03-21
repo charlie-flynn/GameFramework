@@ -29,6 +29,8 @@ public:
 
 	bool addData(char* key, BlackboardData* value);
 	bool removeData(char* key);
+	bool replaceData(char* key, BlackboardData* value);
+	bool replaceOrAddData(char* key, BlackboardData* value);
 	BlackboardData* getData(char* key);
 
 	int getCount() { return m_data.size(); }

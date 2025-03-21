@@ -62,6 +62,12 @@ void SampleScene::start()
 	Alien* alien = new Alien(&m_nodeMap, 200, 200);
 	addActor(alien);
 
+	Alien* alienB = new Alien(&m_nodeMap, 200, 250);
+	addActor(alienB);
+
+	Alien* alienC = new Alien(&m_nodeMap, 200, 280);
+	addActor(alienC);
+
 	Walterberry* walterberry = new Walterberry(250, 200);
 	addActor(walterberry);
 

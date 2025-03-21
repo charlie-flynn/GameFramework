@@ -164,11 +164,21 @@ void Alien::start()
 
 void Alien::update(float deltaTime)
 {
-	Agent::update(deltaTime);
+
+	// check if target has been deleted every frame
+	BlackboardData* deletedActorData = Engine::getCurrentScene()->getBlackboard()->getData((char*)"ActorDeleted!");
+
+	if (deletedActorData && deletedActorData->dataType == DATA_ACTORPOINTER && m_target == deletedActorData->actorData)
+	{
+		m_target = nullptr;
+		setSeekTarget(nullptr);
+		setFleeTarget(nullptr);
+	}
 
 	if (m_isDead)
 		return;
 	
+	Agent::update(deltaTime);
 	// finite state machine
 	switch (m_state)
 	{
@@ -418,6 +428,5 @@ void Alien::onCollision(Actor* collidedActor)
 	if (collidedActor->getID() == 2)
 	{
 		heal(1);
-		m_target = nullptr;
 	}
 }

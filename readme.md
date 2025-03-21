@@ -1,4 +1,13 @@
-not enough time for readme there are aliens and they look at things and eat berries and such and get scared of emu dogs
+# AI Simulation
+Download the program by clicking [here](https://github.com/charlie-flynn/GameFramework/releases/tag/V1.1), then clicking on the AIGame_V1.1.zip file at the top of the Assets list to download it!
+
+Now that the file is downloaded, go into your Downloads folder to find AIGame_V1.1.zip. Right-click the file, then click "Extract All".
+
+Afterwards, open the newly extracted folder, and double-click the file named Asteroids2.exe to run the program!
+
+# How to play
+
+While there are more details in the enclosed README, the main thing to know is that clicking with your left mouse button will place what you have selected, and pressing the left and right arrow keys will switch what you have selected. The three things available have small interactions with each other, which showcase all of the steering behaviors, A* pathfinding, and an implementation of a blackboard!
 
 
 # raygame - sample project

@@ -415,7 +415,10 @@ void Alien::wanderUpdate()
 void Alien::investigateUpdate(float deltaTime)
 {
 	if (!m_target)
+	{
 		setState(WANDER_STATE);
+		return;
+	}
 
 	m_investigateTimer -= deltaTime;
 
@@ -439,19 +442,28 @@ void Alien::investigateUpdate(float deltaTime)
 void Alien::eatTargetUpdate()
 {
 	if (!m_target)
+	{
 		setState(WANDER_STATE);
+		return;
+	}
 }
 
 void Alien::blastTargetUpdate(float deltaTime)
 {
 	if (!m_target)
+	{
 		setState(WANDER_STATE);
+		return;
+	}
 }
 
 void Alien::fleeTargetUpdate()
 {
 	if (!m_target)
+	{
 		setState(WANDER_STATE);
+		return;
+	}
 }
 
 void Alien::setState(EAlienStateMachine state)

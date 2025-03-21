@@ -171,9 +171,8 @@ void Engine::addActorToDeletionList(Actor* actor)
 
 bool Engine::removeScene(Scene* scene)
 {
-	m_scenes.Remove(scene);
+	return m_scenes.Remove(scene);
 
-	return true;
 
 	/*
 	//If the scene is null then return before running any other logic
@@ -258,6 +257,7 @@ void Engine::destroyActorsInList()
 
 		//Delete the actor
 		delete actorToDelete;
+		actorToDelete = nullptr;
 	}
 
 	//Clear the array

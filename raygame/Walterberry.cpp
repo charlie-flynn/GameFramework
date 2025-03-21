@@ -40,6 +40,6 @@ void Walterberry::onCollision(Actor* collidedActor)
 	if (collidedActor->getID() == 1)
 	{
 		Engine::getCurrentScene()->getBlackboard()->removeData((char*)"AlienCanInvestigate");
-		Engine::getCurrentScene()->removeActor(this);
+		Engine::destroy(this);
 	}
 }

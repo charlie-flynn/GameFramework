@@ -139,6 +139,8 @@ void Alien::start()
 	// add all the behaviors
 	addBehavior(m_arrival);
 	addBehavior(m_seek);
+
+	// delete the ones we're not using
 	if (m_isSmarter)
 	{
 		delete m_flee;
@@ -411,5 +413,8 @@ void Alien::setFleeTarget(Actor* target)
 void Alien::onCollision(Actor* collidedActor)
 {
 	if (collidedActor->getID() == 2)
+	{
 		heal(1);
+		m_target = nullptr;
+	}
 }

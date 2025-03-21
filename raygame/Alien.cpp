@@ -316,6 +316,9 @@ void Alien::wanderUpdate()
 
 void Alien::investigateUpdate(float deltaTime)
 {
+	if (!m_target)
+		setState(WANDER_STATE);
+
 	m_investigateTimer -= deltaTime;
 
 	// if the timer runs out and nothing bad happened, eat the target

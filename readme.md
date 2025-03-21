@@ -1,3 +1,6 @@
+not enough time for readme there are aliens and they look at things and eat berries and such and get scared of emu dogs
+
+
 # raygame - sample project
 
 This is a sample C++ project setup with [raylib][raylib] for Visual

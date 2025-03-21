@@ -71,13 +71,16 @@ void SampleScene::start()
 	Alien* alienC = new Alien(&m_nodeMap, 200, 280);
 	addActor(alienC);
 
-	EMUDog* EMUdog = new EMUDog(200, 300);
+	EMUDog* EMUdog = new EMUDog(200, 500);
 	addActor(EMUdog);
+
+	Walterberry* berry = new Walterberry(500, 600);
+	addActor(berry);
 
 	m_mapTexture = LoadTexture("Images/game map.png");
 
-	ActorPlacer* placer = new ActorPlacer(&m_nodeMap);
-	addUIElement(placer);
+	//ActorPlacer* placer = new ActorPlacer(&m_nodeMap);
+	//addUIElement(placer);
 
 	/*
 	Actor* test = new Actor(50, 50, "Test");

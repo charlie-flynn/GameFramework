@@ -8,7 +8,7 @@
 #include "EMUDog.h"
 #include "Alien.h"
 
-ActorPlacer::ActorPlacer(Pathfinding::NodeMap* nodemap) : Actor(100, 100, 5),
+ActorPlacer::ActorPlacer(Pathfinding::NodeMap* nodemap) : Actor(GetScreenWidth() / 2, 200, 5),
 m_spriteOne(new SpriteComponent(this, "Images/walterberry.png")),
 m_spriteTwo(new SpriteComponent(this, "Images/EMU dog.png")),
 m_spriteThree(new SpriteComponent(this, "Images/purple alien.png")),
@@ -19,15 +19,19 @@ m_nodeMap(nodemap)
 
 void ActorPlacer::start()
 {
+	Actor::start();
+
 	addComponent(m_spriteOne);
 	addComponent(m_spriteTwo);
 	addComponent(m_spriteThree);
 
-	getTransform()->setScale({100, 100});
+	getTransform()->setScale({100.0f, 100.0f});
 }
 
 void ActorPlacer::update(float deltaTime)
 {
+	Actor::update(deltaTime);
+
 	if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
 	{
 		MathLibrary::Vector2 mousePosition = { (float)GetMouseX(), (float)GetMouseY() };

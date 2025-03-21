@@ -21,7 +21,7 @@ EMUDog::EMUDog(float x, float y) :
 	m_seek(new Seek(this, 0.0f, {0, 0})),
 	m_pursue(new Pursue(this, 0.0f, nullptr)),
 	m_sprite(new SpriteComponent(this, "Images/EMU dog.png")),
-	m_lifeSpan(5.0f),
+	m_lifeSpan(30.0f),
 	m_target(nullptr),
 	m_hasHat(false)
 {

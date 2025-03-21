@@ -9,6 +9,9 @@ private:
     Pathfinding::NodeMap m_nodeMap;
     Texture2D m_mapTexture;
 
+    DynamicArray<Actor*> m_investigateableActors;
+    int m_index;
+
 public:
     SampleScene();
 

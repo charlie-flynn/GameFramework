@@ -23,8 +23,8 @@ Alien::Alien(float x, float y) :
 	m_nodeMap(nullptr),
 	m_target(nullptr),
 	m_isDead(false),
-	m_health(10),
-	m_maxHealth(10)
+	m_health(3),
+	m_maxHealth(3)
 {
 	if (std::rand() % 4096 == 0)
 	{
@@ -73,8 +73,8 @@ Alien::Alien(Pathfinding::NodeMap* nodeMap, float x, float y) :
 	m_nodeMap(nodeMap),
 	m_target(nullptr),
 	m_isDead(false),
-	m_health(10),
-	m_maxHealth(10)
+	m_health(3),
+	m_maxHealth(3)
 {
 	if (std::rand() % 4096 == 0)
 	{
@@ -141,8 +141,6 @@ Alien::~Alien()
 void Alien::start()
 {
 	Agent::start();
-
-	
 
 	int scaleVarianceX = ((std::rand() % 20) + 1) - 10;
 	int scaleVarianceY = ((std::rand() % 20) + 1) - 10;
@@ -258,6 +256,30 @@ void Alien::update(float deltaTime)
 		m_state = WANDER_STATE;
 		wanderUpdate();
 		break;
+	}
+
+	// i wanted to make this a component but it didn't work for no reason
+	// so i'm hard coding this in. sorry !! ^^'  i really really hate this too
+
+	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
+	float screenWidth = (float)GetScreenWidth();
+	float screenHeight = (float)GetScreenHeight();
+
+	if (worldPosition.x < 0)
+	{
+		getTransform()->setWorldPosition({ 0, worldPosition.y });
+	}
+	if (worldPosition.x > screenWidth)
+	{
+		getTransform()->setWorldPosition({ screenWidth, worldPosition.y });
+	}
+	if (worldPosition.y < 0 + 15)
+	{
+		getTransform()->setWorldPosition({ worldPosition.x, 0 + 16 });
+	}
+	if (worldPosition.y > screenHeight - 15)
+	{
+		getTransform()->setWorldPosition({ worldPosition.x, screenHeight - 16 });
 	}
 }
 
@@ -411,7 +433,6 @@ void Alien::investigateUpdate(float deltaTime)
 
 		if (getBlackboard()->getData((char*)"YUMMY" + m_target->getID()))
 			setState(EAT_TARGET_STATE);
-
 	}
 }
 
@@ -431,8 +452,6 @@ void Alien::fleeTargetUpdate()
 {
 	if (!m_target)
 		setState(WANDER_STATE);
-
-
 }
 
 void Alien::setState(EAlienStateMachine state)
@@ -447,17 +466,21 @@ void Alien::setState(EAlienStateMachine state)
 		setMaxVelocity(200);
 		break;
 	case INVESTIGATE_STATE:
+		setMaxVelocity(200);
 		setBehaviorWeights(false , 1.0f, 0.0f, 0.0f);
 		m_investigateTimer = 10.0f;
 		break;
 	case EAT_TARGET_STATE:
 		setMaxVelocity(100);
+		setSeekTarget(m_target);
 		setBehaviorWeights(false, 0.0f, 0.0f, 1.0f);
 		break;
 	case BLAST_TARGET_STATE:
 		setBehaviorWeights(false, 0.0f, 1.0f, 0.0f);
 		break;
 	case FLEE_TARGET_STATE:
+		setMaxVelocity(250);
+		setFleeTarget(m_target);
 		setBehaviorWeights(false, 0.0f, 1.0f, 0.0f);
 		break;
 	default:

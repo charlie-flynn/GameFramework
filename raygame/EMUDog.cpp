@@ -10,7 +10,6 @@
 #include "SpriteComponent.h"
 #include "raylib.h"
 #include "CircleCollider.h"
-
 EMUDog::EMUDog()
 {
 }
@@ -31,7 +30,7 @@ void EMUDog::start()
 {
 	Agent::start();
 
-	setCollider(new CircleCollider(80.0f, this));
+	setCollider(new CircleCollider(150.0f, this));
 	int rng = std::rand() % 10;
 
 	m_hasHat = rng == 0;
@@ -61,11 +60,19 @@ void EMUDog::start()
 
 void EMUDog::update(float deltaTime)
 {
+	BlackboardData* deletedActorData = Engine::getCurrentScene()->getBlackboard()->getData((char*)"ActorDeleted!");
+
+	if (deletedActorData && m_target && deletedActorData->dataType == DATA_ACTORPOINTER && m_target == deletedActorData->actorData)
+	{
+		m_target = nullptr;
+		setSeekTarget(nullptr);
+	}
+
 	Agent::update(deltaTime);
 
 	if (!m_blackboardNoticePosted)
 	{
-		if (Engine::getCurrentScene()->getBlackboard()->addData((char*)"AlienCanInvestigate", new BlackboardData(this)))
+		if (Engine::getCurrentScene()->getBlackboard()->addData((char*)"AddToInvestigateQueue", new BlackboardData(this)))
 			m_blackboardNoticePosted = true;
 	}
 
@@ -77,7 +84,29 @@ void EMUDog::update(float deltaTime)
 		Engine::getCurrentScene()->getBlackboard()->replaceOrAddData((char*)"ActorDeleted!", new BlackboardData(this));
 	}
 
+	// i wanted to make this a component but it didn't work for no reason
+	// so i'm hard coding this in. sorry !! ^^'  i really really hate this too
 
+	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
+	float screenWidth = (float)GetScreenWidth();
+	float screenHeight = (float)GetScreenHeight();
+
+	if (worldPosition.x < 0)
+	{
+		getTransform()->setWorldPosition({ 0, worldPosition.y });
+	}
+	if (worldPosition.x > screenWidth)
+	{
+		getTransform()->setWorldPosition({ screenWidth, worldPosition.y });
+	}
+	if (worldPosition.y < 0)
+	{
+		getTransform()->setWorldPosition({ worldPosition.x, 0 });
+	}
+	if (worldPosition.y > screenHeight)
+	{
+		getTransform()->setWorldPosition({ worldPosition.x, screenHeight });
+	}
 }
 
 void EMUDog::draw()
@@ -99,7 +128,7 @@ void EMUDog::onCollision(Actor* collidedActor)
 		setSeekTarget(m_target);
 		setSeekWeight(1.0f);
 		m_wander->setWeight(0.0f);
-		setMaxVelocity(210.0f);
+		setMaxVelocity(270.0f);
 	}
 }
 

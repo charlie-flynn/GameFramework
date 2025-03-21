@@ -94,11 +94,33 @@ void SampleScene::update(float deltaTime)
 	if (deletedActorData && alienInvestigateData && deletedActorData->actorData == alienInvestigateData->actorData)
 	{
 		getBlackboard()->removeData((char*)"AlienCanInvestigate");
+		m_investigateableActors.Remove(deletedActorData->actorData);
 	}
 
 
 	DrawTexture(m_mapTexture, 0, 0, { 255, 255, 255, 255 });
 	Scene::update(deltaTime);
+	
+	BlackboardData* investigateableData = getBlackboard()->getData((char*)"AddToInvestigateQueue");
+	if (investigateableData && investigateableData->dataType == DATA_ACTORPOINTER)
+	{
+		m_investigateableActors.Add(investigateableData->actorData);
+		getBlackboard()->removeData((char*)"AddToInvestigateQueue");
+	}
+
+	if (m_investigateableActors.Length())
+	{
+		m_index++;
+		if (m_index >= m_investigateableActors.Length())
+			m_index = 0;
+
+		getBlackboard()->replaceOrAddData((char*)"AlienCanInvestigate", new BlackboardData(m_investigateableActors[m_index]));
+	}
+
+	
+
+
+
 	//m_nodeMap.Draw(true);
 
 	//m_nodeMap.Draw(true);

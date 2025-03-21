@@ -23,7 +23,7 @@ void Walterberry::update(float deltaTime)
 
 	if (!m_blackboardNoticePosted)
 	{
-		if (Engine::getCurrentScene()->getBlackboard()->addData((char*)"AlienCanInvestigate", new BlackboardData(this)))
+		if (Engine::getCurrentScene()->getBlackboard()->addData((char*)"AddToInvestigateQueue", new BlackboardData(this)))
 			m_blackboardNoticePosted = true;
 	}
 }

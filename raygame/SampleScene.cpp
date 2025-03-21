@@ -117,7 +117,16 @@ void SampleScene::update(float deltaTime)
 		getBlackboard()->replaceOrAddData((char*)"AlienCanInvestigate", new BlackboardData(m_investigateableActors[m_index]));
 	}
 
-	
+	if (IsKeyPressed(KEY_F1))
+	{
+		m_debugDraw = m_debugDraw ? false : true;
+	}
+
+	if (m_debugDraw)
+	{
+		m_nodeMap.Draw(true);
+	}
+
 
 
 

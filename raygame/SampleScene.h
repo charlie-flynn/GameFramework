@@ -11,6 +11,7 @@ private:
 
     DynamicArray<Actor*> m_investigateableActors;
     int m_index;
+    bool m_debugDraw;
 
 public:
     SampleScene();

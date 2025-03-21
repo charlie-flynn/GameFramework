@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include "Transform2D.h"
 #include "DynamicArray.h"
+#include "Engine.h"
 
 Scene::Scene()
 {
@@ -8,6 +9,7 @@ Scene::Scene()
     m_actors = DynamicArray<Actor*>();
     m_world = new MathLibrary::Matrix3();
     m_blackboard = new Blackboard(this);
+    m_toBeDeleted = DynamicArray<Actor*>();
 }
 
 MathLibrary::Matrix3* Scene::getWorld()
@@ -49,12 +51,12 @@ void Scene::addActor(Actor* actor)
 
 void Scene::removeActor(int index)
 {
-    m_actors.RemoveIndex(index);
+    m_toBeDeleted.Add(m_actors[index]);
 }
 
 void Scene::removeActor(Actor* actor)
 {
-    m_actors.Remove(actor);
+    m_toBeDeleted.AddUnique(actor);
 }
 
 void Scene::start()
@@ -82,6 +84,15 @@ void Scene::update(float deltaTime)
                 m_actors[i]->onCollision(m_actors[j]);
         }
     }
+
+    // Deletes actors in the deletion queue
+    for (int i = 0; i < m_toBeDeleted.Length(); i++)
+    {
+        m_actors.Remove(m_toBeDeleted[i]);
+        delete m_toBeDeleted[i];
+        m_toBeDeleted[i] = nullptr;
+    }
+    m_toBeDeleted.Clear();
 }
 
 void Scene::updateUI(float deltaTime)

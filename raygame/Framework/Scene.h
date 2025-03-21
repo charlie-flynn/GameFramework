@@ -42,13 +42,13 @@ public:
     void addActor(Actor* actor);
 
     /// <summary>
-    /// Removes the actor at the given index. DOES NOT DELETE THE ACTOR!!!
+    /// Removes the actor at the given index. DOES NOT DELETE THE ACTOR (immediately)!!!
     /// </summary>
     /// <param name="index">The index the actor is in the scene's array.</param>
     void removeActor(int index);
 
     /// <summary>
-    /// Removes the actor given if it's in the array. DOES NOT DELETE THE ACTOR!!!
+    /// Removes the actor given if it's in the array. DOES NOT DELETE THE ACTOR (immediately)!!!
     /// </summary>
     /// <param name="actor">The actor to look for in the scene's array.</param>
     void removeActor(Actor* actor);
@@ -68,6 +68,7 @@ public:
 private:
     DynamicArray<Actor*> m_actors;
     DynamicArray<Actor*> m_UIElements;
+    DynamicArray<Actor*> m_toBeDeleted;
     MathLibrary::Matrix3* m_world;
     bool m_started;
     int m_actorCount;

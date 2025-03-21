@@ -13,6 +13,7 @@
 #include "Pathfinding/NodeMap.h"
 
 #include "Alien.h"
+#include "Walterberry.h"
 
 SampleScene::SampleScene() : Scene(), m_nodeMap(Pathfinding::NodeMap()), m_mapTexture(Texture2D())
 {
@@ -61,11 +62,8 @@ void SampleScene::start()
 	Alien* alien = new Alien(&m_nodeMap, 200, 200);
 	addActor(alien);
 
-	Alien* alienB = new Alien(&m_nodeMap, 280, 200);
-	addActor(alienB);
-
-	Alien* alienC = new Alien(&m_nodeMap, 360, 200);
-	addActor(alienC);
+	Walterberry* walterberry = new Walterberry(250, 200);
+	addActor(walterberry);
 
 	m_mapTexture = LoadTexture("Images/game map.png");
 

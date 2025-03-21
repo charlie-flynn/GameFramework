@@ -82,4 +82,6 @@ private:
 	void setSeekTarget(Actor* target);
 
 	void setFleeTarget(Actor* target);
+
+	void onCollision(Actor* collidedActor) override;
 };

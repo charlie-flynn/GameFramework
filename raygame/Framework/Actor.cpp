@@ -19,12 +19,12 @@ Actor::~Actor()
 }
 
 
-Actor::Actor(float x, float y, const char* name = "Actor")
+Actor::Actor(float x, float y, int ID = 0)
 {
     //Initialze default values
     m_transform = new Transform2D(this);
     m_transform->setLocalPosition({ x,y });
-    m_name = name;
+    m_id = ID;
     m_maxVelocity = 200.0f;
     m_started = false;
     m_components = DynamicArray<Component*>();

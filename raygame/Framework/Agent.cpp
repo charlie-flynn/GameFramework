@@ -5,7 +5,7 @@ Agent::Agent() : Actor(), m_blackboard(new Blackboard(this))
 {
 }
 
-Agent::Agent(float x, float y) : Actor(x, y, "remove name soon pls"), m_blackboard(new Blackboard(this))
+Agent::Agent(float x, float y, int ID) : Actor(x, y, ID), m_blackboard(new Blackboard(this))
 {
 }
 

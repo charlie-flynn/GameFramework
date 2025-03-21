@@ -176,6 +176,7 @@
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="Framework\SpriteComponent.cpp" />
     <ClCompile Include="Framework\Transform2D.cpp" />
+    <ClCompile Include="Walterberry.cpp" />
     <ClCompile Include="Wander.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +213,7 @@
     <ClInclude Include="Seek.h" />
     <ClInclude Include="Framework\SpriteComponent.h" />
     <ClInclude Include="Framework\Transform2D.h" />
+    <ClInclude Include="Walterberry.h" />
     <ClInclude Include="Wander.h" />
   </ItemGroup>
   <ItemGroup>

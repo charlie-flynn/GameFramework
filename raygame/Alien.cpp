@@ -29,6 +29,7 @@ Alien::Alien(float x, float y) :
 }
 
 Alien::Alien(Pathfinding::NodeMap* nodeMap, float x, float y) :
+	Agent(x, y, 1),
 	m_pathComponent(new PathComponent(this, 150.0f, std::vector<Pathfinding::Node*>())),
 	m_arrival(new Arrival(this, 0.0f, { 0, 0 })),
 	m_flee(new Flee(this, 0.0f, { 0, 0 })),
@@ -43,7 +44,6 @@ Alien::Alien(Pathfinding::NodeMap* nodeMap, float x, float y) :
 	m_health(10),
 	m_maxHealth(10)
 {
-	getTransform()->setWorldPosition(MathLibrary::Vector2(x, y));
 }
 
 Alien::~Alien()
@@ -227,7 +227,9 @@ void Alien::takeDamage(int damage)
 		m_isDead = true;
 	else if (m_state == INVESTIGATE_STATE)
 	{
-		getBlackboard()->addData((char*)"AGRESSIVE", new BlackboardData(m_target->getID()));
+		BlackboardData* newData = new BlackboardData(m_target->getID());
+		if (!getBlackboard()->addData((char*)"AGRESSIVE" + m_target->getID(), newData))
+			delete newData;
 
 		setState(FLEE_TARGET_STATE);
 	}
@@ -257,12 +259,13 @@ void Alien::wanderUpdate()
 				// get the vector pointing from the actor to the alien
 				// and use it to get a position a slight distance away from the actor
 
-				MathLibrary::Vector2 targetPosition = (actorPosition - getTransform()->getWorldPosition()).getNormalized();
+				MathLibrary::Vector2 targetPosition = (getTransform()->getWorldPosition() - actorPosition).getNormalized();
 				targetPosition = (targetPosition * 80) + actorPosition;
 
 				m_arrival->setTargetPosition(targetPosition);
 
 				m_target = actor;
+				setSeekTarget(actor);
 
 				setState(INVESTIGATE_STATE);
 			}
@@ -315,7 +318,13 @@ void Alien::investigateUpdate(float deltaTime)
 
 	// if the timer runs out and nothing bad happened, eat the target
 	if (m_investigateTimer <= 0.0f)
+	{
+		BlackboardData* newData = new BlackboardData(m_target->getID());
+		if (!getBlackboard()->addData((char*)"YUMMY" + m_target->getID(), newData))
+			delete newData;
+
 		setState(EAT_TARGET_STATE);
+	}
 }
 
 void Alien::eatTargetUpdate()
@@ -343,18 +352,24 @@ void Alien::setState(EAlienStateMachine state)
 	switch (m_state)
 	{
 	case WANDER_STATE:	
-		setBehaviorWeights(1.0f, 0.0f, 0.0f, 0.0f);
+		setBehaviorWeights(true, 0.0f, 0.0f, 0.0f);
+		setVelocity(0, 0);
+		setMaxVelocity(200);
 		break;
 	case INVESTIGATE_STATE:
-		setBehaviorWeights(0.0f, 1.0f, 0.0f, 0.0f);
-		m_investigateTimer = 20.0f;
+		setBehaviorWeights(false , 1.0f, 0.0f, 0.0f);
+		m_investigateTimer = 10.0f;
 		break;
 	case EAT_TARGET_STATE:
-		setBehaviorWeights(0.0f, 0.0f, 0.0f, 1.0f);
+		setMaxVelocity(100);
+		setBehaviorWeights(false, 0.0f, 0.0f, 1.0f);
+		break;
 	case BLAST_TARGET_STATE:
-		setBehaviorWeights(0.0f, 0.0f, 1.0f, 0.0f);
+		setBehaviorWeights(false, 0.0f, 1.0f, 0.0f);
+		break;
 	case FLEE_TARGET_STATE:
-		setBehaviorWeights(0.0f, 0.0f, 1.0f, 0.0f);
+		setBehaviorWeights(false, 0.0f, 1.0f, 0.0f);
+		break;
 	default:
 		break;
 	}
@@ -391,4 +406,10 @@ void Alien::setFleeTarget(Actor* target)
 		m_evade->setTargetActor(target);
 	else
 		m_flee->setTargetActor(target);
+}
+
+void Alien::onCollision(Actor* collidedActor)
+{
+	if (collidedActor->getID() == 2)
+		heal(1);
 }

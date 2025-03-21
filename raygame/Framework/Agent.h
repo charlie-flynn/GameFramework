@@ -13,7 +13,7 @@ private:
 	Blackboard* m_blackboard;
 public:
 	Agent();
-	Agent(float x, float y);
+	Agent(float x, float y, int ID = 0);
 	Agent(Behavior* behaviors[], int length);
 
 	void addBehavior(Behavior* behavior);

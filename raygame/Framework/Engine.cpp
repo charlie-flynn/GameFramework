@@ -256,8 +256,8 @@ void Engine::destroyActorsInList()
 		actorToDelete->onDestroy();
 
 		//Delete the actor
+		// TO DO: make it call the destructor of the type it actually is and not just the actor destructor
 		delete actorToDelete;
-		actorToDelete = nullptr;
 	}
 
 	//Clear the array

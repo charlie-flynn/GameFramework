@@ -32,6 +32,7 @@ void ActorPlacer::update(float deltaTime)
 {
 	Actor::update(deltaTime);
 
+	// if click, place a new actor of the selected type
 	if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
 	{
 		MathLibrary::Vector2 mousePosition = { (float)GetMouseX(), (float)GetMouseY() };
@@ -51,6 +52,7 @@ void ActorPlacer::update(float deltaTime)
 			break;
 		}
 	}
+	// if you press right or left, change the selected actor accordingly
 	if (IsKeyPressed(KEY_RIGHT))
 	{
 		m_selected = (EPlaceableActors)((m_selected + 1) % 3);
@@ -69,6 +71,7 @@ void ActorPlacer::draw()
 {
 	MathLibrary::Vector2 worldPosition = getTransform()->getWorldPosition();
 
+	// draws a transparent square and the sprite of the selected type of actor
 	DrawRectangle(worldPosition.x - 50, worldPosition.y - 50, 100, 100, { 255, 255, 255, 125 });
 
 	switch (m_selected)

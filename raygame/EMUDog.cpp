@@ -30,6 +30,7 @@ void EMUDog::start()
 {
 	Agent::start();
 
+	// one in ten EMU dogs has a fun hat the makes them slightly smarter
 	setCollider(new CircleCollider(150.0f, this));
 	int rng = std::rand() % 10;
 
@@ -60,6 +61,7 @@ void EMUDog::start()
 
 void EMUDog::update(float deltaTime)
 {
+	// make sure target isnt deleted
 	BlackboardData* deletedActorData = Engine::getCurrentScene()->getBlackboard()->getData((char*)"ActorDeleted!");
 
 	if (deletedActorData && m_target && deletedActorData->dataType == DATA_ACTORPOINTER && m_target == deletedActorData->actorData)
@@ -70,6 +72,7 @@ void EMUDog::update(float deltaTime)
 
 	Agent::update(deltaTime);
 
+	// try to add itself to investigate queue if it hasnt already
 	if (!m_blackboardNoticePosted)
 	{
 		if (Engine::getCurrentScene()->getBlackboard()->addData((char*)"AddToInvestigateQueue", new BlackboardData(this)))
@@ -122,6 +125,7 @@ void EMUDog::draw()
 
 void EMUDog::onCollision(Actor* collidedActor)
 {
+	// if its very big collider has hit an actor of ID 1 (alien), chase it until it dies badly
 	if (collidedActor->getID() == 1 && !m_target)
 	{
 		m_target = collidedActor;

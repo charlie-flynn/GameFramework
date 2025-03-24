@@ -25,6 +25,7 @@ SampleScene::SampleScene() : Scene(), m_nodeMap(Pathfinding::NodeMap()), m_mapTe
 
 void SampleScene::start()
 {
+	// big nodemap to give to the aliens
 	std::vector<std::string> asciimap;
 	asciimap.push_back("0000000000000000000000000000");
 	asciimap.push_back("0000000000000000000000000000");
@@ -75,24 +76,17 @@ void SampleScene::start()
 
 	ActorPlacer* placer = new ActorPlacer(&m_nodeMap);
 	addUIElement(placer);
-
-	/*
-	Actor* test = new Actor(50, 50, "Test");
-	SpriteComponent* sprite = new SpriteComponent(test, "Images/player.png");
-	test->addComponent(sprite);
-	test->getTransform()->setScale({ 50, 50 });
-
-	addActor(test);
-	*/
 }
 
 void SampleScene::update(float deltaTime)
 {
+	// check if the current data used to let aliens know an actor can be investigated isn't for a deleted actor
 	BlackboardData* deletedActorData = getBlackboard()->getData((char*)"ActorDeleted!");
 	BlackboardData* alienInvestigateData = getBlackboard()->getData((char*)"AlienCanInvestigate");
 
 	if (deletedActorData && alienInvestigateData && deletedActorData->actorData == alienInvestigateData->actorData)
 	{
+		// if so, remove it from the blackboard and remove it from the investigateableActors list
 		getBlackboard()->removeData((char*)"AlienCanInvestigate");
 		m_investigateableActors.Remove(deletedActorData->actorData);
 	}
@@ -101,6 +95,8 @@ void SampleScene::update(float deltaTime)
 	DrawTexture(m_mapTexture, 0, 0, { 255, 255, 255, 255 });
 	Scene::update(deltaTime);
 	
+	// check if there is a call for something to be added to the list
+	// if so, add it to the investigateableActors list
 	BlackboardData* investigateableData = getBlackboard()->getData((char*)"AddToInvestigateQueue");
 	if (investigateableData && investigateableData->dataType == DATA_ACTORPOINTER)
 	{
@@ -108,6 +104,9 @@ void SampleScene::update(float deltaTime)
 		getBlackboard()->removeData((char*)"AddToInvestigateQueue");
 	}
 
+	// if there is anything in the list, swap out the current AlienCanInvestigate data for another
+	// the effect this has is that every frame, one thing can be investigated by aliens
+	// assuming there isnt a billion things this is good enough
 	if (m_investigateableActors.Length())
 	{
 		m_index++;
@@ -117,6 +116,7 @@ void SampleScene::update(float deltaTime)
 		getBlackboard()->replaceOrAddData((char*)"AlienCanInvestigate", new BlackboardData(m_investigateableActors[m_index]));
 	}
 
+	// swaps the debug draw bool, which draws the nodemap if true
 	if (IsKeyPressed(KEY_F1))
 	{
 		m_debugDraw = m_debugDraw ? false : true;

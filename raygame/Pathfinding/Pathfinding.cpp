@@ -224,8 +224,8 @@ namespace Pathfinding
 				//Otherwise the target node IS in the open list
 				else {
 					//Compare the new G Score to the old one before updating
-					if (currentNode->gScore + e.cost < e.target->gScore) {
-						//Calculate the target node's G Score
+					if (currentNode->gScore + e.cost + currentNode->hScore < e.target->gScore + e.target->hScore) {
+						//Calculate the target node's G Score (don't recalculate the H score, it should still be the same)
 						e.target->gScore = currentNode->gScore + e.cost;
 						//Set the target node's previous to currentNode
 						e.target->previous = currentNode;

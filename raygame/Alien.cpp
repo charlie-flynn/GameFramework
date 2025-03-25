@@ -207,9 +207,11 @@ void Alien::update(float deltaTime)
 		setFleeTarget(nullptr);
 	}
 
+	// if the invincibility timer is greater than 0, decrease it by deltaTime
 	if (m_invincibilityFramesTimer > 0)
 		m_invincibilityFramesTimer -= deltaTime;
 
+	// if the actor is dead, delete it
 	if (m_isDead)
 	{
 		Engine::getCurrentScene()->getBlackboard()->replaceOrAddData((char*)"ActorDeleted!", new BlackboardData(this));
@@ -312,6 +314,7 @@ void Alien::draw()
 
 void Alien::takeDamage(int damage, Actor* source)
 {
+	// if there are i-frames, dont
 	if (m_invincibilityFramesTimer > 0)
 		return;
 
@@ -321,6 +324,8 @@ void Alien::takeDamage(int damage, Actor* source)
 
 	if (m_health <= 0)
 		m_isDead = true;
+	// if there was a source and the alien didn't die, add to the blackboard the memory of the source hurting the alien
+	// and run away
 	else if (source)
 	{
 		BlackboardData* newData = new BlackboardData(source->getID());
@@ -339,6 +344,7 @@ void Alien::heal(int healing, Actor* source)
 
 	if (m_health >= m_maxHealth)
 		m_health = m_maxHealth;
+	// if there was a source, add to the blackboard the memory of the source healing the alien
 	if (source)
 	{
 		BlackboardData* newData = new BlackboardData(source->getID());
@@ -419,6 +425,7 @@ void Alien::wanderUpdate()
 
 void Alien::investigateUpdate(float deltaTime)
 {
+	// if no target, set state to wander state and don't don anything else here
 	if (!m_target)
 	{
 		setState(WANDER_STATE);
@@ -433,7 +440,7 @@ void Alien::investigateUpdate(float deltaTime)
 		setState(EAT_TARGET_STATE);
 	}
 
-	// if the timer is slightly less than timed out and there is memory, act accordingly
+	// if the timer is slightly less than timed out and there is memory of the target, act accordingly
 	if (m_investigateTimer <= 8.5f)
 	{
 		if (getBlackboard()->getData((char*)"AGRESSIVE" + m_target->getID()))
@@ -540,6 +547,8 @@ void Alien::setFleeTarget(Actor* target)
 
 void Alien::onCollision(Actor* collidedActor)
 {
+	// if the id is 2 (walterberry), heal for 1 health
+	// otherwise, if the id is 3 (EMU dog), take 1 damage if close enough
 	if (collidedActor->getID() == 2)
 	{
 		heal(1, collidedActor);
